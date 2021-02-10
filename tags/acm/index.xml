@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ACM on REWINE NOTE</title>
+    <link>https://wineee.github.io/tags/acm/</link>
+    <description>Recent content in ACM on REWINE NOTE</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 22 Jan 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://wineee.github.io/tags/acm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>关于蓝桥杯竞赛的经验总结</title>
+      <link>https://wineee.github.io/post/lanqiaobie/</link>
+      <pubDate>Fri, 22 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://wineee.github.io/post/lanqiaobie/</guid>
+      <description>&lt;h2 id=&#34;1准备蓝桥杯需要做什么有哪些需要学习的算法&#34;&gt;1.准备蓝桥杯需要做什么，有哪些需要学习的算法？&lt;/h2&gt;
+&lt;h4 id=&#34;熟悉比赛环境&#34;&gt;熟悉比赛环境&lt;/h4&gt;
+&lt;p&gt;比赛使用的编辑环境，c/c++ 组使用的是 dev-c++ ,  python 组使用 IDLE , java 组使用 Eclipse，建议平时练习多使用对应的编辑器，如果不熟悉编译环境，在比赛时可能会带来不必要的麻烦，尤其是 python 组的 IDLE 非常简陋，由俭入奢易，由奢入俭难。&lt;/p&gt;
+&lt;p&gt;喜讯：官方通知第十二届蓝桥杯 c/c++ 组增加了 CodeBlocks 20.03 编程环境，支持  C++ 98 和 C++11， 终于可以用上 c++ 的新特性了。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
