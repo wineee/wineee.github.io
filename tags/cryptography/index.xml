@@ -1,50 +1,27 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>cryptography on REWINE NOTE</title>
-    <link>https://wineee.github.io/tags/cryptography/</link>
-    <description>Recent content in cryptography on REWINE NOTE</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Fri, 04 Dec 2020 00:00:00 +0800</lastBuildDate>
-    
-	<atom:link href="https://wineee.github.io/tags/cryptography/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>现代密码学复习总结</title>
-      <link>https://wineee.github.io/post/cryptography_review/</link>
-      <pubDate>Fri, 04 Dec 2020 00:00:00 +0800</pubDate>
-      
-      <guid>https://wineee.github.io/post/cryptography_review/</guid>
-      <description>&lt;h1 id=&#34;第一章-引言&#34;&gt;第一章 引言&lt;/h1&gt;
-&lt;h3 id=&#34;什么是被动攻击和主动攻击各有几种类型&#34;&gt;什么是被动攻击和主动攻击,各有几种类型?&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;被动攻击：也称窃听，以获取信息为目的。
-仅攻击信息的保密性，不影响正常的网络通信，不对消息作任何修改&lt;/strong&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>cryptography on REWINE NOTE</title><link>https://wineee.github.io/tags/cryptography/</link><description>Recent content in cryptography on REWINE NOTE</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 04 Dec 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://wineee.github.io/tags/cryptography/index.xml" rel="self" type="application/rss+xml"/><item><title>现代密码学复习总结</title><link>https://wineee.github.io/post/cryptography_review/</link><pubDate>Fri, 04 Dec 2020 00:00:00 +0800</pubDate><guid>https://wineee.github.io/post/cryptography_review/</guid><description>&lt;h1 id="第一章-引言">第一章 引言&lt;/h1>
+&lt;h3 id="什么是被动攻击和主动攻击各有几种类型">什么是被动攻击和主动攻击,各有几种类型?&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>被动攻击：也称窃听，以获取信息为目的。
+仅攻击信息的保密性，不影响正常的网络通信，不对消息作任何修改&lt;/strong>
 搭线窃听、对文件或程序非法复制、木马、对资源的非授权使用
-被动攻击又分为两类：&lt;strong&gt;获取消息的内容和业务流分析&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;获取消息的内容：通过破译密文等手段直接获取机密信息的内容&lt;/li&gt;
-&lt;li&gt;业务流分析：敌手虽然可能无法从截获的消息中获取内容，但却有可能获知消息的长度，格式，通信双方的位置和身份，通信次数。在商业环境，用户隐私，以及军网中这些消息可能是敏感的。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;主动攻击：对数据流进行篡改或产生假的数据流&lt;/strong&gt;
-可分为3类：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;中断：对系统可用性进行攻击
-破坏计算机硬件，网络，或文件管理系统。如DoS，病毒等&lt;/li&gt;
-&lt;li&gt;篡改：对完整性进行攻击
+被动攻击又分为两类：&lt;strong>获取消息的内容和业务流分析&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>获取消息的内容：通过破译密文等手段直接获取机密信息的内容&lt;/li>
+&lt;li>业务流分析：敌手虽然可能无法从截获的消息中获取内容，但却有可能获知消息的长度，格式，通信双方的位置和身份，通信次数。在商业环境，用户隐私，以及军网中这些消息可能是敏感的。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>主动攻击：对数据流进行篡改或产生假的数据流&lt;/strong>
+可分为3类：&lt;/p>
+&lt;ul>
+&lt;li>中断：对系统可用性进行攻击
+破坏计算机硬件，网络，或文件管理系统。如DoS，病毒等&lt;/li>
+&lt;li>篡改：对完整性进行攻击
 修改文件中的数据(数据修改后存储)，替换某一程序使其执行不同功能
-修改网络中传送消息的内容等，比如中间节点对转发的图象进行了压缩&lt;/li&gt;
-&lt;li&gt;伪造：对真实性进行攻击
-在网络中插入伪造的消息冒充消息发送者，在文件中插入伪造记录等&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;</description>
-    </item>
-    
-  </channel>
-</rss>
+修改网络中传送消息的内容等，比如中间节点对转发的图象进行了压缩&lt;/li>
+&lt;li>伪造：对真实性进行攻击
+在网络中插入伪造的消息冒充消息发送者，在文件中插入伪造记录等&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul></description></item></channel></rss>

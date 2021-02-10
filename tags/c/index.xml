@@ -1,32 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>c on REWINE NOTE</title>
-    <link>https://wineee.github.io/tags/c/</link>
-    <description>Recent content in c on REWINE NOTE</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Tue, 05 Feb 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://wineee.github.io/tags/c/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[c语言课程设计] 重排九宫问题</title>
-      <link>https://wineee.github.io/post/cpplab_calc_jiugongge/</link>
-      <pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://wineee.github.io/post/cpplab_calc_jiugongge/</guid>
-      <description>&lt;h2 id=&#34;题目-重排9宫&#34;&gt;题目 重排9宫&lt;/h2&gt;
-&lt;h3 id=&#34;设计内容&#34;&gt;设计内容：&lt;/h3&gt;
-&lt;p&gt;编写软件模拟排九宫。从九宫的某个状态出发，移动格子中的数字，使9宫格中的数字顺序排列，空格在最后。&lt;/p&gt;
-&lt;h3 id=&#34;设计功能&#34;&gt;设计功能：&lt;/h3&gt;
-&lt;p&gt;1、九宫初始化，绘制九宫初始状态。9宫格中只有一个位置是空的，其它位置分别是1-8的8个数字，&lt;/p&gt;
-&lt;p&gt;2、手工输入移动九宫的步骤，如11d(第一行一列格中数字下移)，22r(第二行二列格中数字右移)，23u(第二行三列格中数字上移)等，记录移动后九宫状态，并形象绘制。要求判断移动是否合法。一次只能移动一个数字，并且只能到相邻的空格子中。&lt;/p&gt;
-&lt;p&gt;3、记录从初始状态以后的移动步骤。&lt;/p&gt;
-&lt;p&gt;4、判断成功状态，并给出成功提示。&lt;/p&gt;
-&lt;p&gt;5、你能否让计算机自动求解（思考选作）。&lt;/p&gt;</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>c on REWINE NOTE</title><link>https://wineee.github.io/tags/c/</link><description>Recent content in c on REWINE NOTE</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 05 Feb 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://wineee.github.io/tags/c/index.xml" rel="self" type="application/rss+xml"/><item><title>[c语言课程设计] 重排九宫问题</title><link>https://wineee.github.io/post/cpplab_calc_jiugongge/</link><pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/cpplab_calc_jiugongge/</guid><description>&lt;h2 id="题目-重排9宫">题目 重排9宫&lt;/h2>
+&lt;h3 id="设计内容">设计内容：&lt;/h3>
+&lt;p>编写软件模拟排九宫。从九宫的某个状态出发，移动格子中的数字，使9宫格中的数字顺序排列，空格在最后。&lt;/p>
+&lt;h3 id="设计功能">设计功能：&lt;/h3>
+&lt;p>1、九宫初始化，绘制九宫初始状态。9宫格中只有一个位置是空的，其它位置分别是1-8的8个数字，&lt;/p>
+&lt;p>2、手工输入移动九宫的步骤，如11d(第一行一列格中数字下移)，22r(第二行二列格中数字右移)，23u(第二行三列格中数字上移)等，记录移动后九宫状态，并形象绘制。要求判断移动是否合法。一次只能移动一个数字，并且只能到相邻的空格子中。&lt;/p>
+&lt;p>3、记录从初始状态以后的移动步骤。&lt;/p>
+&lt;p>4、判断成功状态，并给出成功提示。&lt;/p>
+&lt;p>5、你能否让计算机自动求解（思考选作）。&lt;/p></description></item></channel></rss>
