@@ -18,12 +18,7 @@
 &lt;li>
 &lt;p>wps/Liberoffice 办公软件，Liberoffice Draw可以画流程图&lt;/p>
 &lt;/li>
-&lt;/ul></description></item><item><title>搭建个人博客（github action+hugo）</title><link>https://wineee.github.io/post/hugo_blog/</link><pubDate>Fri, 12 Feb 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/hugo_blog/</guid><description>&lt;h3 id="前言">前言&lt;/h3>
-&lt;p>高中时，作为OIer经常需要看别人的题解博客，那时候luogu还没流行，大家都在tyvj，vijos上刷题，看题解还要找 csdn，博客园，和一些大佬（hzwer）的个人博客。慢慢的，就萌生出了自己写博客的想法，一开始，我在蚂蚁笔记上写题解，它可以把markdown笔记分享到蚂蚁博客上，而且主题也很美观，后来它收费了，学生党没有钱（那时候我没手机，没手机号，更别说网银了）弃用了，现在我不推荐大家用了，这个项目2，3年没人维护，恐怕不靠谱。&lt;/p>
-&lt;p>我还试过WordPress，用的免费主机（当然现在挂了）&lt;/p>
-&lt;p>在同学帮助下搭建了 hexo+github 的blog，不过我嫌主题丑万年不更新。&lt;/p>
-&lt;p>csdn&lt;/p>
-&lt;h6 id="grideahttpsgithubcomgetgrideagridea-这个是我去年了解的看上去挺方便的我没试过感兴趣的可以看看">&lt;a href="https://github.com/getgridea/gridea" target="_blank">gridea&lt;/a> 这个是我去年了解的，看上去挺方便的，我没试过，感兴趣的可以看看。&lt;/h6></description></item><item><title>关于蓝桥杯竞赛的经验总结</title><link>https://wineee.github.io/post/lanqiaobie/</link><pubDate>Fri, 22 Jan 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/lanqiaobie/</guid><description>&lt;h2 id="1准备蓝桥杯需要做什么有哪些需要学习的算法">1.准备蓝桥杯需要做什么，有哪些需要学习的算法？&lt;/h2>
+&lt;/ul></description></item><item><title>关于蓝桥杯竞赛的经验总结</title><link>https://wineee.github.io/post/lanqiaobie/</link><pubDate>Fri, 22 Jan 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/lanqiaobie/</guid><description>&lt;h2 id="1准备蓝桥杯需要做什么有哪些需要学习的算法">1.准备蓝桥杯需要做什么，有哪些需要学习的算法？&lt;/h2>
 &lt;h4 id="熟悉比赛环境">熟悉比赛环境&lt;/h4>
 &lt;p>比赛使用的编辑环境，c/c++ 组使用的是 dev-c++ , python 组使用 IDLE , java 组使用 Eclipse，建议平时练习多使用对应的编辑器，如果不熟悉编译环境，在比赛时可能会带来不必要的麻烦，尤其是 python 组的 IDLE 非常简陋，由俭入奢易，由奢入俭难。&lt;/p>
 &lt;p>喜讯：官方通知第十二届蓝桥杯 c/c++ 组增加了 CodeBlocks 20.03 编程环境，支持 C++ 98 和 C++11， 终于可以用上 c++ 的新特性了。&lt;/p></description></item><item><title>About Me</title><link>https://wineee.github.io/about/</link><pubDate>Mon, 11 Jan 2021 19:15:32 +0800</pubDate><guid>https://wineee.github.io/about/</guid><description>待填坑</description></item><item><title>现代密码学复习总结</title><link>https://wineee.github.io/post/cryptography_review/</link><pubDate>Fri, 04 Dec 2020 00:00:00 +0800</pubDate><guid>https://wineee.github.io/post/cryptography_review/</guid><description>&lt;h1 id="第一章-引言">第一章 引言&lt;/h1>
