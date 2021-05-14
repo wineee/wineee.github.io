@@ -1,4 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>REWINE NOTE</title><link>https://wineee.github.io/</link><description>Recent content on REWINE NOTE</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 09 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://wineee.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>使用c++解决leetcode多线程题题目（之一）semaphore</title><link>https://wineee.github.io/post/leetcode_cpp_sem/</link><pubDate>Fri, 09 Apr 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/leetcode_cpp_sem/</guid><description>&lt;p>通过 &lt;code>man sem_init&lt;/code> 可以查看具体文档。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>REWINE NOTE</title><link>https://wineee.github.io/</link><description>Recent content on REWINE NOTE</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 10 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://wineee.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>软件工程知识点总结</title><link>https://wineee.github.io/post/softwareengineeringnote/</link><pubDate>Mon, 10 May 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/softwareengineeringnote/</guid><description>&lt;h2 id="第1章-软件与软件工程的概念">第1章 软件与软件工程的概念&lt;/h2>
+&lt;h5 id="了解与软件相关的基本概念包括软件程序数据文档">了解与软件相关的基本概念，包括软件、程序、数据、文档。&lt;/h5>
+&lt;p>软件是计算机系统中与硬件相互依存的另一部分，它是包括程序，数据及其相关文档的完整集合。&lt;/p>
+&lt;ul>
+&lt;li>软件 = 程序+数据+文档&lt;/li>
+&lt;/ul>
+&lt;p>程序是按事先设计的功能和性能要求执行的指令序列。&lt;/p>
+&lt;ul>
+&lt;li>程序 = 数据结构+算法&lt;/li>
+&lt;/ul>
+&lt;p>数据是使程序能正常操纵信息的数据结构。
+文档是与程序开发，维护和使用有关的图文材料。&lt;/p></description></item><item><title>整理一下图灵奖得主们都干了什么</title><link>https://wineee.github.io/post/turing_award/</link><pubDate>Mon, 12 Apr 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/turing_award/</guid><description>&lt;p>前不久，2020图灵奖今日出炉，龙书作者 Alfred Vaino Aho 和 Jeffrey David Ullman 获奖，作为计算机界的最高荣誉，图灵奖获得者及其成果对计算机学科意义非凡，以前只是大概知道几个人，今天，特地翻了翻维基，看看得奖的都有谁。&lt;/p></description></item><item><title>使用c++解决leetcode多线程题题目（之一）semaphore</title><link>https://wineee.github.io/post/leetcode_cpp_sem/</link><pubDate>Fri, 09 Apr 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/leetcode_cpp_sem/</guid><description>&lt;p>通过 &lt;code>man sem_init&lt;/code> 可以查看具体文档。
 或者使用： &lt;a href="https://man7.org/linux/man-pages/man3/sem_init.3.html">https://man7.org/linux/man-pages/man3/sem_init.3.html&lt;/a>&lt;/p>
 &lt;p>sem_init函数是Posix信号量操作中的函数。sem_init() 初始化一个定位在 sem 的匿名信号量。pshared 参数指明信号量是由进程内共享，还是由进程之间共享。如果 pshared 的值为 0，那么信号量将被进程内的线程共享。value 参数指定的初始值。&lt;/p>
 &lt;p>sem_post是给信号量的值加上一个“1”，它是一个“原子操作”－－－即同时对同一个信号量做加“1”操作的两个线程是不会冲突的。&lt;/p>

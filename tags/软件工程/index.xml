@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>软件工程 on REWINE NOTE</title><link>https://wineee.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</link><description>Recent content in 软件工程 on REWINE NOTE</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 10 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://wineee.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/index.xml" rel="self" type="application/rss+xml"/><item><title>软件工程知识点总结</title><link>https://wineee.github.io/post/softwareengineeringnote/</link><pubDate>Mon, 10 May 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/softwareengineeringnote/</guid><description>&lt;h2 id="第1章-软件与软件工程的概念">第1章 软件与软件工程的概念&lt;/h2>
+&lt;h5 id="了解与软件相关的基本概念包括软件程序数据文档">了解与软件相关的基本概念，包括软件、程序、数据、文档。&lt;/h5>
+&lt;p>软件是计算机系统中与硬件相互依存的另一部分，它是包括程序，数据及其相关文档的完整集合。&lt;/p>
+&lt;ul>
+&lt;li>软件 = 程序+数据+文档&lt;/li>
+&lt;/ul>
+&lt;p>程序是按事先设计的功能和性能要求执行的指令序列。&lt;/p>
+&lt;ul>
+&lt;li>程序 = 数据结构+算法&lt;/li>
+&lt;/ul>
+&lt;p>数据是使程序能正常操纵信息的数据结构。
+文档是与程序开发，维护和使用有关的图文材料。&lt;/p></description></item></channel></rss>
