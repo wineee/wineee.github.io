@@ -1,0 +1,308 @@
+<!doctype html><html lang=zh-hans><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=HandheldFriendly content="True"><meta http-equiv=x-ua-compatible content="IE=edge"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=generator content="Hugo 0.74.3"><link rel=apple-touch-icon sizes=180x180 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png><link rel=manifest href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest><link rel=mask-icon href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg color=#8aa2d3><link rel="shortcut icon" href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico><meta name=theme-color content="#ffffff"><title>Haskell 常用函数笔记 - REWINE NOTE</title><meta name=author content="rewine"><meta name=description content="A minimal Hugo theme with nice theme color."><meta name=keywords content="haskell"><meta property="og:title" content="Haskell 常用函数笔记"><meta name=twitter:title content="Haskell 常用函数笔记"><meta property="og:type" content="article"><meta property="og:url" content="https://wineee.github.io/post/leran_haskell_01/"><meta property="og:description" content="运算符函数
+(!!) 取第n个元素
+Prelude> :t (!!)
+(!!) :: [a] -> Int -> a
+
+Prelude> [0,1,2,3,4]!!3
+3
+Prelude> [0,1,2,3,4]!!0
+0
+
+乘方 (^), (^^),(**)
+Prelude> :t (^)
+(^) :: (Integral b, Num a) => a -> b -> a
+Prelude> 54.5^5
+4.8081998590625e8
+
+Prelude> :t (^^)
+(^^) :: (Fractional a, Integral b) => a -> b -> a
+Prelude> 5.6^^6
+30840.979455999986
+
+Prelude> :t (**)
+(**) :: Floating a => a -> a -> a
+Prelude> 0.2**0.1
+0.8513399225207846"><meta name=twitter:description content="运算符函数
+(!!) 取第n个元素
+Prelude> :t (!!)
+(!!) :: [a] -> Int -> a
+
+Prelude> [0,1,2,3,4]!!3
+3
+Prelude> [0,1,2,3,4]!!0
+0
+
+乘方 (^), (^^),(**)
+Prelude> :t (^)
+(^) :: (Integral b, Num a) => a -> b -> a
+Prelude> 54.5^5
+4.8081998590625e8
+
+Prelude> :t (^^)
+(^^) :: (Fractional a, Integral b) => a -> b -> a
+Prelude> 5.6^^6
+30840.979455999986
+
+Prelude> :t (**)
+(**) :: Floating a => a -> a -> a
+Prelude> 0.2**0.1
+0.8513399225207846"><meta property="og:image" content="https://wineee.github.io/img/og.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://wineee.github.io/img/og.png"><meta property="article:published_time" content="2021-06-21T00:00:00+00:00"><meta property="article:modified_time" content="2021-06-21T00:00:00+00:00"><style>@media(prefers-color-scheme:dark){body[data-theme=auto] img{filter:brightness(60%)}}body[data-theme=dark] img{filter:brightness(60%)}</style><link rel=stylesheet href=https://wineee.github.io/assets/css/fuji.min.css></head><body data-theme=auto><script data-cfasync=false>var fujiThemeData=localStorage.getItem('fuji_data-theme');if(!fujiThemeData){localStorage.setItem('fuji_data-theme','auto');}else{if(fujiThemeData!=='auto'){document.body.setAttribute('data-theme',fujiThemeData==='dark'?'dark':'light');}}</script><header><div class="container-lg clearfix"><div class="col-12 header"><a class=title-main href=https://wineee.github.io>REWINE NOTE</a>
+<span class=title-sub>Informatik verbindet dich und mich.</span></div></div></header><main><div class="container-lg clearfix"><div class="col-12 col-md-9 float-left content"><article><h2 class="post-item post-title"><a href=https://wineee.github.io/post/leran_haskell_01/>Haskell 常用函数笔记</a></h2><div class="post-item post-meta"><span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-06-21</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1101 字</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href=/tags/haskell>haskell</a>&nbsp;</span></div><div class="post-content markdown-body"><h3 id=运算符函数>运算符函数</h3><h6 id=-取第n个元素>(!!) 取第n个元素</h6><pre><code class=language-haskell>Prelude&gt; :t (!!)
+(!!) :: [a] -&gt; Int -&gt; a
+
+Prelude&gt; [0,1,2,3,4]!!3
+3
+Prelude&gt; [0,1,2,3,4]!!0
+0
+</code></pre><h6 id=乘方-->乘方 (^), (^^),(**)</h6><pre><code class=language-haskell>Prelude&gt; :t (^)
+(^) :: (Integral b, Num a) =&gt; a -&gt; b -&gt; a
+Prelude&gt; 54.5^5
+4.8081998590625e8
+
+Prelude&gt; :t (^^)
+(^^) :: (Fractional a, Integral b) =&gt; a -&gt; b -&gt; a
+Prelude&gt; 5.6^^6
+30840.979455999986
+
+Prelude&gt; :t (**)
+(**) :: Floating a =&gt; a -&gt; a -&gt; a
+Prelude&gt; 0.2**0.1
+0.8513399225207846
+</code></pre><h6 id=取余函数>取余函数</h6><pre><code class=language-haskell>Prelude&gt; mod (-2) 4
+2
+Prelude&gt; rem (-2) 4
+-2
+</code></pre><h6 id=求商函数>求商函数</h6><pre><code class=language-haskell>Prelude&gt; div (-5) 3
+-2
+Prelude&gt; quot (-5) 3
+-1
+</code></pre><h6 id=--连接元素与列表>(:) 连接元素与列表</h6><pre><code class=language-haskell>Prelude&gt; 1:[2,3]
+[1,2,3]
+</code></pre><h6 id=-连接两个列表>(++) 连接两个列表</h6><pre><code class=language-haskell>Prelude&gt; [1,2,3]++[4,5,6]
+[1,2,3,4,5,6]
+</code></pre><h6 id=-改变运算优先级>($) 改变运算优先级</h6><p>($) 有最低优先级，并且右结合</p><pre><code class=language-haskell>Prelude&gt; gcd 4 $ mod 5 6 
+1
+</code></pre><h3 id=预加载库prelude函数>预加载库(Prelude)函数</h3><h5 id=恒指函数-id>恒指函数 id</h5><pre><code class=language-haskell>Prelude&gt; :t id
+id :: a -&gt; a
+Prelude&gt; id 2333.3
+2333.3
+</code></pre><h6 id=常值函数-const>常值函数 const</h6><p>返回俩个参数的第一个</p><pre><code class=language-haskell>Prelude&gt; :t const
+const :: a -&gt; b -&gt; a
+Prelude&gt; const &quot;434&quot; 5
+&quot;434&quot;
+</code></pre><h6 id=参数反置函数flip>参数反置函数flip</h6><p>将二元函数参数顺序颠倒</p><pre><code class=language-haskell>Prelude&gt; :t flip
+flip :: (a -&gt; b -&gt; c) -&gt; b -&gt; a -&gt; c
+Prelude&gt; flip const 1 2
+2
+</code></pre><h6 id=错误函数error>错误函数error</h6><pre><code class=language-haskell>Prelude&gt; :t error
+error :: [Char] -&gt; a
+Prelude&gt; a = error &quot;error case a&quot;
+Prelude&gt; a
+*** Exception: error case a
+CallStack (from HasCallStack):
+  error, called at &lt;interactive&gt;:28:5 in interactive:Ghci11
+</code></pre><h6 id=undefined>undefined</h6><pre><code class=language-haskell>Prelude&gt; :t undefined
+undefined :: a
+Prelude&gt; undefined
+*** Exception: Prelude.undefined
+CallStack (from HasCallStack):
+  error, called at libraries/base/GHC/Err.hs:79:14 in base:GHC.Err
+  undefined, called at &lt;interactive&gt;:31:1 in interactive:Ghci12
+</code></pre><h6 id=minmax-取最值>min,max 取最值</h6><pre><code class=language-haskell>Prelude&gt; :t min
+min :: Ord a =&gt; a -&gt; a -&gt; a
+Prelude&gt; :t max
+max :: Ord a =&gt; a -&gt; a -&gt; a
+
+Prelude&gt; max 42 (-4) --注意括号
+42
+Prelude&gt; max 2.1 4.5
+4.5
+</code></pre><h3 id=基于列表的函数>基于列表的函数</h3><h6 id=null-判断是否为空>null 判断是否为空</h6><pre><code class=language-haskell>Prelude&gt; :t null
+null :: Foldable t =&gt; t a -&gt; Bool
+Prelude&gt; null []
+True
+Prelude&gt; null [[]]
+False
+</code></pre><h6 id=length-长度>length 长度</h6><pre><code class=language-haskell>Prelude&gt; :t length
+length :: Foldable t =&gt; t a -&gt; Int
+Prelude&gt; length []
+0
+Prelude&gt; length [1,3,2,-2]
+4
+</code></pre><h6 id=reverse-翻转列表>reverse 翻转列表</h6><pre><code class=language-haskell>Prelude&gt; :t reverse
+reverse :: [a] -&gt; [a]
+Prelude&gt; reverse [0,1,2,3,4]
+[4,3,2,1,0]
+</code></pre><h6 id=headlast>head,last</h6><pre><code class=language-haskell>Prelude&gt; :t head
+head :: [a] -&gt; a
+
+Prelude&gt; head [1,2,3]
+1
+Prelude&gt; :t last
+last :: [a] -&gt; a
+Prelude&gt; last [1,2,3]
+3
+</code></pre><h6 id=inittail>init,tail</h6><pre><code class=language-haskell>Prelude&gt; :t init 
+init :: [a] -&gt; [a]
+Prelude&gt; init [1,2,3]
+[1,2]
+
+Prelude&gt; :t tail
+tail :: [a] -&gt; [a]
+Prelude&gt; tail [1,2,3]
+[2,3]
+</code></pre><h6 id=map-将一个函数应用到列表每个元素>map 将一个函数应用到列表每个元素</h6><pre><code class=language-haskell>Prelude&gt; :t map
+map :: (a -&gt; b) -&gt; [a] -&gt; [b]
+Prelude&gt; map (+1) [1,2,3,4]
+[2,3,4,5]
+Prelude&gt; map (1+) [1,2,3,4]
+[2,3,4,5]
+Prelude&gt; map (\x -&gt; x*2+1) [1,2,3,4]
+[3,5,7,9]
+</code></pre><h6 id=filter-过滤出满足条件的元素>filter 过滤出满足条件的元素</h6><pre><code class=language-haskell>Prelude&gt; :t filter
+filter :: (a -&gt; Bool) -&gt; [a] -&gt; [a]
+Prelude&gt; filter odd [1,2,3,4,5,6]
+[1,3,5]
+</code></pre><h6 id=takedrop-从头尾连续取n个元素>take,drop 从头、尾连续取n个元素</h6><pre><code class=language-haskell>Prelude&gt; :t take
+take :: Int -&gt; [a] -&gt; [a]
+Prelude&gt; take 6 [1..]
+[1,2,3,4,5,6]
+
+Prelude&gt; :t drop
+drop :: Int -&gt; [a] -&gt; [a]
+Prelude&gt; drop 2 [1,2,3,4]
+[3,4]
+</code></pre><h6 id=spanbreak>span,break</h6><pre><code class=language-haskell>span :: (a -&gt; Bool) -&gt; [a] -&gt; ([a], [a])
+Prelude&gt; span even [2,4,6,1,2,3,5,7]
+([2,4,6],[1,2,3,5,7])
+
+break :: (a -&gt; Bool) -&gt; [a] -&gt; ([a], [a])
+
+Prelude&gt; break odd [2,4,6,1,2,3,5,7]
+([2,4,6],[1,2,3,5,7])
+</code></pre><h6 id=takewhiledropwhile>takeWhile,dropWhile</h6><pre><code class=language-haskell>
+takeWhile :: (a -&gt; Bool) -&gt; [a] -&gt; [a]
+Prelude&gt; takeWhile (&lt;7) [1,2,3,5,6,7,8,8]
+[1,2,3,5,6]
+
+dropWhile :: (a -&gt; Bool) -&gt; [a] -&gt; [a]
+Prelude&gt; dropWhile (&lt;7) [1,2,3,5,6,7,8,8]
+[7,8,8]
+</code></pre><h6 id=splitat-将列表在任何位置分开>splitAt 将列表在任何位置分开</h6><pre><code class=language-haskell>
+Prelude&gt; :t splitAt
+splitAt :: Int -&gt; [a] -&gt; ([a], [a])
+Prelude&gt; splitAt 4 &quot;abcdef&quot;
+(&quot;abcd&quot;,&quot;ef&quot;)
+
+Prelude&gt; splitAt 4 [1,2,3,4,5,6]
+([1,2,3,4],[5,6])
+</code></pre><h6 id=重复函数repeat-复制函数replicate>重复函数repeat, 复制函数replicate</h6><pre><code class=language-haskell>repeat :: a -&gt; [a]
+Prelude&gt; take 5 $ repeat 6
+[6,6,6,6,6]
+
+replicate :: Int -&gt; a -&gt; [a]
+Prelude&gt; replicate 5 6
+[6,6,6,6,6]
+</code></pre><h6 id=anyall>any,all</h6><pre><code class=language-haskell>any :: Foldable t =&gt; (a -&gt; Bool) -&gt; t a -&gt; Bool
+Prelude&gt; any even [1,2,3]
+True
+Prelude&gt; any even [1,3]
+False
+
+all :: Foldable t =&gt; (a -&gt; Bool) -&gt; t a -&gt; Bool
+Prelude&gt; all even [2,4,6,1]
+False
+</code></pre><h6 id=elemnotelem>elem,notElem</h6><pre><code class=language-haskell>elem :: (Foldable t, Eq a) =&gt; a -&gt; t a -&gt; Bool
+Prelude&gt; elem 3 [1,2,3]
+True
+Prelude&gt; elem 3 [1,2,4]
+False
+
+notElem :: (Foldable t, Eq a) =&gt; a -&gt; t a -&gt; Bool
+Prelude&gt; notElem 3 [1,2,3]
+False
+</code></pre><h6 id=iterate-把一个函数对一个元素重复应用无数次>iterate 把一个函数对一个元素重复应用无数次</h6><pre><code class=language-haskell>iterate :: (a -&gt; a) -&gt; a -&gt; [a]
+Prelude&gt; take 10 $ iterate (*2) 1
+[1,2,4,8,16,32,64,128,256,512]
+</code></pre><h6 id=until-把一个函数对一个元素重复应用至满足条件>until 把一个函数对一个元素重复应用至满足条件</h6><pre><code class=language-haskell>until :: (a -&gt; Bool) -&gt; (a -&gt; a) -&gt; a -&gt; a
+Prelude&gt; until (&gt;1024) (*2) 1
+2048
+</code></pre><h6 id=zip-把两个列表合成一个元组的列表>zip 把两个列表合成一个元组的列表</h6><pre><code class=language-haskell>zip :: [a] -&gt; [b] -&gt; [(a, b)]
+Prelude&gt; zip [1,2,3,4] &quot;abcd&quot;
+[(1,'a'),(2,'b'),(3,'c'),(4,'d')]
+</code></pre><h6 id=concat-将列表中的列表相连>concat 将列表中的列表相连</h6><pre><code class=language-haskell>concat :: Foldable t =&gt; t [a] -&gt; [a]
+Prelude&gt; concat [[1,2],[3],[4,5,6]]
+[1,2,3,4,5,6]
+</code></pre><h6 id=concatmap>concatMap</h6><pre><code class=language-haskell>concatMap :: Foldable t =&gt; (a -&gt; [b]) -&gt; t a -&gt; [b]
+Prelude&gt; map (replicate 2) [1,2,3]
+[[1,1],[2,2],[3,3]]
+Prelude&gt; concatMap (replicate 2) [1,2,3]
+[1,1,2,2,3,3]
+</code></pre><h3 id=字符串处理>字符串处理</h3><h6 id=show-转化为字符串>show 转化为字符串</h6><pre><code class=language-haskell>show :: Show a =&gt; a -&gt; String
+Prelude&gt; show True
+&quot;True&quot;
+Prelude&gt; show 33.3
+&quot;33.3&quot;
+</code></pre><h6 id=read-从字符串读取需要注明类型>read 从字符串读取，需要注明类型</h6><pre><code class=language-haskell>read :: Read a =&gt; String -&gt; a
+Prelude&gt; (\str-&gt;read str::Int) &quot;2333&quot;
+2333
+</code></pre><h6 id=linesunlines-以换行分开>lines,unlines 以换行分开</h6><pre><code class=language-haskell>lines :: String -&gt; [String]
+Prelude&gt; lines &quot;abc\nccc\ngt&quot;
+[&quot;abc&quot;,&quot;ccc&quot;,&quot;gt&quot;]
+
+unlines :: [String] -&gt; String
+Prelude&gt; unlines [&quot;a&quot;,&quot;b&quot;]
+&quot;a\nb\n&quot;
+</code></pre><h6 id=wordunword-以空格分开>word,unword 以空格分开</h6><pre><code class=language-haskell>words :: String -&gt; [String]
+Prelude&gt; words &quot;hi,I am Li Huan\nline2&quot;
+[&quot;hi,I&quot;,&quot;am&quot;,&quot;Li&quot;,&quot;Huan&quot;,&quot;line2&quot;]
+
+unwords :: [String] -&gt; String
+Prelude&gt; unwords [&quot;1&quot;,&quot;2&quot;,&quot;cd&quot;]
+&quot;1 2 cd&quot;
+</code></pre></div></article><div class="license markdown-body"><blockquote><p>除特殊注明部分，本站内容采用 <a rel=license href=http://creativecommons.org/licenses/by-nc-sa/4.0/ target=_blank>CC BY-NC-SA 4.0</a> 进行许可。</p></blockquote></div><div class=post-comment data-comment=utterances><span class=post-comment-notloaded><i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;查看评论</span>
+<script>function loadComment(){var commentArea=document.querySelector('.post-comment');var utterancesTheme=document.body.getAttribute('data-theme');if(utterancesTheme==='auto'){utterancesTheme=window.matchMedia('(prefers-color-scheme: dark)').matches?'photon-dark':'github-light';}else{utterancesTheme=utterancesTheme==='dark'?'photon-dark':'github-light';}
+var s=document.createElement('script');s.src='https://utteranc.es/client.js';s.setAttribute('repo','wineee\/hugoblogtalks');s.setAttribute('issue-term','pathname');s.setAttribute('theme',utterancesTheme);s.setAttribute('crossorigin','anonymous');s.setAttribute('async','');document.querySelector('.post-comment').appendChild(s);document.querySelector('span.post-comment-notloaded').setAttribute('style','display: none;');}</script></div></div><aside class="col-12 col-md-3 float-left sidebar"><div class="sidebar-item sidebar-pages"><h3>页面</h3><ul><li><a href=/>Home</a></li><li><a href=/archives/>Archives</a></li><li><a href=/about/>About</a></li><li><a href=/search/>Search</a></li><li><a href=/friends/>Friends</a></li><li><a href=/index.xml>RSS</a></li></ul></div><div class="sidebar-item sidebar-links"><h3>链接</h3><ul><li><a href=https://github.com/wineee target=_blank><span>GitHub</span></a></li><li><a href=https://twitter.com/rewineeee target=_blank><span>Twitter</span></a></li><li><a href=https://space.bilibili.com/23192485 target=_blank><span>bilibili</span></a></li></ul></div><div class="sidebar-item sidebar-tags"><h3>标签</h3><div><span><a href=/tags/acm/>ACM</a></span>
+<span><a href=/tags/bfs/>bfs</a></span>
+<span><a href=/tags/c/>c</a></span>
+<span><a href=/tags/c++/>c++</a></span>
+<span><a href=/tags/cryptography/>cryptography</a></span>
+<span><a href=/tags/go/>go</a></span>
+<span><a href=/tags/goroutine/>goroutine</a></span>
+<span><a href=/tags/haskell/>haskell</a></span>
+<span><a href=/tags/hugo/>hugo</a></span>
+<span><a href=/tags/lab/>lab</a></span>
+<span><a href=/tags/leetcode/>leetcode</a></span>
+<span><a href=/tags/mfc/>mfc</a></span>
+<span><a href=/tags/turing-award/>Turing Award</a></span>
+<span><a href=/tags/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95/>匈牙利算法</a></span>
+<span><a href=/tags/%E5%8D%95%E7%BA%AF%E5%9E%8B/>单纯型</a></span>
+<span><a href=/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/>多线程</a></span>
+<span><a href=/tags/%E5%B9%B6%E5%8F%91/>并发</a></span>
+<span><a href=/tags/%E5%BA%B7%E6%89%98%E5%B1%95%E5%BC%80/>康托展开</a></span>
+<span><a href=/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/>蓝桥杯</a></span>
+<span><a href=/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/>软件工程</a></span>
+<span><a href=/tags/%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90/>软件推荐</a></span></div></div><div class="sidebar-item sidebar-toc"><h3>目录</h3><nav id=TableOfContents><ul><li><ul><li><a href=#运算符函数>运算符函数</a></li><li><a href=#预加载库prelude函数>预加载库(Prelude)函数</a></li><li><a href=#基于列表的函数>基于列表的函数</a></li><li><a href=#字符串处理>字符串处理</a></li></ul></li></ul></nav></div></aside></div><div class=btn><div class=btn-menu id=btn-menu><i class="iconfont icon-grid-sharp"></i></div><div class=btn-toggle-mode><i class="iconfont icon-contrast-sharp"></i></div><div class=btn-scroll-top><i class="iconfont icon-chevron-up-circle-sharp"></i></div></div><aside class=sidebar-mobile style=display:none><div class=sidebar-wrapper><div class="sidebar-item sidebar-pages"><h3>页面</h3><ul><li><a href=/>Home</a></li><li><a href=/archives/>Archives</a></li><li><a href=/about/>About</a></li><li><a href=/search/>Search</a></li><li><a href=/friends/>Friends</a></li><li><a href=/index.xml>RSS</a></li></ul></div><div class="sidebar-item sidebar-links"><h3>链接</h3><ul><li><a href=https://github.com/wineee target=_blank><span>GitHub</span></a></li><li><a href=https://twitter.com/rewineeee target=_blank><span>Twitter</span></a></li><li><a href=https://space.bilibili.com/23192485 target=_blank><span>bilibili</span></a></li></ul></div><div class="sidebar-item sidebar-tags"><h3>标签</h3><div><span><a href=/tags/acm/>ACM</a></span>
+<span><a href=/tags/bfs/>bfs</a></span>
+<span><a href=/tags/c/>c</a></span>
+<span><a href=/tags/c++/>c++</a></span>
+<span><a href=/tags/cryptography/>cryptography</a></span>
+<span><a href=/tags/go/>go</a></span>
+<span><a href=/tags/goroutine/>goroutine</a></span>
+<span><a href=/tags/haskell/>haskell</a></span>
+<span><a href=/tags/hugo/>hugo</a></span>
+<span><a href=/tags/lab/>lab</a></span>
+<span><a href=/tags/leetcode/>leetcode</a></span>
+<span><a href=/tags/mfc/>mfc</a></span>
+<span><a href=/tags/turing-award/>Turing Award</a></span>
+<span><a href=/tags/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95/>匈牙利算法</a></span>
+<span><a href=/tags/%E5%8D%95%E7%BA%AF%E5%9E%8B/>单纯型</a></span>
+<span><a href=/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/>多线程</a></span>
+<span><a href=/tags/%E5%B9%B6%E5%8F%91/>并发</a></span>
+<span><a href=/tags/%E5%BA%B7%E6%89%98%E5%B1%95%E5%BC%80/>康托展开</a></span>
+<span><a href=/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/>蓝桥杯</a></span>
+<span><a href=/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/>软件工程</a></span>
+<span><a href=/tags/%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90/>软件推荐</a></span></div></div><div class="sidebar-item sidebar-toc"><h3>目录</h3><nav id=TableOfContents><ul><li><ul><li><a href=#运算符函数>运算符函数</a></li><li><a href=#预加载库prelude函数>预加载库(Prelude)函数</a></li><li><a href=#基于列表的函数>基于列表的函数</a></li><li><a href=#字符串处理>字符串处理</a></li></ul></li></ul></nav></div></div></aside></main><footer><div class="container-lg clearfix"><div class="col-12 footer"><span>&copy; 2020-2021
+<a href=https://wineee.github.io>rewine</a>
+| <a href=https://github.com/wineee/wineee.github.io>Source code</a>
+| 基于 <a href=https://github.com/dsrkafuu/hugo-theme-fuji/ target=_blank>Fuji-v2</a> & <a href=https://gohugo.io/ target=_blank>Hugo</a> 构建</span></div></div></footer><script defer src=https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.0/lazysizes.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js></script><script defer src=/assets/js/fuji.min.js></script></body></html>
