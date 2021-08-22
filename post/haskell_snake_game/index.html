@@ -1,0 +1,318 @@
+<!doctype html><html lang=zh-hans><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=HandheldFriendly content="True"><meta http-equiv=x-ua-compatible content="IE=edge"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=generator content="Hugo 0.74.3"><link rel=apple-touch-icon sizes=180x180 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png><link rel=manifest href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest><link rel=mask-icon href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg color=#8aa2d3><link rel="shortcut icon" href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico><meta name=theme-color content="#ffffff"><title>Codeworld: 使用Haskell实现一个贪吃蛇小游戏 - REWINE NOTE</title><meta name=author content="rewine"><meta name=description content="A minimal Hugo theme with nice theme color."><meta name=keywords content="Haskell"><meta property="og:title" content="Codeworld: 使用Haskell实现一个贪吃蛇小游戏"><meta name=twitter:title content="Codeworld: 使用Haskell实现一个贪吃蛇小游戏"><meta property="og:type" content="article"><meta property="og:url" content="https://wineee.github.io/post/haskell_snake_game/"><meta property="og:description" content="haskell 的一些教学可以参考：
+https://www.seas.upenn.edu/~cis194/fall16/index.html
+CodeWorld：可以在线运行hs代码，基于ghc.js，四舍五入还是在本地跑
+https://code.world/haskell
+下面是利用 CodeWorld 画圆的小例子
+import CodeWorld
+
+main :: IO()
+main = do
+       drawingOf $ circle 1"><meta name=twitter:description content="haskell 的一些教学可以参考：
+https://www.seas.upenn.edu/~cis194/fall16/index.html
+CodeWorld：可以在线运行hs代码，基于ghc.js，四舍五入还是在本地跑
+https://code.world/haskell
+下面是利用 CodeWorld 画圆的小例子
+import CodeWorld
+
+main :: IO()
+main = do
+       drawingOf $ circle 1"><meta property="og:image" content="https://wineee.github.io/img/og.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://wineee.github.io/img/og.png"><meta property="article:published_time" content="2021-08-20T00:00:00+00:00"><meta property="article:modified_time" content="2021-08-20T00:00:00+00:00"><style>@media(prefers-color-scheme:dark){body[data-theme=auto] img{filter:brightness(60%)}}body[data-theme=dark] img{filter:brightness(60%)}</style><link rel=stylesheet href=https://wineee.github.io/assets/css/fuji.min.css></head><body data-theme=auto data-theme-auto=false><script data-cfasync=false>var fujiThemeData=localStorage.getItem('fuji_data-theme');if(!fujiThemeData){localStorage.setItem('fuji_data-theme','auto');}else{if(fujiThemeData!=='auto'){document.body.setAttribute('data-theme',fujiThemeData==='dark'?'dark':'light');}}</script><header><div class="container-lg clearfix"><div class="col-12 header"><a class=title-main href=https://wineee.github.io>REWINE NOTE</a>
+<span class=title-sub>Informatik verbindet dich und mich.</span></div></div></header><main><div class="container-lg clearfix"><div class="col-12 col-md-9 float-left content"><article><h2 class="post-item post-title"><a href=https://wineee.github.io/post/haskell_snake_game/>Codeworld: 使用Haskell实现一个贪吃蛇小游戏</a></h2><div class="post-item post-meta"><span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-08-20</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1664 字</span>
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href=/tags/haskell>Haskell</a>&nbsp;</span></div><div class="post-content markdown-body"><p>haskell 的一些教学可以参考：</p><p><a href=https://www.seas.upenn.edu/~cis194/fall16/index.html target=_blank>https://www.seas.upenn.edu/~cis194/fall16/index.html</a></p><p>CodeWorld：可以在线运行hs代码，基于ghc.js，<del>四舍五入还是在本地跑</del></p><p><a href=https://code.world/haskell# target=_blank>https://code.world/haskell</a></p><p>下面是利用 CodeWorld 画圆的小例子</p><pre><code class=language-haskell>import CodeWorld
+
+main :: IO()
+main = do
+       drawingOf $ circle 1
+</code></pre><p><img class=img-zoomable src=https://cdn.jsdelivr.net/gh/wineee/MarkDownPIC@master/img/73d0de53a33166008f9673fe5976f472.png alt=wishimg></p><p>还可以画多边形</p><pre><code class=language-haskell>import CodeWorld
+
+main :: IO ()
+main = drawingOf triangle
+
+triangle :: Picture
+triangle = polygon [(9,9),(0,-9),(-9,9)]
+</code></pre><p><img class=img-zoomable src=https://cdn.jsdelivr.net/gh/wineee/MarkDownPIC@master/img/7e06ec4a9da1e8b17a91fd75adae136e.png alt=wishimg></p><p>通过 colored 函数添加颜色， 参数是: color picture</p><pre><code class=language-haskell>import CodeWorld
+
+main :: IO ()
+main = drawingOf ourPicture
+
+ourPicture = colored green $ solidCircle 2
+</code></pre><p><img class=img-zoomable src=https://cdn.jsdelivr.net/gh/wineee/MarkDownPIC@master/img/e2c8030079aab9ed7cd2c7effba5b7f9.png alt=wishimg></p><p>& 函数可以将图片合并</p><pre><code class=language-haskell>import CodeWorld
+
+main :: IO ()
+main = drawingOf $ ourPicture &amp; (solidCircle 5)
+
+ourPicture = colored green $ solidCircle 2
+</code></pre><p><img class=img-zoomable src=https://cdn.jsdelivr.net/gh/wineee/MarkDownPIC@master/img/1e31b82ac61ce2e4a1d909ecab53d400.png alt=wishimg></p><p>translated 函数实现移位，参数dx dy picture</p><pre><code class=language-haskell>import CodeWorld
+
+main :: IO ()
+main = drawingOf $ ourPicture &amp; translated 1 2 $ solidCircle 1
+
+ourPicture = colored green $ solidCircle 1
+</code></pre><p><img class=img-zoomable src=https://cdn.jsdelivr.net/gh/wineee/MarkDownPIC@master/img/983d76eadcdbad3600cf0320007000f6.png alt=wishimg></p><p>下面实现贪吃蛇，代码参照了<a href=https://www.bilibili.com/video/BV19v411n7ww target=_blank>此教程</a>，我添加了一些注释</p><p>Haskell 类型系统确实强大，看名字和标注就能知道这个函数有什么用。编译器可以排查大部分错误，可惜我把 unfoldr i+1写成 i-1，无限递归了，找了半天bug（我都不知道怎么debug）</p><pre><code class=language-haskell>import CodeWorld
+import Data.List
+import Data.Text(pack, unpack)
+import System.Random
+
+type RandomNumber = Int
+gridSize = 0.5
+-- 为了美观，
+gridSizeHf = 0.25
+-- 坐标（0，0）为中心， 经调整（0，0）的格子占用（0，0）-（0.5，0.5）空间
+
+main :: IO()
+main = do
+       gen &lt;- getStdGen
+       activityOf (initialWorld gen) handleEvent drawWorld
+       --         初始化              事件相应     绘制
+       
+-- 定义游戏状态，GameIdle              
+data GameState = GameIdle 
+               | GameRunning
+               | GameOver
+               deriving(Show, Eq)
+              
+data World = World {
+        rnds :: [RandomNumber]
+      , state :: GameState
+      , snake :: Snake
+      , apple :: Apple
+      , areaWidth :: Double
+      , areaHeight :: Double
+      }
+
+initialWorld :: StdGen -&gt; World
+initialWorld gen = restartWorld rnds width height
+      where rnds = randomRs (round(0-width), round(width-2)) gen
+            width = 20 :: Double
+            height = 20 :: Double
+      
+restartWorld :: [RandomNumber] -&gt; Double -&gt; Double -&gt; World
+restartWorld rnds w h = World rnds' GameRunning snake apple w h
+    where snake = mkSnake (-3, 0) 3 blue
+          apple = mkApple ((fromIntegral r1) / 2, (fromIntegral r2) / 2) green
+          (r1:r2:rnds') = rnds
+ 
+drawWorld :: World -&gt; Picture
+drawWorld world
+  | state world == GameOver = draw world
+                              &amp; translated 0 (1)
+                                (styledLettering Bold Handwriting 
+                                  (pack &quot;Game Over&quot;))
+                              &amp; translated 0 (-1)
+                                (styledLettering Bold Handwriting 
+                                  (pack score_str))
+  | otherwise = draw world
+  where draw world = drawSnake (snake world)
+                   &amp; drawApple (apple world)
+                   &amp; rectangle (areaWidth world) (areaHeight world)
+        score_str = &quot;Playing Score is: &quot; ++ (show $ score $ snake world)
+
+-- 蛇的方向
+data Direction = DirectUp
+               | DirectDown
+               | DirectLeft
+               | DirectRight
+               deriving(Show, Eq, Ord)
+-- 蛇的动作
+data SnakeAction = SnakeNoAct
+                 | SnakeMove
+                 | SnakeEat
+                 | SnakeDead
+                 deriving(Show, Eq)
+-- 定义蛇 
+data Snake = Snake {
+    bodyPoints :: [Point]
+  , ds :: Double
+  , score :: Double
+  , direct :: Direction
+  , color :: Color
+  , width :: Double
+ }
+ 
+-- 初始化蛇 
+mkSnake :: Point -&gt; Int -&gt; Color -&gt; Snake
+mkSnake startPoint len color = Snake body 0 0 DirectUp color w
+  -- unfoldr 展开函数，从一个点生成其他点，直到产生Nothing
+  where body = unfoldr (\\i -&gt; if i &lt; len 
+                              then Just((x, y - w * fromIntegral i), i+1) 
+                              else Nothing) 
+                        0 -- 初始值
+        (x, y) = startPoint
+        w = gridSize
+--  foldr1 相当于 foldr 起始值为列表第一个值
+--  . 函数与数学定义相似，f.g(x) 相当于 g(f(x))
+drawSnake :: Snake -&gt; Picture
+drawSnake snake = foldr1 (&amp;) blks 
+  where blks = map ((colored snkColor) . drawBodyBlk) snkBody
+        snkColor = color snake
+        snkBody = bodyPoints snake
+        drawBodyBlk (x, y) = translated (x + gridSizeHf) (y + gridSizeHf)
+                           $ solidRectangle (w - 0.05) (w - 0.05)
+        -- solidRectangle 画图默认中心（0，0）， translated 加上 gridSizeHf 使其正好对应方格
+        w = width snake
+
+-- 蛇转向
+turnSnake :: Direction -&gt; Snake -&gt; Snake
+turnSnake dir snake = if isConflictDirect dir (direct snake)
+                         then snake
+                         else snake { direct = dir }
+                         where isConflictDirect dir1 dir2
+                                 | dir1 == DirectUp &amp;&amp; dir2 == DirectDown = True
+                                 | dir1 == DirectDown &amp;&amp; dir2 == DirectUp = True
+                                 | dir1 == DirectRight &amp;&amp; dir2 == DirectLeft = True
+                                 | dir1 == DirectLeft &amp;&amp; dir2 == DirectRight = True
+                                 | otherwise = False
+-- 蛇前进一个单位  
+moveSnake :: Snake -&gt; Snake
+moveSnake snake = snake { ds = 0, bodyPoints = pts }
+                  where ptsOrg = bodyPoints snake
+                        pts = pt : init ptsOrg -- 去尾加头
+                        pt = translatedPoint dx dy $ head ptsOrg
+                        (dx, dy) = getSnakeDxDy snake
+-- 按当前方向蛇头的移动dx，dy                        
+getSnakeDxDy snake@(Snake _ _ _ direct _ w)
+  | direct == DirectUp = (0, w)
+  | direct == DirectDown = (0, -w)
+  | direct == DirectLeft = (-w, 0)
+  | direct == DirectRight = (w, 0)
+
+-- 吃苹果
+eatingSnake :: Snake -&gt; Snake
+eatingSnake snake = snake { ds = 0, score = score', bodyPoints = pts}
+                      where ptsOrg = bodyPoints snake
+                            pts = pt : ptsOrg
+                            pt = translatedPoint dx dy $ head ptsOrg
+                            (dx, dy) = getSnakeDxDy snake
+                            score' = score snake + 1
+                                                
+data Apple = Apple {
+    positionA :: Point
+  , colorA :: Color
+  , widthA :: Double
+    }
+mkApple :: Point -&gt; Color -&gt; Apple
+mkApple pos color = Apple pos color 0.25
+
+-- 显示苹果
+drawApple :: Apple -&gt; Picture
+drawApple apple@(Apple pos color width)
+    = translated (x + gridSizeHf) (y + gridSizeHf)
+      $ colored color
+      $ solidCircle width
+      where (x, y) = pos
+
+-- 随机生成苹果     
+randowApple :: World -&gt;  (Apple, [RandomNumber])
+randowApple world@(World rnds _ _ apple w h) = (mkApple pos color, rnds')
+  where pos = ((fromIntegral r1) / 2, (fromIntegral r2) /2)
+        color = if colorOrg == red then green else red
+        (r1:r2:rnds') = rnds
+        colorOrg = colorA apple
+        
+handleEvent :: Event -&gt; World -&gt; World
+
+-- 计时事件
+handleEvent (TimePassing dt) w
+  | state w == GameOver = w
+  | otherwise = handleSnakeAction snake' action 
+                $ w
+  where (snake', action) = checkSnakeAction dt w (snake w)
+
+-- 按键事件
+handleEvent (KeyPress keyText) w
+  | state w == GameOver
+     &amp;&amp; unpack keyText == &quot;Enter&quot; = restartWorld (rnds w) areaW areaH
+  | unpack keyText == &quot;Down&quot; = w { snake = turnSnake DirectDown snake' }
+  | unpack keyText == &quot;Up&quot; = w { snake = turnSnake DirectUp snake' }
+  | unpack keyText == &quot;Left&quot; = w { snake = turnSnake DirectLeft snake' }
+  | unpack keyText == &quot;Right&quot; = w { snake = turnSnake DirectRight snake' }
+  | otherwise = w
+    where snake' = snake w
+          areaW = areaWidth w
+          areaH = areaHeight w
+handleEvent _ w = w
+
+-- 进行一步动作
+handleSnakeAction :: Snake -&gt; SnakeAction -&gt; World -&gt; World
+handleSnakeAction snake' action w
+  | action == SnakeMove = w {snake = moveSnake snake'}
+  | action == SnakeEat = w { snake = eatingSnake snake'
+                           , apple = apple' -- 重新生成苹果
+                           , rnds = rnds'}
+  | action == SnakeNoAct = w { snake = snake' }
+  | action == SnakeDead = w { state = GameOver }
+    where (apple', rnds') = randowApple w
+
+snakeSpeed = 0.05
+
+-- 碰撞检测部分
+checkSnakeAction :: Double -&gt; World -&gt; Snake -&gt; (Snake, SnakeAction)
+checkSnakeAction dt world snakeS
+  = if ds' &gt; snkW then (snakeS { ds = 0 }, action ) -- 动了超过一格
+                  else (snakeS { ds = ds' }, action1 )
+    where ds' = ds snakeS + dt + snakeSpeed
+          snkW = width snakeS
+          headOrg = head $ bodyPoints $ snake world -- 蛇头
+          headN = translatedPoint dx dy headOrg -- 新蛇头
+          (dx, dy) = getSnakeDxDy snakeS
+          
+          appleOrg = apple world
+          (snkHead:snkTail) = bodyPoints $ snake world
+          -- 动了超过一格，判断吃或只移动（死了下一帧判断）
+          action = if headN == positionA appleOrg then SnakeEat else SnakeMove
+          -- 判断蛇头是否撞蛇身或出界
+          action1 = if headOrg `elem` snkTail
+                     || outofBound headOrg
+                    then SnakeDead else SnakeNoAct
+          outofBound (x, y) = if x &lt; 0 - maxW || x &gt; maxW - gridSize
+                                || y &lt; 0 - maxH || y &gt; maxH - gridSize
+                              then True else False
+          maxW = areaWidth world / 2
+          maxH = areaHeight world / 2
+</code></pre><p>游戏效果：</p><p><img class=img-zoomable src=https://cdn.jsdelivr.net/gh/wineee/MarkDownPIC@master/img/9b9b7cf044edeaee63cff5e87dba6e58.png alt=wishimg></p></div></article><div class="license markdown-body"><blockquote><p>除特殊注明部分，本站内容采用 <a rel=license href=http://creativecommons.org/licenses/by-nc-sa/4.0/ target=_blank>CC BY-NC-SA 4.0</a> 进行许可。</p></blockquote></div><div class=post-comment data-comment=utterances><span class=post-comment-notloaded><i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;查看评论</span>
+<script>function loadComment(){var commentArea=document.querySelector('.post-comment');var utterancesTheme=document.body.getAttribute('data-theme');if(utterancesTheme==='auto'){utterancesTheme=window.matchMedia('(prefers-color-scheme: dark)').matches?'photon-dark':'github-light';}else{utterancesTheme=utterancesTheme==='dark'?'photon-dark':'github-light';}
+var s=document.createElement('script');s.src='https://utteranc.es/client.js';s.setAttribute('repo','wineee\/hugoblogtalks');s.setAttribute('issue-term','pathname');s.setAttribute('theme',utterancesTheme);s.setAttribute('crossorigin','anonymous');s.setAttribute('async','');document.querySelector('.post-comment').appendChild(s);document.querySelector('span.post-comment-notloaded').setAttribute('style','display: none;');}</script></div></div><aside class="col-12 col-md-3 float-left sidebar"><div class="sidebar-item sidebar-pages"><h3>页面</h3><ul><li><a href=/>Home</a></li><li><a href=/archives/>Archives</a></li><li><a href=/about/>About</a></li><li><a href=/search/>Search</a></li><li><a href=/friends/>Friends</a></li><li><a href=/index.xml>RSS</a></li></ul></div><div class="sidebar-item sidebar-links"><h3>链接</h3><ul><li><a href=https://github.com/wineee target=_blank><span>GitHub</span></a></li><li><a href=https://twitter.com/rewineeee target=_blank><span>Twitter</span></a></li><li><a href=https://space.bilibili.com/23192485 target=_blank><span>bilibili</span></a></li></ul></div><div class="sidebar-item sidebar-tags"><h3>标签</h3><div><span><a href=/tags/acm/>ACM</a></span>
+<span><a href=/tags/bfs/>bfs</a></span>
+<span><a href=/tags/c/>c</a></span>
+<span><a href=/tags/c++/>c++</a></span>
+<span><a href=/tags/cryptography/>cryptography</a></span>
+<span><a href=/tags/go/>go</a></span>
+<span><a href=/tags/goroutine/>goroutine</a></span>
+<span><a href=/tags/haskell/>Haskell</a></span>
+<span><a href=/tags/hugo/>hugo</a></span>
+<span><a href=/tags/lab/>lab</a></span>
+<span><a href=/tags/leetcode/>leetcode</a></span>
+<span><a href=/tags/mfc/>mfc</a></span>
+<span><a href=/tags/turing-award/>Turing Award</a></span>
+<span><a href=/tags/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95/>匈牙利算法</a></span>
+<span><a href=/tags/%E5%8D%95%E7%BA%AF%E5%9E%8B/>单纯型</a></span>
+<span><a href=/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/>多线程</a></span>
+<span><a href=/tags/%E5%B9%B6%E5%8F%91/>并发</a></span>
+<span><a href=/tags/%E5%BA%B7%E6%89%98%E5%B1%95%E5%BC%80/>康托展开</a></span>
+<span><a href=/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/>蓝桥杯</a></span>
+<span><a href=/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/>软件工程</a></span>
+<span><a href=/tags/%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90/>软件推荐</a></span></div></div><div class="sidebar-item sidebar-toc"><h3>目录</h3><nav id=TableOfContents></nav></div></aside></div><div class=btn><div class=btn-menu id=btn-menu><i class="iconfont icon-grid-sharp"></i></div><div class=btn-toggle-mode><i class="iconfont icon-contrast-sharp"></i></div><div class=btn-scroll-top><i class="iconfont icon-chevron-up-circle-sharp"></i></div></div><aside class=sidebar-mobile style=display:none><div class=sidebar-wrapper><div class="sidebar-item sidebar-pages"><h3>页面</h3><ul><li><a href=/>Home</a></li><li><a href=/archives/>Archives</a></li><li><a href=/about/>About</a></li><li><a href=/search/>Search</a></li><li><a href=/friends/>Friends</a></li><li><a href=/index.xml>RSS</a></li></ul></div><div class="sidebar-item sidebar-links"><h3>链接</h3><ul><li><a href=https://github.com/wineee target=_blank><span>GitHub</span></a></li><li><a href=https://twitter.com/rewineeee target=_blank><span>Twitter</span></a></li><li><a href=https://space.bilibili.com/23192485 target=_blank><span>bilibili</span></a></li></ul></div><div class="sidebar-item sidebar-tags"><h3>标签</h3><div><span><a href=/tags/acm/>ACM</a></span>
+<span><a href=/tags/bfs/>bfs</a></span>
+<span><a href=/tags/c/>c</a></span>
+<span><a href=/tags/c++/>c++</a></span>
+<span><a href=/tags/cryptography/>cryptography</a></span>
+<span><a href=/tags/go/>go</a></span>
+<span><a href=/tags/goroutine/>goroutine</a></span>
+<span><a href=/tags/haskell/>Haskell</a></span>
+<span><a href=/tags/hugo/>hugo</a></span>
+<span><a href=/tags/lab/>lab</a></span>
+<span><a href=/tags/leetcode/>leetcode</a></span>
+<span><a href=/tags/mfc/>mfc</a></span>
+<span><a href=/tags/turing-award/>Turing Award</a></span>
+<span><a href=/tags/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95/>匈牙利算法</a></span>
+<span><a href=/tags/%E5%8D%95%E7%BA%AF%E5%9E%8B/>单纯型</a></span>
+<span><a href=/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/>多线程</a></span>
+<span><a href=/tags/%E5%B9%B6%E5%8F%91/>并发</a></span>
+<span><a href=/tags/%E5%BA%B7%E6%89%98%E5%B1%95%E5%BC%80/>康托展开</a></span>
+<span><a href=/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/>蓝桥杯</a></span>
+<span><a href=/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/>软件工程</a></span>
+<span><a href=/tags/%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90/>软件推荐</a></span></div></div><div class="sidebar-item sidebar-toc"><h3>目录</h3><nav id=TableOfContents></nav></div></div></aside></main><footer><div class="container-lg clearfix"><div class="col-12 footer"><span>&copy; 2020-2021
+<a href=https://wineee.github.io>rewine</a>
+| <a href=https://github.com/wineee/wineee.github.io>Source code</a>
+| 基于 <a href=https://github.com/dsrkafuu/hugo-theme-fuji/ target=_blank>Fuji-v2</a> & <a href=https://gohugo.io/ target=_blank>Hugo</a> 构建</span></div></div></footer><script defer src=https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js></script><script defer src=/assets/js/fuji.min.js></script></body></html>
