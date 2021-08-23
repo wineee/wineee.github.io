@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Qt on REWINE NOTE</title><link>https://wineee.github.io/tags/qt/</link><description>Recent content in Qt on REWINE NOTE</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 23 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://wineee.github.io/tags/qt/index.xml" rel="self" type="application/rss+xml"/><item><title>QtPDF 的编译与试用</title><link>https://wineee.github.io/post/qtpdf_make/</link><pubDate>Mon, 23 Aug 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/qtpdf_make/</guid><description>&lt;p>QtPDF 是 Qt 封装的 pdfium 模块，以 &lt;a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank">GPLv3/&lt;/a>&lt;a href="https://www.gnu.org/licenses/lgpl-3.0.html" target="_blank">LGPLv3&lt;/a> 协议分发，也可以在 QT marketplace 购买可商业版本&lt;/p>
+&lt;h3 id="下载源代码">下载源代码&lt;/h3>
+&lt;pre>&lt;code class="language-bash">git clone &amp;lt;https://code.qt.io/qt/qtwebengine.git&amp;gt;
+cd qtwebengine
+git checkout 5.12.8
+git submodule update --init --recursive
+&lt;/code>&lt;/pre>
+&lt;p>注意：git checkout 选择自己 qt 的版本&lt;/p></description></item></channel></rss>
