@@ -44,7 +44,7 @@ unix {
 RESOURCES += \
     peony-set-wallpaper.qrc
 
-</code></pre><p>可以看到 include(../common.pri) 是规定了插件版本，如果 peony 版本与插件不一致，就会拒绝加载。这个和其他项目一致就行，不需要改。</p><p>PKGCONFIG += peony，可以使用 libpeony-dev 中的函数了。注意外部只能调用有PEONYCORESHARED_EXPORT 声明的类</p><ol><li>peony-set-wallpaper_global.h</li></ol><pre><code class=language-cpp>#ifndef PEONYQTSETWALLPAPER_GLOBAL_H
+</code></pre><p>可以看到 include(../common.pri) 是规定了插件版本，如果 peony 版本与插件不一致，就会拒绝加载。这个和其他项目一致就行，不需要改。</p><p>PKGCONFIG += peony，可以使用 libpeony-dev 中的函数了。注意外部只能调用有PEONYCORESHARED_EXPORT 声明的类</p><ol start=3><li>peony-set-wallpaper_global.h</li></ol><pre><code class=language-cpp>#ifndef PEONYQTSETWALLPAPER_GLOBAL_H
 #define PEONYQTSETWALLPAPER_GLOBAL_H
 
 #include &lt;QtCore/qglobal.h&gt;
@@ -56,7 +56,7 @@ RESOURCES += \
 #endif
 
 #endif // PEONYQTSETWALLPAPER_GLOBAL_H
-</code></pre><p>即使没用过 Qt 插件体系，这些东西可以先照着抄，改改名字就行。</p><p>Q_DECL_EXPORT   // 共享库项目</p><p>Q_DECL_IMPORT   // 使用共享库的客户项目</p><p>这个 PEONYSETWALLPAPER_LIBRARY 在 .pro 中定义了。</p><ol><li>set-wallpaper-plugin.h</li></ol><pre><code class=language-cpp>#ifndef SETWALLPAPERPLUGIN_H
+</code></pre><p>即使没用过 Qt 插件体系，这些东西可以先照着抄，改改名字就行。</p><p>Q_DECL_EXPORT   // 共享库项目</p><p>Q_DECL_IMPORT   // 使用共享库的客户项目</p><p>这个 PEONYSETWALLPAPER_LIBRARY 在 .pro 中定义了。</p><ol start=4><li>set-wallpaper-plugin.h</li></ol><pre><code class=language-cpp>#ifndef SETWALLPAPERPLUGIN_H
 #define SETWALLPAPERPLUGIN_H
 
 #include &quot;peony-set-wallpaper_global.h&quot;
