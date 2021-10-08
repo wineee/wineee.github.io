@@ -1,0 +1,173 @@
+<!doctype html><html lang=zh-hans><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=HandheldFriendly content="True"><meta http-equiv=x-ua-compatible content="IE=edge"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=generator content="Hugo 0.74.3"><link rel=apple-touch-icon sizes=180x180 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png><link rel=manifest href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest><link rel=mask-icon href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg color=#8aa2d3><link rel="shortcut icon" href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico><meta name=theme-color content="#ffffff"><title>简单介绍下如何给Peony写插件 - REWINE NOTE</title><meta name=author content="rewine"><meta name=description content="A minimal Hugo theme with nice theme color."><meta name=keywords content="Qt"><meta property="og:title" content="简单介绍下如何给Peony写插件"><meta name=twitter:title content="简单介绍下如何给Peony写插件"><meta property="og:type" content="article"><meta property="og:url" content="https://wineee.github.io/post/how_to_write_a_peony_extensions/"><meta property="og:description" content="简单介绍下如何给Peony写插件
+peony 是优麒麟的文件管理器，我之前在 开源软件供应链点亮计划 活动中中选了实现预览插件的项目，今天稍微总结下。
+可以先看看参考资料
+如何编写 Peony 插件
+Peony-Qt的开发者手册（中文版）
+Peony 的 wiki"><meta name=twitter:description content="简单介绍下如何给Peony写插件
+peony 是优麒麟的文件管理器，我之前在 开源软件供应链点亮计划 活动中中选了实现预览插件的项目，今天稍微总结下。
+可以先看看参考资料
+如何编写 Peony 插件
+Peony-Qt的开发者手册（中文版）
+Peony 的 wiki"><meta property="og:image" content="https://wineee.github.io/img/og.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://wineee.github.io/img/og.png"><meta property="article:published_time" content="2021-10-04T00:00:00+00:00"><meta property="article:modified_time" content="2021-10-04T00:00:00+00:00"><style>@media(prefers-color-scheme:dark){body[data-theme=auto] img{filter:brightness(60%)}}body[data-theme=dark] img{filter:brightness(60%)}</style><link rel=stylesheet href=https://wineee.github.io/assets/css/fuji.min.css></head><body data-theme=auto data-theme-auto=false><script data-cfasync=false>var fujiThemeData=localStorage.getItem('fuji_data-theme');if(!fujiThemeData){localStorage.setItem('fuji_data-theme','auto');}else{if(fujiThemeData!=='auto'){document.body.setAttribute('data-theme',fujiThemeData==='dark'?'dark':'light');}}</script><header><div class="container-lg clearfix"><div class="col-12 header"><a class=title-main href=https://wineee.github.io>REWINE NOTE</a>
+<span class=title-sub>Informatik verbindet dich und mich.</span></div></div></header><main><div class="container-lg clearfix"><div class="col-12 col-md-9 float-left content"><article><h2 class="post-item post-title"><a href=https://wineee.github.io/post/how_to_write_a_peony_extensions/>简单介绍下如何给Peony写插件</a></h2><div class="post-item post-meta"><span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-10-04</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1092 字</span>
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href=/tags/qt>Qt</a>&nbsp;</span></div><div class="post-content markdown-body"><h1 id=简单介绍下如何给peony写插件>简单介绍下如何给Peony写插件</h1><p>peony 是优麒麟的文件管理器，我之前在 <a href=https://summer.iscas.ac.cn/#/org/prodetail/210120164 target=_blank>开源软件供应链点亮计划</a> 活动中中选了实现预览插件的项目，今天稍微总结下。</p><h2 id=可以先看看参考资料>可以先看看参考资料</h2><p><a href=https://zhuanlan.zhihu.com/p/373677523 target=_blank>如何编写 Peony 插件</a></p><p><a href=https://github.com/Yue-Lan/peony-qt_development_document target=_blank>Peony-Qt的开发者手册（中文版）</a></p><p><a href=https://github.com/ukui/peony/wiki target=_blank>Peony 的 wiki</a></p><h2 id=下载编译-peony-和-peony-extensions>下载编译 peony 和 peony-extensions</h2><h3 id=peony>peony</h3><p><a href=https://github.com/ukui/peony target=_blank>https://github.com/ukui/peony</a></p><p><code>sudo apt build-dep peony</code></p><p><del>这个装依赖我记得是不全的，编译时缺什么补什么吧</del></p><pre><code class=language-cpp>git clone https://github.com/ukui/peony.git
+cd peony &amp;&amp; mkdir build &amp;&amp; cd build
+qmake .. &amp;&amp; make
+sudo make install
+</code></pre><p>在peony项目中，有一些关于插件测试的子项目，是项目早期为了进行验证的时候加上的，比如 <a href=https://github.com/ukui/peony/tree/master/peony-qt-plugin-test target=_blank>https://github.com/ukui/peony/tree/master/peony-qt-plugin-test</a>。可作为参考。</p><p>在 libpeony-qt / plugin-iface 中，定义了插件接口，比如 MenuPluginInterface，PreviewPagePluginIface，在实现插件时需要继承这些接口。</p><p>在 controls / preview-page 中实现的默认预览窗口就是继承 PreviewPagePluginIface 实现的。</p><p>plugin-manager.cpp 可以看到插件是如何加载的。</p><h3 id=插件仓库>插件仓库</h3><p><a href=https://github.com/ukui/peony-extensions target=_blank>https://github.com/ukui/peony-extensions</a></p><p>同样下载编译好，不感兴趣的插件依赖没装好等原因不好编译的，在 <a href=http://peony-extensions.pro target=_blank>peony-extensions.pro</a> 注释它就行。</p><p>再次打开 peony，应该已经可以加载插件了。</p><p>已经写好的插件是很好的参考。</p><h3 id=介绍一个简单插件>介绍一个简单插件</h3><p>MenuPluginInterface，可以在右键菜单上添加功能项，应该是最常用的接口。</p><p>下面以设置壁纸的插件为例，当选中一个图片并右键呼出菜单时，会添加一个设置壁纸的选项。</p><ol><li>在 <a href=http://peony-extensions.pro/ target=_blank>peony-extensions.pro</a> 中添加一个 SUBDIRS</li><li>.pro 文件</li></ol><pre><code class=language-haskell>QT       += widgets
+
+TARGET = peony-set-wallpaper
+TEMPLATE = lib
+
+DEFINES += PEONYSETWALLPAPER_LIBRARY
+
+include(../common.pri)
+
+CONFIG += debug link_pkgconfig plugin
+
+PKGCONFIG += peony gsettings-qt
+
+TRANSLATIONS = translations/peony-set-wallpaper-extension_zh_CN.ts \
+               translations/peony-set-wallpaper-extension_tr.ts
+
+SOURCES += \
+    set-wallpaper-plugin.cpp
+
+HEADERS += \
+        set-wallpaper-plugin.h \
+        peony-set-wallpaper_global.h
+
+unix {
+    target.path = $$[QT_INSTALL_LIBS]/peony-extensions
+    INSTALLS += target
+}
+
+RESOURCES += \
+    peony-set-wallpaper.qrc
+
+</code></pre><p>可以看到 include(../common.pri) 是规定了插件版本，如果 peony 版本与插件不一致，就会拒绝加载。这个和其他项目一致就行，不需要改。</p><p>PKGCONFIG += peony，可以使用 libpeony-dev 中的函数了。注意外部只能调用有PEONYCORESHARED_EXPORT 声明的类</p><ol><li>peony-set-wallpaper_global.h</li></ol><pre><code class=language-cpp>#ifndef PEONYQTSETWALLPAPER_GLOBAL_H
+#define PEONYQTSETWALLPAPER_GLOBAL_H
+
+#include &lt;QtCore/qglobal.h&gt;
+
+#if defined(PEONYSETWALLPAPER_LIBRARY)
+#  define PEONYQTSETWALLPAPERSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define PEONYQTSETWALLPAPERSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // PEONYQTSETWALLPAPER_GLOBAL_H
+</code></pre><p>即使没用过 Qt 插件体系，这些东西可以先照着抄，改改名字就行。</p><p>Q_DECL_EXPORT   // 共享库项目</p><p>Q_DECL_IMPORT   // 使用共享库的客户项目</p><p>这个 PEONYSETWALLPAPER_LIBRARY 在 .pro 中定义了。</p><ol><li>set-wallpaper-plugin.h</li></ol><pre><code class=language-cpp>#ifndef SETWALLPAPERPLUGIN_H
+#define SETWALLPAPERPLUGIN_H
+
+#include &quot;peony-set-wallpaper_global.h&quot;
+#include &lt;menu-plugin-iface.h&gt;
+
+#include &lt;QGSettings&gt;
+
+namespace Peony {
+
+class PEONYQTSETWALLPAPERSHARED_EXPORT SetWallPaperPlugin: public QObject, public MenuPluginInterface
+{
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID MenuPluginInterface_iid FILE &quot;common.json&quot;)
+    Q_INTERFACES(Peony::MenuPluginInterface)
+public:
+    explicit SetWallPaperPlugin(QObject *parent = nullptr);
+
+    PluginInterface::PluginType pluginType() override {return PluginInterface::MenuPlugin;}
+    const QString name() override {return tr(&quot;Peony-Qt set wallpaper Extension&quot;);}
+    const QString description() override {return tr(&quot;set wallpaper Extension.&quot;);}
+    const QIcon icon() override {return QIcon::fromTheme(&quot;&quot;);}
+    void setEnable(bool enable) override {m_enable = enable;}
+    bool isEnable() override {return m_enable;}
+
+    QString testPlugin() override {return &quot;test set wallpaper&quot;;}
+    QList&lt;QAction *&gt; menuActions(Types types, const QString &amp;uri, const QStringList &amp;selectionUris) override;
+
+    bool is_picture_file(QString file_name);
+
+private:
+    bool m_enable;
+    QStringList m_picture_type_list = {&quot;png&quot;, &quot;jpg&quot;, &quot;jpeg&quot;, &quot;bmp&quot;, &quot;dib&quot;, &quot;jfif&quot;, &quot;jpe&quot;, &quot;gif&quot;, &quot;tif&quot;, &quot;tiff&quot;, &quot;wdp&quot;};
+
+    QGSettings *m_bg_settings = nullptr;
+};
+
+}
+
+#endif // SETWALLPAPERPLUGIN_H
+</code></pre><p>这里面插件机制相关的代码，就是换个名字的事，各个插件都是类似的。</p><p>重载自 MenuPluginInterface 的 QList&lt;QAction *> menuActions(Types types, const QString &uri, const QStringList &selectionUris) 是实现功能的关键。</p><pre><code class=language-cpp>QList&lt;QAction*&gt; SetWallPaperPlugin::menuActions(Types types, const QString &amp;uri, const QStringList &amp;selectionUris)
+{
+    QList&lt;QAction*&gt; actions;
+    if (types == MenuPluginInterface::DirectoryView || types == MenuPluginInterface::DesktopWindow)
+    {
+        if (selectionUris.count() == 1 &amp;&amp; is_picture_file(selectionUris.first())) {
+            if (selectionUris.first().contains(&quot;trash:///&quot;))
+                return actions;
+            QAction *set_action = new QAction(tr(&quot;Set as wallpaper&quot;), nullptr);
+            actions&lt;&lt;set_action;
+            connect(set_action, &amp;QAction::triggered, [=](){
+                if (QGSettings::isSchemaInstalled(BACKGROUND_SETTINGS))
+                {
+                   m_bg_settings = new QGSettings(BACKGROUND_SETTINGS, QByteArray(), this);
+                   QUrl url= selectionUris.first();
+                   bool success = m_bg_settings-&gt;trySet(&quot;pictureFilename&quot;, url.path());
+                   qDebug() &lt;&lt; &quot;set as wallpaper result:&quot; &lt;&lt;success &lt;&lt;url.path();
+                }
+            });
+        }
+    }
+    return actions;
+}
+</code></pre><p>其他类型的插件也是类似的，实现相应接口即可。</p><h4 id=这个是我在实现预览插件时的笔记>这个是我在实现预览插件时的笔记：</h4><p><a href=https://zany-yoke-295.notion.site/Peony-07be443c7e314f17b021056c380ccaaa>https://zany-yoke-295.notion.site/Peony-07be443c7e314f17b021056c380ccaaa</a></p></div></article><div class="license markdown-body"><blockquote><p>除特殊注明部分，本站内容采用 <a rel=license href=http://creativecommons.org/licenses/by-nc-sa/4.0/ target=_blank>CC BY-NC-SA 4.0</a> 进行许可。</p></blockquote></div><div class=post-comment data-comment=utterances><span class=post-comment-notloaded><i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;查看评论</span>
+<script>function loadComment(){var commentArea=document.querySelector('.post-comment');var utterancesTheme=document.body.getAttribute('data-theme');if(utterancesTheme==='auto'){utterancesTheme=window.matchMedia('(prefers-color-scheme: dark)').matches?'photon-dark':'github-light';}else{utterancesTheme=utterancesTheme==='dark'?'photon-dark':'github-light';}
+var s=document.createElement('script');s.src='https://utteranc.es/client.js';s.setAttribute('repo','wineee\/hugoblogtalks');s.setAttribute('issue-term','pathname');s.setAttribute('theme',utterancesTheme);s.setAttribute('crossorigin','anonymous');s.setAttribute('async','');document.querySelector('.post-comment').appendChild(s);document.querySelector('span.post-comment-notloaded').setAttribute('style','display: none;');}</script></div></div><aside class="col-12 col-md-3 float-left sidebar"><div class="sidebar-item sidebar-pages"><h3>页面</h3><ul><li><a href=/>Home</a></li><li><a href=/archives/>Archives</a></li><li><a href=/about/>About</a></li><li><a href=/search/>Search</a></li><li><a href=/friends/>Friends</a></li><li><a href=/index.xml>RSS</a></li></ul></div><div class="sidebar-item sidebar-links"><h3>链接</h3><ul><li><a href=https://github.com/wineee target=_blank><span>GitHub</span></a></li><li><a href=https://twitter.com/rewineeee target=_blank><span>Twitter</span></a></li><li><a href=https://space.bilibili.com/23192485 target=_blank><span>bilibili</span></a></li></ul></div><div class="sidebar-item sidebar-tags"><h3>标签</h3><div><span><a href=/tags/acm/>ACM</a></span>
+<span><a href=/tags/bfs/>bfs</a></span>
+<span><a href=/tags/c/>c</a></span>
+<span><a href=/tags/c++/>c++</a></span>
+<span><a href=/tags/cryptography/>cryptography</a></span>
+<span><a href=/tags/go/>go</a></span>
+<span><a href=/tags/goroutine/>goroutine</a></span>
+<span><a href=/tags/haskell/>Haskell</a></span>
+<span><a href=/tags/hugo/>hugo</a></span>
+<span><a href=/tags/lab/>lab</a></span>
+<span><a href=/tags/leetcode/>leetcode</a></span>
+<span><a href=/tags/mfc/>mfc</a></span>
+<span><a href=/tags/onlyoffice/>onlyoffice</a></span>
+<span><a href=/tags/qt/>Qt</a></span>
+<span><a href=/tags/turing-award/>Turing Award</a></span>
+<span><a href=/tags/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95/>匈牙利算法</a></span>
+<span><a href=/tags/%E5%8D%95%E7%BA%AF%E5%9E%8B/>单纯型</a></span>
+<span><a href=/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/>多线程</a></span>
+<span><a href=/tags/%E5%B9%B6%E5%8F%91/>并发</a></span>
+<span><a href=/tags/%E5%BA%B7%E6%89%98%E5%B1%95%E5%BC%80/>康托展开</a></span>
+<span><a href=/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/>蓝桥杯</a></span>
+<span><a href=/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/>软件工程</a></span>
+<span><a href=/tags/%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90/>软件推荐</a></span></div></div><div class="sidebar-item sidebar-toc"><h3>目录</h3><nav id=TableOfContents><ul><li><a href=#可以先看看参考资料>可以先看看参考资料</a></li><li><a href=#下载编译-peony-和-peony-extensions>下载编译 peony 和 peony-extensions</a><ul><li><a href=#peony>peony</a></li><li><a href=#插件仓库>插件仓库</a></li><li><a href=#介绍一个简单插件>介绍一个简单插件</a></li></ul></li></ul></nav></div></aside></div><div class=btn><div class=btn-menu id=btn-menu><i class="iconfont icon-grid-sharp"></i></div><div class=btn-toggle-mode><i class="iconfont icon-contrast-sharp"></i></div><div class=btn-scroll-top><i class="iconfont icon-chevron-up-circle-sharp"></i></div></div><aside class=sidebar-mobile style=display:none><div class=sidebar-wrapper><div class="sidebar-item sidebar-pages"><h3>页面</h3><ul><li><a href=/>Home</a></li><li><a href=/archives/>Archives</a></li><li><a href=/about/>About</a></li><li><a href=/search/>Search</a></li><li><a href=/friends/>Friends</a></li><li><a href=/index.xml>RSS</a></li></ul></div><div class="sidebar-item sidebar-links"><h3>链接</h3><ul><li><a href=https://github.com/wineee target=_blank><span>GitHub</span></a></li><li><a href=https://twitter.com/rewineeee target=_blank><span>Twitter</span></a></li><li><a href=https://space.bilibili.com/23192485 target=_blank><span>bilibili</span></a></li></ul></div><div class="sidebar-item sidebar-tags"><h3>标签</h3><div><span><a href=/tags/acm/>ACM</a></span>
+<span><a href=/tags/bfs/>bfs</a></span>
+<span><a href=/tags/c/>c</a></span>
+<span><a href=/tags/c++/>c++</a></span>
+<span><a href=/tags/cryptography/>cryptography</a></span>
+<span><a href=/tags/go/>go</a></span>
+<span><a href=/tags/goroutine/>goroutine</a></span>
+<span><a href=/tags/haskell/>Haskell</a></span>
+<span><a href=/tags/hugo/>hugo</a></span>
+<span><a href=/tags/lab/>lab</a></span>
+<span><a href=/tags/leetcode/>leetcode</a></span>
+<span><a href=/tags/mfc/>mfc</a></span>
+<span><a href=/tags/onlyoffice/>onlyoffice</a></span>
+<span><a href=/tags/qt/>Qt</a></span>
+<span><a href=/tags/turing-award/>Turing Award</a></span>
+<span><a href=/tags/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95/>匈牙利算法</a></span>
+<span><a href=/tags/%E5%8D%95%E7%BA%AF%E5%9E%8B/>单纯型</a></span>
+<span><a href=/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/>多线程</a></span>
+<span><a href=/tags/%E5%B9%B6%E5%8F%91/>并发</a></span>
+<span><a href=/tags/%E5%BA%B7%E6%89%98%E5%B1%95%E5%BC%80/>康托展开</a></span>
+<span><a href=/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/>蓝桥杯</a></span>
+<span><a href=/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/>软件工程</a></span>
+<span><a href=/tags/%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90/>软件推荐</a></span></div></div><div class="sidebar-item sidebar-toc"><h3>目录</h3><nav id=TableOfContents><ul><li><a href=#可以先看看参考资料>可以先看看参考资料</a></li><li><a href=#下载编译-peony-和-peony-extensions>下载编译 peony 和 peony-extensions</a><ul><li><a href=#peony>peony</a></li><li><a href=#插件仓库>插件仓库</a></li><li><a href=#介绍一个简单插件>介绍一个简单插件</a></li></ul></li></ul></nav></div></div></aside></main><footer><div class="container-lg clearfix"><div class="col-12 footer"><span>&copy; 2020-2021
+<a href=https://wineee.github.io>rewine</a>
+| <a href=https://github.com/wineee/wineee.github.io>Source code</a>
+| 基于 <a href=https://github.com/dsrkafuu/hugo-theme-fuji/ target=_blank>Fuji-v2</a> & <a href=https://gohugo.io/ target=_blank>Hugo</a> 构建</span></div></div></footer><script defer src=https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js></script><script defer src=/assets/js/fuji.min.js></script></body></html>
