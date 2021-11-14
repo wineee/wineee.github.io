@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>REWINE NOTE</title><link>https://wineee.github.io/</link><description>Recent content on REWINE NOTE</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 27 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://wineee.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>在 nixos 中使用 telega 进行聊天</title><link>https://wineee.github.io/post/use_telega_in_nixos/</link><pubDate>Wed, 27 Oct 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/use_telega_in_nixos/</guid><description>&lt;p>telega 是一个 emacs 上的 Telegram 客户端，在 nixos 中，telega 包过于老旧，在 unstable 中已经无了，下面尝试使用传统方法安装 telega。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>REWINE NOTE</title><link>/</link><description>Recent content on REWINE NOTE</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 27 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>在 nixos 中使用 telega 进行聊天</title><link>/post/use_telega_in_nixos/</link><pubDate>Wed, 27 Oct 2021 00:00:00 +0000</pubDate><guid>/post/use_telega_in_nixos/</guid><description>&lt;p>telega 是一个 emacs 上的 Telegram 客户端，在 nixos 中，telega 包过于老旧，在 unstable 中已经无了，下面尝试使用传统方法安装 telega。&lt;/p>
 &lt;h3 id="下载源代码">下载源代码&lt;/h3>
 &lt;pre>&lt;code class="language-bash">cd ~/.emacs.d/site-lisp
 git clone git@github.com:zevlg/telega.el.git
 &lt;/code>&lt;/pre>
-&lt;p>参考&lt;a href="https://zevlg.github.io/telega.el/" target="_blank">文档&lt;/a>进行配置&lt;/p></description></item><item><title>简单介绍下如何给 Peony 写插件</title><link>https://wineee.github.io/post/how_to_write_a_peony_extensions/</link><pubDate>Mon, 04 Oct 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/how_to_write_a_peony_extensions/</guid><description>&lt;p>peony 是优麒麟的文件管理器，我之前在 &lt;a href="https://summer.iscas.ac.cn/#/org/prodetail/210120164" target="_blank">开源软件供应链点亮计划&lt;/a> 活动中中选了实现预览插件的项目，今天稍微总结下。&lt;/p>
+&lt;p>参考&lt;a href="https://zevlg.github.io/telega.el/" target="_blank">文档&lt;/a>进行配置&lt;/p></description></item><item><title>简单介绍下如何给 Peony 写插件</title><link>/post/how_to_write_a_peony_extensions/</link><pubDate>Mon, 04 Oct 2021 00:00:00 +0000</pubDate><guid>/post/how_to_write_a_peony_extensions/</guid><description>&lt;p>peony 是优麒麟的文件管理器，我之前在 &lt;a href="https://summer.iscas.ac.cn/#/org/prodetail/210120164" target="_blank">开源软件供应链点亮计划&lt;/a> 活动中中选了实现预览插件的项目，今天稍微总结下。&lt;/p>
 &lt;h2 id="可以先看看参考资料">可以先看看参考资料&lt;/h2>
 &lt;p>&lt;a href="https://zhuanlan.zhihu.com/p/373677523" target="_blank">如何编写 Peony 插件&lt;/a>&lt;/p>
 &lt;p>&lt;a href="https://github.com/Yue-Lan/peony-qt_development_document" target="_blank">Peony-Qt的开发者手册（中文版）&lt;/a>&lt;/p>
-&lt;p>&lt;a href="https://github.com/ukui/peony/wiki" target="_blank">Peony 的 wiki&lt;/a>&lt;/p></description></item><item><title>Onlyoffice Document Server 搭建</title><link>https://wineee.github.io/post/onlyoffice-docker-documentserver/</link><pubDate>Mon, 23 Aug 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/onlyoffice-docker-documentserver/</guid><description>&lt;p>&lt;strong>Document Server&lt;/strong> 是一个在线办公套件，包括用于文本，电子表格和演示文稿的查看器和编辑器，与Office Open XML格式完全兼容：.docx，.xlsx，.pptx，并支持实时协作编辑。&lt;/p>
+&lt;p>&lt;a href="https://github.com/ukui/peony/wiki" target="_blank">Peony 的 wiki&lt;/a>&lt;/p></description></item><item><title>Onlyoffice Document Server 搭建</title><link>/post/onlyoffice-docker-documentserver/</link><pubDate>Mon, 23 Aug 2021 00:00:00 +0000</pubDate><guid>/post/onlyoffice-docker-documentserver/</guid><description>&lt;p>&lt;strong>Document Server&lt;/strong> 是一个在线办公套件，包括用于文本，电子表格和演示文稿的查看器和编辑器，与Office Open XML格式完全兼容：.docx，.xlsx，.pptx，并支持实时协作编辑。&lt;/p>
 &lt;p>支持所有流行的格式：DOC，DOCX，TXT，ODT，RTF，ODP，EPUB，ODS，XLS，XLSX，CSV，PPTX，HTML&lt;/p>
-&lt;p>项目地址是：https://github.com/ONLYOFFICE&lt;/p></description></item><item><title>QtPDF 的编译与试用</title><link>https://wineee.github.io/post/qtpdf_make/</link><pubDate>Mon, 23 Aug 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/qtpdf_make/</guid><description>&lt;p>QtPDF 是 Qt 封装的 pdfium 模块，以 &lt;a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank">GPLv3/&lt;/a>&lt;a href="https://www.gnu.org/licenses/lgpl-3.0.html" target="_blank">LGPLv3&lt;/a> 协议分发，也可以在 QT marketplace 购买可商业版本&lt;/p>
+&lt;p>项目地址是：https://github.com/ONLYOFFICE&lt;/p></description></item><item><title>QtPDF 的编译与试用</title><link>/post/qtpdf_make/</link><pubDate>Mon, 23 Aug 2021 00:00:00 +0000</pubDate><guid>/post/qtpdf_make/</guid><description>&lt;p>QtPDF 是 Qt 封装的 pdfium 模块，以 &lt;a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank">GPLv3/&lt;/a>&lt;a href="https://www.gnu.org/licenses/lgpl-3.0.html" target="_blank">LGPLv3&lt;/a> 协议分发，也可以在 QT marketplace 购买可商业版本&lt;/p>
 &lt;h3 id="下载源代码">下载源代码&lt;/h3>
 &lt;pre>&lt;code class="language-bash">git clone &amp;lt;https://code.qt.io/qt/qtwebengine.git&amp;gt;
 cd qtwebengine
 git checkout 5.12.8
 git submodule update --init --recursive
 &lt;/code>&lt;/pre>
-&lt;p>注意：git checkout 选择自己 qt 的版本&lt;/p></description></item><item><title>Codeworld: 使用Haskell实现一个贪吃蛇小游戏</title><link>https://wineee.github.io/post/haskell_snake_game/</link><pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/haskell_snake_game/</guid><description>&lt;p>haskell 的一些教学可以参考：&lt;/p>
+&lt;p>注意：git checkout 选择自己 qt 的版本&lt;/p></description></item><item><title>Codeworld: 使用Haskell实现一个贪吃蛇小游戏</title><link>/post/haskell_snake_game/</link><pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate><guid>/post/haskell_snake_game/</guid><description>&lt;p>haskell 的一些教学可以参考：&lt;/p>
 &lt;p>&lt;a href="https://www.seas.upenn.edu/~cis194/fall16/index.html" target="_blank">https://www.seas.upenn.edu/~cis194/fall16/index.html&lt;/a>&lt;/p>
 &lt;p>CodeWorld：可以在线运行hs代码，基于ghc.js，&lt;del>四舍五入还是在本地跑&lt;/del>&lt;/p>
 &lt;p>&lt;a href="https://code.world/haskell#" target="_blank">https://code.world/haskell&lt;/a>&lt;/p>
@@ -25,7 +25,7 @@ git submodule update --init --recursive
 main :: IO()
 main = do
 drawingOf $ circle 1
-&lt;/code>&lt;/pre></description></item><item><title>Haskell 常用函数笔记</title><link>https://wineee.github.io/post/leran_haskell_01/</link><pubDate>Mon, 21 Jun 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/leran_haskell_01/</guid><description>&lt;h3 id="运算符函数">运算符函数&lt;/h3>
+&lt;/code>&lt;/pre></description></item><item><title>Haskell 常用函数笔记</title><link>/post/leran_haskell_01/</link><pubDate>Mon, 21 Jun 2021 00:00:00 +0000</pubDate><guid>/post/leran_haskell_01/</guid><description>&lt;h3 id="运算符函数">运算符函数&lt;/h3>
 &lt;h6 id="-取第n个元素">(!!) 取第n个元素&lt;/h6>
 &lt;pre>&lt;code class="language-haskell">Prelude&amp;gt; :t (!!)
 (!!) :: [a] -&amp;gt; Int -&amp;gt; a
@@ -47,7 +47,7 @@ Prelude&amp;gt; :t (**)
 (**) :: Floating a =&amp;gt; a -&amp;gt; a -&amp;gt; a
 Prelude&amp;gt; 0.2**0.1
 0.8513399225207846
-&lt;/code>&lt;/pre></description></item><item><title>软件工程知识点总结</title><link>https://wineee.github.io/post/softwareengineeringnote/</link><pubDate>Mon, 10 May 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/softwareengineeringnote/</guid><description>&lt;h2 id="第1章-软件与软件工程的概念">第1章 软件与软件工程的概念&lt;/h2>
+&lt;/code>&lt;/pre></description></item><item><title>软件工程知识点总结</title><link>/post/softwareengineeringnote/</link><pubDate>Mon, 10 May 2021 00:00:00 +0000</pubDate><guid>/post/softwareengineeringnote/</guid><description>&lt;h2 id="第1章-软件与软件工程的概念">第1章 软件与软件工程的概念&lt;/h2>
 &lt;h5 id="了解与软件相关的基本概念包括软件程序数据文档">了解与软件相关的基本概念，包括软件、程序、数据、文档。&lt;/h5>
 &lt;p>软件是计算机系统中与硬件相互依存的另一部分，它是包括程序，数据及其相关文档的完整集合。&lt;/p>
 &lt;ul>
@@ -58,13 +58,13 @@ Prelude&amp;gt; 0.2**0.1
 &lt;li>程序 = 数据结构+算法&lt;/li>
 &lt;/ul>
 &lt;p>数据是使程序能正常操纵信息的数据结构。
-文档是与程序开发，维护和使用有关的图文材料。&lt;/p></description></item><item><title>整理一下图灵奖得主们都干了什么</title><link>https://wineee.github.io/post/turing_award/</link><pubDate>Mon, 12 Apr 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/turing_award/</guid><description>&lt;p>前不久，2020图灵奖今日出炉，龙书作者 Alfred Vaino Aho 和 Jeffrey David Ullman 获奖，作为计算机界的最高荣誉，图灵奖获得者及其成果对计算机学科意义非凡，以前只是大概知道几个人，今天，特地翻了翻维基，看看得奖的都有谁。&lt;/p></description></item><item><title>使用c++解决leetcode多线程题题目（之一）semaphore</title><link>https://wineee.github.io/post/leetcode_cpp_sem/</link><pubDate>Fri, 09 Apr 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/leetcode_cpp_sem/</guid><description>&lt;p>通过 &lt;code>man sem_init&lt;/code> 可以查看具体文档。
+文档是与程序开发，维护和使用有关的图文材料。&lt;/p></description></item><item><title>整理一下图灵奖得主们都干了什么</title><link>/post/turing_award/</link><pubDate>Mon, 12 Apr 2021 00:00:00 +0000</pubDate><guid>/post/turing_award/</guid><description>&lt;p>前不久，2020图灵奖今日出炉，龙书作者 Alfred Vaino Aho 和 Jeffrey David Ullman 获奖，作为计算机界的最高荣誉，图灵奖获得者及其成果对计算机学科意义非凡，以前只是大概知道几个人，今天，特地翻了翻维基，看看得奖的都有谁。&lt;/p></description></item><item><title>使用c++解决leetcode多线程题题目（之一）semaphore</title><link>/post/leetcode_cpp_sem/</link><pubDate>Fri, 09 Apr 2021 00:00:00 +0000</pubDate><guid>/post/leetcode_cpp_sem/</guid><description>&lt;p>通过 &lt;code>man sem_init&lt;/code> 可以查看具体文档。
 或者使用： &lt;a href="https://man7.org/linux/man-pages/man3/sem_init.3.html">https://man7.org/linux/man-pages/man3/sem_init.3.html&lt;/a>&lt;/p>
 &lt;p>sem_init函数是Posix信号量操作中的函数。sem_init() 初始化一个定位在 sem 的匿名信号量。pshared 参数指明信号量是由进程内共享，还是由进程之间共享。如果 pshared 的值为 0，那么信号量将被进程内的线程共享。value 参数指定的初始值。&lt;/p>
 &lt;p>sem_post是给信号量的值加上一个“1”，它是一个“原子操作”－－－即同时对同一个信号量做加“1”操作的两个线程是不会冲突的。&lt;/p>
-&lt;p>sem_wait是一个函数，也是一个原子操作，它的作用是从信号量的值减去一个“1”，但它永远会先等待该信号量为一个非零值才开始做减法。也就是说，如果你对一个值为2的信号量调用sem_wait()，线程将会继续执行，将信号量的值将减到1。如果对一个值为0的信号量调用sem_wait()，这个函数就会原地等待直到有其它线程增加了这个值使它不再是0为止。&lt;/p></description></item><item><title>goroutine 的学习之旅</title><link>https://wineee.github.io/post/learn_goroutine/</link><pubDate>Sat, 03 Apr 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/learn_goroutine/</guid><description>&lt;p>回想起来，我是因为对 goroutine 有兴趣而去了解 Go 的，因为 finger tree 而想学 Haskell，结果坑留了半年了（另一个坑留了快3年，Monad 还没弄明白），今天有时间先填上一个再说。&lt;/p>
+&lt;p>sem_wait是一个函数，也是一个原子操作，它的作用是从信号量的值减去一个“1”，但它永远会先等待该信号量为一个非零值才开始做减法。也就是说，如果你对一个值为2的信号量调用sem_wait()，线程将会继续执行，将信号量的值将减到1。如果对一个值为0的信号量调用sem_wait()，这个函数就会原地等待直到有其它线程增加了这个值使它不再是0为止。&lt;/p></description></item><item><title>goroutine 的学习之旅</title><link>/post/learn_goroutine/</link><pubDate>Sat, 03 Apr 2021 00:00:00 +0000</pubDate><guid>/post/learn_goroutine/</guid><description>&lt;p>回想起来，我是因为对 goroutine 有兴趣而去了解 Go 的，因为 finger tree 而想学 Haskell，结果坑留了半年了（另一个坑留了快3年，Monad 还没弄明白），今天有时间先填上一个再说。&lt;/p>
 &lt;p>goroutine，Go 语言的协程，是一种比线程更轻量的存在，一个cpu可以支持上万的协程。Go 可以通过 goroutine 支持并发。&lt;/p>
-&lt;p>Go使用的是并发模型中的 CSP 模型，Communicating Sequential Processes，译为通信顺序进程、七周七并发第六章内容，这本书继续留坑有空再看。&lt;/p></description></item><item><title>我的全平台软件清单</title><link>https://wineee.github.io/post/my_softworks/</link><pubDate>Fri, 12 Feb 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/my_softworks/</guid><description>&lt;h2 id="linux">linux&lt;/h2>
+&lt;p>Go使用的是并发模型中的 CSP 模型，Communicating Sequential Processes，译为通信顺序进程、七周七并发第六章内容，这本书继续留坑有空再看。&lt;/p></description></item><item><title>我的全平台软件清单</title><link>/post/my_softworks/</link><pubDate>Fri, 12 Feb 2021 00:00:00 +0000</pubDate><guid>/post/my_softworks/</guid><description>&lt;h2 id="linux">linux&lt;/h2>
 &lt;ul>
 &lt;li>
 &lt;p>oh-my-zsh 漂亮好用的 shell&lt;/p>
@@ -84,16 +84,16 @@ Prelude&amp;gt; 0.2**0.1
 &lt;li>
 &lt;p>wps/Liberoffice 办公软件，Liberoffice Draw可以画流程图&lt;/p>
 &lt;/li>
-&lt;/ul></description></item><item><title>关于蓝桥杯等算法竞赛的经验总结</title><link>https://wineee.github.io/post/lanqiaobie/</link><pubDate>Fri, 22 Jan 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/lanqiaobie/</guid><description>&lt;h2 id="1准备蓝桥杯需要做什么有哪些需要学习的算法">1.准备蓝桥杯需要做什么，有哪些需要学习的算法？&lt;/h2>
+&lt;/ul></description></item><item><title>关于蓝桥杯等算法竞赛的经验总结</title><link>/post/lanqiaobie/</link><pubDate>Fri, 22 Jan 2021 00:00:00 +0000</pubDate><guid>/post/lanqiaobie/</guid><description>&lt;h2 id="1准备蓝桥杯需要做什么有哪些需要学习的算法">1.准备蓝桥杯需要做什么，有哪些需要学习的算法？&lt;/h2>
 &lt;h4 id="熟悉比赛环境">熟悉比赛环境&lt;/h4>
 &lt;p>比赛使用的编辑环境，c/c++ 组使用的是 dev-c++ , python 组使用 IDLE , java 组使用 Eclipse，建议平时练习多使用对应的编辑器，如果不熟悉编译环境，在比赛时可能会带来不必要的麻烦，尤其是 python 组的 IDLE 非常简陋，由俭入奢易，由奢入俭难。&lt;/p>
-&lt;p>喜讯：官方通知第十二届蓝桥杯 c/c++ 组增加了 CodeBlocks 20.03 编程环境，支持 C++ 98 和 C++11， 终于可以用上 c++ 的新特性了。&lt;/p></description></item><item><title>搭建个人博客记录(github action+hugo)</title><link>https://wineee.github.io/post/hugo_blog/</link><pubDate>Fri, 15 Jan 2021 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/hugo_blog/</guid><description>&lt;h3 id="前言">前言&lt;/h3>
+&lt;p>喜讯：官方通知第十二届蓝桥杯 c/c++ 组增加了 CodeBlocks 20.03 编程环境，支持 C++ 98 和 C++11， 终于可以用上 c++ 的新特性了。&lt;/p></description></item><item><title>搭建个人博客记录(github action+hugo)</title><link>/post/hugo_blog/</link><pubDate>Fri, 15 Jan 2021 00:00:00 +0000</pubDate><guid>/post/hugo_blog/</guid><description>&lt;h3 id="前言">前言&lt;/h3>
 &lt;p>高中时，作为OIer经常需要看别人的题解博客，那时候luogu还没流行，大家都在tyvj，vijos上刷题，看题解还要找 csdn，博客园，和一些大佬（比如hzwer）的个人博客。慢慢的，就萌生出了自己写博客的想法，一开始，我在蚂蚁笔记上写题解，它可以把markdown笔记分享到蚂蚁博客上，而且主题也很美观，后来它收费了，学生党没有钱（那时候我没手机，没手机号，更别说网银了）弃用了，现在我不推荐大家用了，这个项目2，3年没人维护，恐怕不靠谱。&lt;/p>
 &lt;p>我还试过WordPress，用的免费主机（当然现在挂了，资料也丢了）&lt;/p>
 &lt;p>以前在同学帮助下搭建了 hexo+github 的 blog，不过我嫌主题不好看万年不更新。&lt;/p>
 &lt;p>&lt;a href="blog.csdn.net/qq_33831360">csdn&lt;/a> 的blog因为要绑定手机号，高中没机会用，大一才开始写一些东西。&lt;/p>
 &lt;p>&lt;a href="https://home.cnblogs.com/u/rewine/" target="_blank">博客园&lt;/a> 后台太丑，不喜欢用这个写。&lt;/p>
-&lt;p>&lt;a href="https://github.com/getgridea/gridea" target="_blank">gridea&lt;/a> 这个是我去年了解的，看上去挺方便的，我没试过，感兴趣的可以看看。&lt;/p></description></item><item><title>About Me</title><link>https://wineee.github.io/about/</link><pubDate>Mon, 11 Jan 2021 19:15:32 +0800</pubDate><guid>https://wineee.github.io/about/</guid><description>资浅码农，信安专业学生一枚</description></item><item><title>友链</title><link>https://wineee.github.io/friends/</link><pubDate>Mon, 11 Jan 2021 19:15:32 +0800</pubDate><guid>https://wineee.github.io/friends/</guid><description>Orz hzwer 黄学长的博客，承载oi记忆 coolshell 耗子叔的博客，干货比较多 manateelazycat 老王，emacs黑客，前deepin开发者, eaf作者 yinwang 王垠，PL领域大神 Felix Yan Arch打包达人肥猫</description></item><item><title>现代密码学复习总结</title><link>https://wineee.github.io/post/cryptography_review/</link><pubDate>Fri, 04 Dec 2020 00:00:00 +0800</pubDate><guid>https://wineee.github.io/post/cryptography_review/</guid><description>&lt;h1 id="第一章-引言">第一章 引言&lt;/h1>
+&lt;p>&lt;a href="https://github.com/getgridea/gridea" target="_blank">gridea&lt;/a> 这个是我去年了解的，看上去挺方便的，我没试过，感兴趣的可以看看。&lt;/p></description></item><item><title>About Me</title><link>/about/</link><pubDate>Mon, 11 Jan 2021 19:15:32 +0800</pubDate><guid>/about/</guid><description>资浅码农，信安专业学生一枚</description></item><item><title>友链</title><link>/friends/</link><pubDate>Mon, 11 Jan 2021 19:15:32 +0800</pubDate><guid>/friends/</guid><description>Orz hzwer 黄学长的博客，承载oi记忆 coolshell 耗子叔的博客，干货比较多 manateelazycat 老王，emacs黑客，前deepin开发者, eaf作者 yinwang 王垠，PL领域大神 Felix Yan Arch打包达人肥猫</description></item><item><title>现代密码学复习总结</title><link>/post/cryptography_review/</link><pubDate>Fri, 04 Dec 2020 00:00:00 +0800</pubDate><guid>/post/cryptography_review/</guid><description>&lt;h1 id="第一章-引言">第一章 引言&lt;/h1>
 &lt;h3 id="什么是被动攻击和主动攻击各有几种类型">什么是被动攻击和主动攻击,各有几种类型?&lt;/h3>
 &lt;ul>
 &lt;li>
@@ -119,7 +119,7 @@ Prelude&amp;gt; 0.2**0.1
 在网络中插入伪造的消息冒充消息发送者，在文件中插入伪造记录等&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;/ul></description></item><item><title>初步认识c++1x的新特性</title><link>https://wineee.github.io/post/cplusplus1x_base/</link><pubDate>Wed, 19 Aug 2020 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/cplusplus1x_base/</guid><description>&lt;h3 id="1-nullptr">(1) nullptr&lt;/h3>
+&lt;/ul></description></item><item><title>初步认识c++1x的新特性</title><link>/post/cplusplus1x_base/</link><pubDate>Wed, 19 Aug 2020 00:00:00 +0000</pubDate><guid>/post/cplusplus1x_base/</guid><description>&lt;h3 id="1-nullptr">(1) nullptr&lt;/h3>
 &lt;p>用&lt;font color='red'> nullptr &lt;/font>代替NULL,&lt;/p>
 &lt;p>NULL是一个宏定义，在c和c++中的定义不同，c中NULL为（void*)0,而c++中NULL为整数0&lt;/p>
 &lt;pre>&lt;code class="language-cpp">void foo(char *);
@@ -129,7 +129,7 @@ void foo(int);
 &lt;p>使用NULL的情景均可用&lt;font color='red'> nullptr &lt;/font>代替&lt;/p>
 &lt;h3 id="2-constexpr">(2) constexpr&lt;/h3>
 &lt;p>&lt;font color='red'> constexpr &lt;/font>让用户显式的声明函数或对象构造函数在编译器为常数&lt;/p>
-&lt;p>&lt;font color='red'> constexpr &lt;/font> 的函数可以使用递归，从 C++ 14 开始，&lt;font color='red'> constexpr &lt;/font>函数可以在内部使用局部变量、循环和分支等简单语句，但 C++ 11 中是不可以的&lt;/p></description></item><item><title>记录一个有趣的dp题目-leetcode 546 移除盒子</title><link>https://wineee.github.io/post/leetcode_546_dp/</link><pubDate>Sat, 15 Aug 2020 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/leetcode_546_dp/</guid><description>&lt;h2 id="题面">题面&lt;/h2>
+&lt;p>&lt;font color='red'> constexpr &lt;/font> 的函数可以使用递归，从 C++ 14 开始，&lt;font color='red'> constexpr &lt;/font>函数可以在内部使用局部变量、循环和分支等简单语句，但 C++ 11 中是不可以的&lt;/p></description></item><item><title>记录一个有趣的dp题目-leetcode 546 移除盒子</title><link>/post/leetcode_546_dp/</link><pubDate>Sat, 15 Aug 2020 00:00:00 +0000</pubDate><guid>/post/leetcode_546_dp/</guid><description>&lt;h2 id="题面">题面&lt;/h2>
 &lt;blockquote>
 &lt;p>给出一些不同颜色的盒子，盒子的颜色由数字表示，即不同的数字表示不同的颜色。&lt;/p>
 &lt;/blockquote>
@@ -139,7 +139,7 @@ void foo(int);
 &lt;/blockquote>
 &lt;p>来源：力扣（LeetCode）&lt;/p>
 &lt;p>链接：https://leetcode-cn.com/problems/remove-boxes
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。&lt;/p></description></item><item><title>[VC++课程设计] 用mfc实现数学函数曲线绘制程序</title><link>https://wineee.github.io/post/cpplab_mfcplot/</link><pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/cpplab_mfcplot/</guid><description>&lt;h3 id="实验环境">实验环境&lt;/h3>
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。&lt;/p></description></item><item><title>[VC++课程设计] 用mfc实现数学函数曲线绘制程序</title><link>/post/cpplab_mfcplot/</link><pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate><guid>/post/cpplab_mfcplot/</guid><description>&lt;h3 id="实验环境">实验环境&lt;/h3>
 &lt;ul>
 &lt;li>window 10 版本19041&lt;/li>
 &lt;li>Microsoft Visual Studio Community 2019 版本 16.6.4&lt;/li>
@@ -159,14 +159,14 @@ void foo(int);
 &lt;li>&lt;input checked="" disabled="" type="checkbox"> 状态栏实时显示鼠标位置，双击显示鼠标精确位置&lt;/li>
 &lt;li>&lt;input checked="" disabled="" type="checkbox"> 重要数据的序列化和反序列化&lt;/li>
 &lt;li>&lt;input disabled="" type="checkbox"> 突变函数(如$floor(x)$)和部分y值接近无穷的函数(如$tan(x)$)无法完美显示&lt;/li>
-&lt;/ul></description></item><item><title>[管理运筹学]线性规划&amp;单纯形法的各种姿势(题目：[NOI2008]志愿者招募)</title><link>https://wineee.github.io/post/cpplab_simplex/</link><pubDate>Sat, 29 Jun 2019 00:00:00 +0800</pubDate><guid>https://wineee.github.io/post/cpplab_simplex/</guid><description>&lt;h2 id="题目描述">题目描述&lt;/h2>
-&lt;p>申奥成功后，布布经过不懈努力，终于成为奥组委下属公司人力资源部门的主管。布布刚上任就遇到了一个难题：为即将启动的奥运新项目招募一批短期志愿者。经过估算，这个项目需要$ N $天才能完成，其中第 $ i $ 天至少需要$A_i$个人。 布布通过了解得知，一共有$M$类志愿者可以招募。其中第$i$类可以从第$S_i$ 天工作到第 $ T_i $ 天，招募费用是每人$C_i$ 元。新官上任三把火，为了出色地完成自己的工作，布布希望用尽量少的费用招募足够的志愿者，但这并不是他的特长。于是布布找到了你，希望你帮他设计一种最优的招募方案。&lt;/p></description></item><item><title>[管理运筹学]指派问题的匈牙利算法及其c++实现 (例:「网络流 24 题」分配问题 )</title><link>https://wineee.github.io/post/cpplab_hungarian_algorithm/</link><pubDate>Fri, 28 Jun 2019 00:00:00 +0800</pubDate><guid>https://wineee.github.io/post/cpplab_hungarian_algorithm/</guid><description>&lt;p>&lt;strong>题目描述&lt;/strong>&lt;/p>
+&lt;/ul></description></item><item><title>[管理运筹学]线性规划&amp;单纯形法的各种姿势(题目：[NOI2008]志愿者招募)</title><link>/post/cpplab_simplex/</link><pubDate>Sat, 29 Jun 2019 00:00:00 +0800</pubDate><guid>/post/cpplab_simplex/</guid><description>&lt;h2 id="题目描述">题目描述&lt;/h2>
+&lt;p>申奥成功后，布布经过不懈努力，终于成为奥组委下属公司人力资源部门的主管。布布刚上任就遇到了一个难题：为即将启动的奥运新项目招募一批短期志愿者。经过估算，这个项目需要$ N $天才能完成，其中第 $ i $ 天至少需要$A_i$个人。 布布通过了解得知，一共有$M$类志愿者可以招募。其中第$i$类可以从第$S_i$ 天工作到第 $ T_i $ 天，招募费用是每人$C_i$ 元。新官上任三把火，为了出色地完成自己的工作，布布希望用尽量少的费用招募足够的志愿者，但这并不是他的特长。于是布布找到了你，希望你帮他设计一种最优的招募方案。&lt;/p></description></item><item><title>[管理运筹学]指派问题的匈牙利算法及其c++实现 (例:「网络流 24 题」分配问题 )</title><link>/post/cpplab_hungarian_algorithm/</link><pubDate>Fri, 28 Jun 2019 00:00:00 +0800</pubDate><guid>/post/cpplab_hungarian_algorithm/</guid><description>&lt;p>&lt;strong>题目描述&lt;/strong>&lt;/p>
 &lt;p>有 n 件工作要分配给 n 个人做。第 i 个人做第 j 件工作产生的效益为 c[i][j] 。试设计一个将 n 件工作分配给 n 个人做的分配方案，使产生的总效益最大。
 输入格式：
 文件的第 1 行有 1 个正整数 n，表示有 n 件工作要分配给 n个人做。
 接下来的n 行中，每行有 n 个整数 c[i][j]，表示第 i个人做第 j 件工作产生的效益为 c[i][j]。
 输出格式：
-两行分别输出最小总效益和最大总效益。&lt;/p></description></item><item><title>[c语言课程设计] 重排九宫问题</title><link>https://wineee.github.io/post/cpplab_calc_jiugongge/</link><pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate><guid>https://wineee.github.io/post/cpplab_calc_jiugongge/</guid><description>&lt;h2 id="题目-重排9宫">题目 重排9宫&lt;/h2>
+两行分别输出最小总效益和最大总效益。&lt;/p></description></item><item><title>[c语言课程设计] 重排九宫问题</title><link>/post/cpplab_calc_jiugongge/</link><pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate><guid>/post/cpplab_calc_jiugongge/</guid><description>&lt;h2 id="题目-重排9宫">题目 重排9宫&lt;/h2>
 &lt;h3 id="设计内容">设计内容：&lt;/h3>
 &lt;p>编写软件模拟排九宫。从九宫的某个状态出发，移动格子中的数字，使9宫格中的数字顺序排列，空格在最后。&lt;/p>
 &lt;h3 id="设计功能">设计功能：&lt;/h3>
