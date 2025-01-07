@@ -1,16 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Haskell on REWINE NOTE</title><link>/tags/haskell/</link><description>Recent content in Haskell on REWINE NOTE</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 20 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/haskell/index.xml" rel="self" type="application/rss+xml"/><item><title>Codeworld: 使用Haskell实现一个贪吃蛇小游戏</title><link>/post/haskell_snake_game/</link><pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate><guid>/post/haskell_snake_game/</guid><description>&lt;p>haskell 的一些教学可以参考：&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Haskell on REWINE NOTE</title><link>/tags/haskell/</link><description>Recent content in Haskell on REWINE NOTE</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Fri, 20 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/haskell/index.xml" rel="self" type="application/rss+xml"/><item><title>Codeworld: 使用Haskell实现一个贪吃蛇小游戏</title><link>/post/haskell_snake_game/</link><pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate><guid>/post/haskell_snake_game/</guid><description>&lt;p>haskell 的一些教学可以参考：&lt;/p>
 &lt;p>&lt;a href="https://www.seas.upenn.edu/~cis194/fall16/index.html" target="_blank">https://www.seas.upenn.edu/~cis194/fall16/index.html&lt;/a>&lt;/p>
 &lt;p>CodeWorld：可以在线运行hs代码，基于ghc.js，&lt;del>四舍五入还是在本地跑&lt;/del>&lt;/p>
 &lt;p>&lt;a href="https://code.world/haskell#" target="_blank">https://code.world/haskell&lt;/a>&lt;/p>
 &lt;p>下面是利用 CodeWorld 画圆的小例子&lt;/p>
 &lt;pre>&lt;code class="language-haskell">import CodeWorld
+
 main :: IO()
 main = do
-drawingOf $ circle 1
+ drawingOf $ circle 1
 &lt;/code>&lt;/pre></description></item><item><title>Haskell 常用函数笔记</title><link>/post/leran_haskell_01/</link><pubDate>Mon, 21 Jun 2021 00:00:00 +0000</pubDate><guid>/post/leran_haskell_01/</guid><description>&lt;h3 id="运算符函数">运算符函数&lt;/h3>
 &lt;h6 id="-取第n个元素">(!!) 取第n个元素&lt;/h6>
 &lt;pre>&lt;code class="language-haskell">Prelude&amp;gt; :t (!!)
 (!!) :: [a] -&amp;gt; Int -&amp;gt; a
+
 Prelude&amp;gt; [0,1,2,3,4]!!3
 3
 Prelude&amp;gt; [0,1,2,3,4]!!0
@@ -21,10 +23,12 @@ Prelude&amp;gt; [0,1,2,3,4]!!0
 (^) :: (Integral b, Num a) =&amp;gt; a -&amp;gt; b -&amp;gt; a
 Prelude&amp;gt; 54.5^5
 4.8081998590625e8
+
 Prelude&amp;gt; :t (^^)
 (^^) :: (Fractional a, Integral b) =&amp;gt; a -&amp;gt; b -&amp;gt; a
 Prelude&amp;gt; 5.6^^6
 30840.979455999986
+
 Prelude&amp;gt; :t (**)
 (**) :: Floating a =&amp;gt; a -&amp;gt; a -&amp;gt; a
 Prelude&amp;gt; 0.2**0.1

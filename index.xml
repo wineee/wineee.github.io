@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>REWINE NOTE</title><link>/</link><description>Recent content on REWINE NOTE</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 27 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>在 nixos 中使用 telega 进行聊天</title><link>/post/use_telega_in_nixos/</link><pubDate>Wed, 27 Oct 2021 00:00:00 +0000</pubDate><guid>/post/use_telega_in_nixos/</guid><description>&lt;p>telega 是一个 emacs 上的 Telegram 客户端，在 nixos 中，telega 包过于老旧，在 unstable 中已经无了，下面尝试使用传统方法安装 telega。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>REWINE NOTE</title><link>/</link><description>Recent content on REWINE NOTE</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Wed, 27 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>在 nixos 中使用 telega 进行聊天</title><link>/post/use_telega_in_nixos/</link><pubDate>Wed, 27 Oct 2021 00:00:00 +0000</pubDate><guid>/post/use_telega_in_nixos/</guid><description>&lt;p>telega 是一个 emacs 上的 Telegram 客户端，在 nixos 中，telega 包过于老旧，在 unstable 中已经无了，下面尝试使用传统方法安装 telega。&lt;/p>
 &lt;h3 id="下载源代码">下载源代码&lt;/h3>
 &lt;pre>&lt;code class="language-bash">cd ~/.emacs.d/site-lisp
 git clone git@github.com:zevlg/telega.el.git
@@ -22,13 +22,15 @@ git submodule update --init --recursive
 &lt;p>&lt;a href="https://code.world/haskell#" target="_blank">https://code.world/haskell&lt;/a>&lt;/p>
 &lt;p>下面是利用 CodeWorld 画圆的小例子&lt;/p>
 &lt;pre>&lt;code class="language-haskell">import CodeWorld
+
 main :: IO()
 main = do
-drawingOf $ circle 1
+ drawingOf $ circle 1
 &lt;/code>&lt;/pre></description></item><item><title>Haskell 常用函数笔记</title><link>/post/leran_haskell_01/</link><pubDate>Mon, 21 Jun 2021 00:00:00 +0000</pubDate><guid>/post/leran_haskell_01/</guid><description>&lt;h3 id="运算符函数">运算符函数&lt;/h3>
 &lt;h6 id="-取第n个元素">(!!) 取第n个元素&lt;/h6>
 &lt;pre>&lt;code class="language-haskell">Prelude&amp;gt; :t (!!)
 (!!) :: [a] -&amp;gt; Int -&amp;gt; a
+
 Prelude&amp;gt; [0,1,2,3,4]!!3
 3
 Prelude&amp;gt; [0,1,2,3,4]!!0
@@ -39,10 +41,12 @@ Prelude&amp;gt; [0,1,2,3,4]!!0
 (^) :: (Integral b, Num a) =&amp;gt; a -&amp;gt; b -&amp;gt; a
 Prelude&amp;gt; 54.5^5
 4.8081998590625e8
+
 Prelude&amp;gt; :t (^^)
 (^^) :: (Fractional a, Integral b) =&amp;gt; a -&amp;gt; b -&amp;gt; a
 Prelude&amp;gt; 5.6^^6
 30840.979455999986
+
 Prelude&amp;gt; :t (**)
 (**) :: Floating a =&amp;gt; a -&amp;gt; a -&amp;gt; a
 Prelude&amp;gt; 0.2**0.1
@@ -59,7 +63,7 @@ Prelude&amp;gt; 0.2**0.1
 &lt;/ul>
 &lt;p>数据是使程序能正常操纵信息的数据结构。
 文档是与程序开发，维护和使用有关的图文材料。&lt;/p></description></item><item><title>整理一下图灵奖得主们都干了什么</title><link>/post/turing_award/</link><pubDate>Mon, 12 Apr 2021 00:00:00 +0000</pubDate><guid>/post/turing_award/</guid><description>&lt;p>前不久，2020图灵奖今日出炉，龙书作者 Alfred Vaino Aho 和 Jeffrey David Ullman 获奖，作为计算机界的最高荣誉，图灵奖获得者及其成果对计算机学科意义非凡，以前只是大概知道几个人，今天，特地翻了翻维基，看看得奖的都有谁。&lt;/p></description></item><item><title>使用c++解决leetcode多线程题题目（之一）semaphore</title><link>/post/leetcode_cpp_sem/</link><pubDate>Fri, 09 Apr 2021 00:00:00 +0000</pubDate><guid>/post/leetcode_cpp_sem/</guid><description>&lt;p>通过 &lt;code>man sem_init&lt;/code> 可以查看具体文档。
-或者使用： &lt;a href="https://man7.org/linux/man-pages/man3/sem_init.3.html">https://man7.org/linux/man-pages/man3/sem_init.3.html&lt;/a>&lt;/p>
+或者使用： &lt;a href="https://man7.org/linux/man-pages/man3/sem_init.3.html" target="_blank">https://man7.org/linux/man-pages/man3/sem_init.3.html&lt;/a>&lt;/p>
 &lt;p>sem_init函数是Posix信号量操作中的函数。sem_init() 初始化一个定位在 sem 的匿名信号量。pshared 参数指明信号量是由进程内共享，还是由进程之间共享。如果 pshared 的值为 0，那么信号量将被进程内的线程共享。value 参数指定的初始值。&lt;/p>
 &lt;p>sem_post是给信号量的值加上一个“1”，它是一个“原子操作”－－－即同时对同一个信号量做加“1”操作的两个线程是不会冲突的。&lt;/p>
 &lt;p>sem_wait是一个函数，也是一个原子操作，它的作用是从信号量的值减去一个“1”，但它永远会先等待该信号量为一个非零值才开始做减法。也就是说，如果你对一个值为2的信号量调用sem_wait()，线程将会继续执行，将信号量的值将减到1。如果对一个值为0的信号量调用sem_wait()，这个函数就会原地等待直到有其它线程增加了这个值使它不再是0为止。&lt;/p></description></item><item><title>goroutine 的学习之旅</title><link>/post/learn_goroutine/</link><pubDate>Sat, 03 Apr 2021 00:00:00 +0000</pubDate><guid>/post/learn_goroutine/</guid><description>&lt;p>回想起来，我是因为对 goroutine 有兴趣而去了解 Go 的，因为 finger tree 而想学 Haskell，结果坑留了半年了（另一个坑留了快3年，Monad 还没弄明白），今天有时间先填上一个再说。&lt;/p>
@@ -67,22 +71,22 @@ Prelude&amp;gt; 0.2**0.1
 &lt;p>Go使用的是并发模型中的 CSP 模型，Communicating Sequential Processes，译为通信顺序进程、七周七并发第六章内容，这本书继续留坑有空再看。&lt;/p></description></item><item><title>我的全平台软件清单</title><link>/post/my_softworks/</link><pubDate>Fri, 12 Feb 2021 00:00:00 +0000</pubDate><guid>/post/my_softworks/</guid><description>&lt;h2 id="linux">linux&lt;/h2>
 &lt;ul>
 &lt;li>
-&lt;p>oh-my-zsh 漂亮好用的 shell&lt;/p>
+&lt;p>oh-my-zsh	漂亮好用的 shell&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>alacritty 终端模拟器&lt;/p>
+&lt;p>alacritty	终端模拟器&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>htop 交互式的进程浏览器，可以用来替换Linux下的top命令&lt;/p>
+&lt;p>htop	交互式的进程浏览器，可以用来替换Linux下的top命令&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>ranger 终端文件管理器&lt;/p>
+&lt;p>ranger	终端文件管理器&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>ncdu/filelight 查看磁盘目录占用空间&lt;/p>
+&lt;p>ncdu/filelight	查看磁盘目录占用空间&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>wps/Liberoffice 办公软件，Liberoffice Draw可以画流程图&lt;/p>
+&lt;p>wps/Liberoffice	办公软件，Liberoffice Draw可以画流程图&lt;/p>
 &lt;/li>
 &lt;/ul></description></item><item><title>关于蓝桥杯等算法竞赛的经验总结</title><link>/post/lanqiaobie/</link><pubDate>Fri, 22 Jan 2021 00:00:00 +0000</pubDate><guid>/post/lanqiaobie/</guid><description>&lt;h2 id="1准备蓝桥杯需要做什么有哪些需要学习的算法">1.准备蓝桥杯需要做什么，有哪些需要学习的算法？&lt;/h2>
 &lt;h4 id="熟悉比赛环境">熟悉比赛环境&lt;/h4>
@@ -93,7 +97,14 @@ Prelude&amp;gt; 0.2**0.1
 &lt;p>以前在同学帮助下搭建了 hexo+github 的 blog，不过我嫌主题不好看万年不更新。&lt;/p>
 &lt;p>&lt;a href="blog.csdn.net/qq_33831360">csdn&lt;/a> 的blog因为要绑定手机号，高中没机会用，大一才开始写一些东西。&lt;/p>
 &lt;p>&lt;a href="https://home.cnblogs.com/u/rewine/" target="_blank">博客园&lt;/a> 后台太丑，不喜欢用这个写。&lt;/p>
-&lt;p>&lt;a href="https://github.com/getgridea/gridea" target="_blank">gridea&lt;/a> 这个是我去年了解的，看上去挺方便的，我没试过，感兴趣的可以看看。&lt;/p></description></item><item><title>About Me</title><link>/about/</link><pubDate>Mon, 11 Jan 2021 19:15:32 +0800</pubDate><guid>/about/</guid><description>资浅码农，信安专业学生一枚</description></item><item><title>友链</title><link>/friends/</link><pubDate>Mon, 11 Jan 2021 19:15:32 +0800</pubDate><guid>/friends/</guid><description>Orz hzwer 黄学长的博客，承载oi记忆 coolshell 耗子叔的博客，干货比较多 manateelazycat 老王，emacs黑客，前deepin开发者, eaf作者 yinwang 王垠，PL领域大神 Felix Yan Arch打包达人肥猫</description></item><item><title>现代密码学复习总结</title><link>/post/cryptography_review/</link><pubDate>Fri, 04 Dec 2020 00:00:00 +0800</pubDate><guid>/post/cryptography_review/</guid><description>&lt;h1 id="第一章-引言">第一章 引言&lt;/h1>
+&lt;p>&lt;a href="https://github.com/getgridea/gridea" target="_blank">gridea&lt;/a> 这个是我去年了解的，看上去挺方便的，我没试过，感兴趣的可以看看。&lt;/p></description></item><item><title>About Me</title><link>/about/</link><pubDate>Mon, 11 Jan 2021 19:15:32 +0800</pubDate><guid>/about/</guid><description>&lt;p>资浅码农，信安专业学生一枚&lt;/p></description></item><item><title>友链</title><link>/friends/</link><pubDate>Mon, 11 Jan 2021 19:15:32 +0800</pubDate><guid>/friends/</guid><description>&lt;p>Orz&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="http://hzwer.com" target="_blank">hzwer&lt;/a> 黄学长的博客，承载oi记忆&lt;/li>
+&lt;li>&lt;a href="https://coolshell.cn" target="_blank">coolshell&lt;/a> 耗子叔的博客，干货比较多&lt;/li>
+&lt;li>&lt;a href="https://manateelazycat.github.io/index.html" target="_blank">manateelazycat&lt;/a> 老王，emacs黑客，前deepin开发者, eaf作者&lt;/li>
+&lt;li>&lt;a href="http://www.yinwang.org" target="_blank">yinwang&lt;/a> 王垠，PL领域大神&lt;/li>
+&lt;li>&lt;a href="https://felixc.at" target="_blank">Felix Yan&lt;/a> Arch打包达人肥猫&lt;/li>
+&lt;/ul></description></item><item><title>现代密码学复习总结</title><link>/post/cryptography_review/</link><pubDate>Fri, 04 Dec 2020 00:00:00 +0800</pubDate><guid>/post/cryptography_review/</guid><description>&lt;h1 id="第一章-引言">第一章 引言&lt;/h1>
 &lt;h3 id="什么是被动攻击和主动攻击各有几种类型">什么是被动攻击和主动攻击,各有几种类型?&lt;/h3>
 &lt;ul>
 &lt;li>
