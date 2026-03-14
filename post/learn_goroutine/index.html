@@ -1,192 +1,308 @@
-<!doctype html><html lang=zh-hans><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=HandheldFriendly content="True"><meta http-equiv=X-UA-Compatible content="IE=edge"><meta http-equiv=Cache-Control content="no-transform"><meta http-equiv=Cache-Control content="no-siteapp"><meta name=generator content="Hugo 0.140.1"><link rel=apple-touch-icon sizes=180x180 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png><link rel=manifest href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest><link rel=mask-icon href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg color=#8aa2d3><link rel="shortcut icon" href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico><meta name=theme-color content="#ffffff"><title>goroutine 的学习之旅 - REWINE NOTE</title>
-<meta name=author content="rewine"><meta name=description content="A minimal Hugo theme with nice theme color."><meta name=keywords content="go,goroutine,并发"><meta property="og:title" content="goroutine 的学习之旅"><meta name=twitter:title content="goroutine 的学习之旅"><meta property="og:type" content="article"><meta property="og:url" content="/post/learn_goroutine/"><meta property="og:description" content="回想起来，我是因为对 goroutine 有兴趣而去了解 Go 的，因为 finger tree 而想学 Haskell，结果坑留了半年了（另一个坑留了快3年，Monad 还没弄明白），今天有时间先填上一个再说。
+<!doctype html><html lang=zh-hans dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>goroutine 的学习之旅 | REWINE NOTE</title>
+<meta name=keywords content="go,goroutine,并发"><meta name=description content="回想起来，我是因为对 goroutine 有兴趣而去了解 Go 的，因为 finger tree 而想学 Haskell，结果坑留了半年了（另一个坑留了快3年，Monad 还没弄明白），今天有时间先填上一个再说。
 goroutine，Go 语言的协程，是一种比线程更轻量的存在，一个cpu可以支持上万的协程。Go 可以通过 goroutine 支持并发。
-Go使用的是并发模型中的 CSP 模型，Communicating Sequential Processes，译为通信顺序进程、七周七并发第六章内容，这本书继续留坑有空再看。"><meta name=twitter:description content="回想起来，我是因为对 goroutine 有兴趣而去了解 Go 的，因为 finger tree 而想学 Haskell，结果坑留了半年了（另一个坑留了快3年，Monad 还没弄明白），今天有时间先填上一个再说。
+Go使用的是并发模型中的 CSP 模型，Communicating Sequential Processes，译为通信顺序进程、七周七并发第六章内容，这本书继续留坑有空再看。"><meta name=author content="rewine"><link rel=canonical href=/post/learn_goroutine/><link crossorigin=anonymous href=/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css integrity="sha256-2jIR5e+Ge/K3X9WmUVz+1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as=style><link rel=icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=apple-touch-icon href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh-hans href=/post/learn_goroutine/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}@media(prefers-color-scheme:light){.list::-webkit-scrollbar-thumb{border-color:var(--code-bg)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><meta property="og:url" content="/post/learn_goroutine/"><meta property="og:site_name" content="REWINE NOTE"><meta property="og:title" content="goroutine 的学习之旅"><meta property="og:description" content="回想起来，我是因为对 goroutine 有兴趣而去了解 Go 的，因为 finger tree 而想学 Haskell，结果坑留了半年了（另一个坑留了快3年，Monad 还没弄明白），今天有时间先填上一个再说。
 goroutine，Go 语言的协程，是一种比线程更轻量的存在，一个cpu可以支持上万的协程。Go 可以通过 goroutine 支持并发。
-Go使用的是并发模型中的 CSP 模型，Communicating Sequential Processes，译为通信顺序进程、七周七并发第六章内容，这本书继续留坑有空再看。"><meta property="og:image" content="/img/og.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/img/og.png"><meta property="article:published_time" content="2021-04-03T00:00:00+00:00"><meta property="article:modified_time" content="2021-04-03T00:00:00+00:00"><style>@media(prefers-color-scheme:dark){body[data-theme=auto] img{filter:brightness(60%)}}body[data-theme=dark] img{filter:brightness(60%)}</style><link rel=stylesheet href=/assets/css/fuji.min.b4a21b5d3eb1d0a51297e31230a65fc25e387843e45ec3a2d9176cd8d163c216d99b9b13a618b28f537c3b559ec8a408183b0fbfad48daddb9befa7d3ef90eed.css integrity="sha512-tKIbXT6x0KUSl+MSMKZfwl44eEPkXsOi2Rds2NFjwhbZm5sTphiyj1N8O1WeyKQIGDsPv61I2t25vvp9PvkO7Q=="></head><body data-theme=auto data-theme-auto=false><script data-cfasync=false>var fujiThemeData=localStorage.getItem("fuji_data-theme");fujiThemeData?fujiThemeData!=="auto"&&document.body.setAttribute("data-theme",fujiThemeData==="dark"?"dark":"light"):localStorage.setItem("fuji_data-theme","auto")</script><header></header><main><div class="container-lg clearfix"><div class="col-12 col-md-9 float-left content"><article><h1 class="post-item post-title"><a href=/post/learn_goroutine/>goroutine 的学习之旅</a></h1><div class="post-item post-meta"><span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-04-03</span>
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1381 字</span>
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href=/tags/go>go</a>&nbsp;<a href=/tags/goroutine>goroutine</a>&nbsp;<a href=/tags/%E5%B9%B6%E5%8F%91>并发</a>&nbsp;</span></div><div class="post-content markdown-body"><p>回想起来，我是因为对 goroutine 有兴趣而去了解 Go 的，因为 finger tree 而想学 Haskell，结果坑留了半年了（另一个坑留了快3年，Monad 还没弄明白），今天有时间先填上一个再说。</p><p>goroutine，Go 语言的协程，是一种比线程更轻量的存在，一个cpu可以支持上万的协程。Go 可以通过 goroutine 支持并发。</p><p>Go使用的是并发模型中的 CSP 模型，Communicating Sequential Processes，译为通信顺序进程、七周七并发第六章内容，这本书继续留坑有空再看。</p><h3 id=go>go</h3><p>在函数调用前使用 go 语句可以开启一个新的 goroutine。</p><pre><code class=language-go>package main
-
-import (
-        &quot;fmt&quot;
-        &quot;time&quot;
-)
-
-func say(s string) {
-        for i := 0; i &lt; 5; i++ {
-                time.Sleep(100 * time.Millisecond)
-                fmt.Println(s)
-        }
-}
-
-func main() {
-        go say(&quot;world&quot;)
-        say(&quot;hello&quot;)
-}
-</code></pre><p>可以看到输出hello，world交替出现，程序不再是串行执行了。</p><pre><code class=language-bash>earn_goroutine (main*) » go run a.go
-hello
-world
-hello
-world
-hello
-world
-world
-hello
-hello
-</code></pre><p>如果say(&ldquo;hello&rdquo;)前面也加上go呢？</p><pre><code class=language-go>func main() {
-        go say(&quot;world&quot;)
-        go say(&quot;hello&quot;)
-}
-</code></pre><p>结果程序什么都不会输出！因为main函数执行完了程序就会退出，不会等所有 goroutine 退出。</p><p>解决方法就是在 main 函数结尾 sleep 到所有 goroutine 执行完毕。</p><p>然而 sleep 多长时间合适，就不太好确定了。 而 sync.WaitGroup 可以解决这个问题，Add 有几个 goroutine 要等待， goroutine 完成后调用 Done，Wait 进行等待直到所有 Add 的 goroutine Done 了。</p><pre><code class=language-go>package main
-
-import (
-	&quot;fmt&quot;
-	&quot;time&quot;
-	&quot;sync&quot;
-)
-
-func main() {
-	var wg sync.WaitGroup;
-	wg.Add(2)
-	go func() {
-		say(&quot;world&quot;)
-		wg.Done()
-	}()
-	go func() {
-		say(&quot;hello&quot;)
-		wg.Done()
-	}()
-	wg.Wait()
-}
-
-func say(s string) {
-	for i := 0; i &lt; 5; i++ {
-		time.Sleep(100 * time.Millisecond)
-		fmt.Println(s)
-	}
-}
-</code></pre><h3 id=channel>channel</h3><p>通道（channel）是用来传递数据的一个数据结构，CSP模型的精髓。</p><p>通道可用于两个 goroutine 之间通过传递一个指定类型的值来同步运行和通讯。操作符 <code>&lt;-</code> 用于指定通道的方向, 默认则为双向通道</p><p>使用chan关键字声明一个 channel。</p><p>发送和接收消息是阻塞的，如果没人接收，发送方会阻塞在那里，反之同理。</p><pre><code class=language-go>// 将数组分成两半求和的程序
-package main
-
-import &quot;fmt&quot;
-
-func sum(s []int, c chan int) {
-	sum := 0
-	for _, v := range s {
-		sum += v
-	}
-	c &lt;- sum
-}
-
-func main() {
-	s := []int{1, 2, 3, 4, 5, 6}
-	c := make(chan int)
-	go sum(s[:len(s)/2], c)
-	go sum(s[len(s)/2:], c)
-	x,y := &lt;-c, &lt;-c
-	fmt.Println(x, y, x+y)
-}
-</code></pre><p>通过 <code>close(c)</code> 可以关闭 channel, <code>c&lt;-</code> 的第二个参数表示 channel 的开闭。</p><pre><code class=language-go>for {
-	message,open := &lt;-c
-	if (!open) break
-}
-</code></pre><p>也可以用 range</p><pre><code class=language-go>for message := range c {
-}
-</code></pre><h4 id=通道缓冲区>通道缓冲区</h4><p>如果没有缓冲区，可能造成发送消息溢出，导致接收方永远收不到溢出的信息，一直阻塞，如下例</p><pre><code class=language-go>package main
-
-import &quot;fmt&quot;
-
-func main() {
-        ch := make(chan int)
-        ch &lt;- 1
-        ch &lt;- 2
-        fmt.Println(&lt;-ch)
-        fmt.Println(&lt;-ch)
-}
-</code></pre><p>运行结果</p><blockquote><p>learn_goroutine (main*) » go run c.go
+Go使用的是并发模型中的 CSP 模型，Communicating Sequential Processes，译为通信顺序进程、七周七并发第六章内容，这本书继续留坑有空再看。"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="post"><meta property="article:published_time" content="2021-04-03T00:00:00+00:00"><meta property="article:modified_time" content="2021-04-03T00:00:00+00:00"><meta property="article:tag" content="Go"><meta property="article:tag" content="Goroutine"><meta property="article:tag" content="并发"><meta name=twitter:card content="summary"><meta name=twitter:title content="goroutine 的学习之旅"><meta name=twitter:description content="回想起来，我是因为对 goroutine 有兴趣而去了解 Go 的，因为 finger tree 而想学 Haskell，结果坑留了半年了（另一个坑留了快3年，Monad 还没弄明白），今天有时间先填上一个再说。
+goroutine，Go 语言的协程，是一种比线程更轻量的存在，一个cpu可以支持上万的协程。Go 可以通过 goroutine 支持并发。
+Go使用的是并发模型中的 CSP 模型，Communicating Sequential Processes，译为通信顺序进程、七周七并发第六章内容，这本书继续留坑有空再看。"><script type=application/ld+json>"{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"/post/\",\"name\":\"Posts\",\"position\":1}]}"</script><script type=application/ld+json>"{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"articleBody\":\"回想起来，我是因为对 goroutine 有兴趣而去了解 Go 的，因为 finger tree 而想学 Haskell，结果坑留了半年了（另一个坑留了快3年，Monad 还没弄明白），今天有时间先填上一个再说。\\ngoroutine，Go 语言的协程，是一种比线程更轻量的存在，一个cpu可以支持上万的协程。Go 可以通过 goroutine 支持并发。\\nGo使用的是并发模型中的 CSP 模型，Communicating Sequential Processes，译为通信顺序进程、七周七并发第六章内容，这本书继续留坑有空再看。\\ngo 在函数调用前使用 go 语句可以开启一个新的 goroutine。\\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 package main import ( \\\"fmt\\\" \\\"time\\\" ) func say(s string) { for i := 0; i \\u003c 5; i++ { time.Sleep(100 * time.Millisecond) fmt.Println(s) } } func main() { go say(\\\"world\\\") say(\\\"hello\\\") } 可以看到输出hello，world交替出现，程序不再是串行执行了。\\n1 2 3 4 5 6 7 8 9 10 earn_goroutine (main*) » go run a.go hello world hello world hello world world hello hello 如果say(“hello”)前面也加上go呢？\\n1 2 3 4 func main() { go say(\\\"world\\\") go say(\\\"hello\\\") } 结果程序什么都不会输出！因为main函数执行完了程序就会退出，不会等所有 goroutine 退出。\\n解决方法就是在 main 函数结尾 sleep 到所有 goroutine 执行完毕。\\n然而 sleep 多长时间合适，就不太好确定了。 而 sync.WaitGroup 可以解决这个问题，Add 有几个 goroutine 要等待， goroutine 完成后调用 Done，Wait 进行等待直到所有 Add 的 goroutine Done 了。\\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 package main import ( \\\"fmt\\\" \\\"time\\\" \\\"sync\\\" ) func main() { var wg sync.WaitGroup; wg.Add(2) go func() { say(\\\"world\\\") wg.Done() }() go func() { say(\\\"hello\\\") wg.Done() }() wg.Wait() } func say(s string) { for i := 0; i \\u003c 5; i++ { time.Sleep(100 * time.Millisecond) fmt.Println(s) } } channel 通道（channel）是用来传递数据的一个数据结构，CSP模型的精髓。\\n通道可用于两个 goroutine 之间通过传递一个指定类型的值来同步运行和通讯。操作符 \\u003c- 用于指定通道的方向, 默认则为双向通道\\n使用chan关键字声明一个 channel。\\n发送和接收消息是阻塞的，如果没人接收，发送方会阻塞在那里，反之同理。\\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 // 将数组分成两半求和的程序 package main import \\\"fmt\\\" func sum(s []int, c chan int) { sum := 0 for _, v := range s { sum += v } c \\u003c- sum } func main() { s := []int{1, 2, 3, 4, 5, 6} c := make(chan int) go sum(s[:len(s)/2], c) go sum(s[len(s)/2:], c) x,y := \\u003c-c, \\u003c-c fmt.Println(x, y, x+y) } 通过 close(c) 可以关闭 channel, c\\u003c- 的第二个参数表示 channel 的开闭。\\n1 2 3 4 for { message,open := \\u003c-c if (!open) break } 也可以用 range\\n1 2 for message := range c { } 通道缓冲区 如果没有缓冲区，可能造成发送消息溢出，导致接收方永远收不到溢出的信息，一直阻塞，如下例\\n1 2 3 4 5 6 7 8 9 10 11 package main import \\\"fmt\\\" func main() { ch := make(chan int) ch \\u003c- 1 ch \\u003c- 2 fmt.Println(\\u003c-ch) fmt.Println(\\u003c-ch) } 运行结果\\nlearn_goroutine (main*) » go run c.go fatal error: all goroutines are asleep - deadlock!goroutine 1 [chan send]: main.main() /home/rew/CodeDrafts/learn_goroutine/c.go:12 +0x59 exit status 2\\n我们可以通过 make 的第二个参数指定缓冲区大小：\\nc h : = m a k e ( c h a n i n t , 1 0 0 ) 带缓冲区的通道允许发送端的数据发送和接收端的数据获取处于异步状态，就是说发送端发送的数据可以放在缓冲区里面，可以等待接收端去获取数据，而不是立刻需要接收端去获取数据。\\n1 2 3 4 5 6 7 8 func main() { // 定义了一个可以存储整数类型的带缓冲通道 缓冲区大小为2 ch := make(chan int, 2) ch \\u003c- 1 ch \\u003c- 2 fmt.Println(\\u003c-ch) fmt.Println(\\u003c-ch) } 注意，如果缓冲区不够大，依然会溢出，\\nselect select 是 Go 中的一个控制结构，类似于用于通信的 switch 语句。每个 case 必须是一个通信操作，要么是发送要么是接收。\\nselect 随机执行一个可运行的 case。如果没有 case 可运行，它将阻塞，直到有 case 可运行。一个默认的子句应该总是可运行的。\\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 package main import ( \\\"fmt\\\" \\\"time\\\" ) func main() { c1 := make(chan string) c2 := make(chan string) go func() { for { c1 \\u003c- \\\"Hello\\\" time.Sleep(10 * time.Millisecond) } } () go func() { for { c2 \\u003c- \\\"World\\\" time.Sleep(100 * time.Millisecond) } } () for { fmt.Println(\\u003c- c1) fmt.Println(\\u003c- c2) } } 在上例中，“Hello”，“World\\\"交替输出，但是，明显\\\"World\\\"发送频率慢的多，拖了进度 下面，使用 select\\n1 2 3 4 5 6 7 8 9 var a1, a2 string for { select { case a1 = \\u003c-c1: fmt.Println(a1) case a2 = \\u003c-c2: fmt.Println(a2) } } 输出变为\\nWorld Hello Hello Hello Hello Hello Hello Hello\\n不会再被慢的一方拖累了。\\n参考教程 Golang高并发教程+实战 bilibili\\n菜鸟教程的 GO\\n\",\"author\":{\"@type\":\"Person\",\"name\":\"rewine\"},\"dateModified\":\"2021-04-03T00:00:00Z\",\"datePublished\":\"2021-04-03T00:00:00Z\",\"description\":\"回想起来，我是因为对 goroutine 有兴趣而去了解 Go 的，因为 finger tree 而想学 Haskell，结果坑留了半年了（另一个坑留了快3年，Monad 还没弄明白），今天有时间先填上一个再说。\\ngoroutine，Go 语言的协程，是一种比线程更轻量的存在，一个cpu可以支持上万的协程。Go 可以通过 goroutine 支持并发。\\nGo使用的是并发模型中的 CSP 模型，Communicating Sequential Processes，译为通信顺序进程、七周七并发第六章内容，这本书继续留坑有空再看。\\n\",\"headline\":\"goroutine 的学习之旅\",\"inLanguage\":\"zh-hans\",\"keywords\":[\"go\",\"goroutine\",\"并发\"],\"mainEntityOfPage\":{\"@id\":\"/post/learn_goroutine/\",\"@type\":\"WebPage\"},\"name\":\"goroutine 的学习之旅\",\"publisher\":{\"@type\":\"Organization\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"/favicon.ico\"},\"name\":\"REWINE NOTE\"},\"wordCount\":1539}"</script></head><body id=top><header class=header><nav class=nav><div class=logo><a href=/ accesskey=h title="REWINE NOTE (Alt + H)">REWINE NOTE</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=/ title=Home><span>Home</span></a></li><li><a href=/archives/ title=Archives><span>Archives</span></a></li><li><a href=/search/ title="Search (Alt + /)" accesskey=/><span>Search</span></a></li><li><a href=/tags/ title=Tags><span>Tags</span></a></li><li><a href=/about/ title=About><span>About</span></a></li><li><a href=/friends/ title=Friends><span>Friends</span></a></li><li><a href=/index.xml title=RSS><span>RSS</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><h1 class="post-title entry-hint-parent">goroutine 的学习之旅</h1><div class=post-meta><span title='2021-04-03 00:00:00 +0000 UTC'>2021年4月3日</span>&nbsp;·&nbsp;<span>1539 words</span>&nbsp;·&nbsp;<span>rewine</span></div></header><div class=toc><details><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#go aria-label=go>go</a></li><li><a href=#channel aria-label=channel>channel</a><ul><li><a href=#%e9%80%9a%e9%81%93%e7%bc%93%e5%86%b2%e5%8c%ba aria-label=通道缓冲区>通道缓冲区</a></li></ul></li><li><a href=#select aria-label=select>select</a></li><li><a href=#%e5%8f%82%e8%80%83%e6%95%99%e7%a8%8b aria-label=参考教程>参考教程</a></li></ul></div></details></div><div class=post-content><p>回想起来，我是因为对 goroutine 有兴趣而去了解 Go 的，因为 finger tree 而想学 Haskell，结果坑留了半年了（另一个坑留了快3年，Monad 还没弄明白），今天有时间先填上一个再说。</p><p>goroutine，Go 语言的协程，是一种比线程更轻量的存在，一个cpu可以支持上万的协程。Go 可以通过 goroutine 支持并发。</p><p>Go使用的是并发模型中的 CSP 模型，Communicating Sequential Processes，译为通信顺序进程、七周七并发第六章内容，这本书继续留坑有空再看。</p><h3 id=go>go<a hidden class=anchor aria-hidden=true href=#go>#</a></h3><p>在函数调用前使用 go 语句可以开启一个新的 goroutine。</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=color:#f92672>package</span> <span style=color:#a6e22e>main</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> (
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;fmt&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;time&#34;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>say</span>(<span style=color:#a6e22e>s</span> <span style=color:#66d9ef>string</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>:=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>i</span> &lt; <span style=color:#ae81ff>5</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span> {
+</span></span><span style=display:flex><span>                <span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Sleep</span>(<span style=color:#ae81ff>100</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Millisecond</span>)
+</span></span><span style=display:flex><span>                <span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#a6e22e>s</span>)
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>go</span> <span style=color:#a6e22e>say</span>(<span style=color:#e6db74>&#34;world&#34;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>say</span>(<span style=color:#e6db74>&#34;hello&#34;</span>)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></td></tr></table></div></div><p>可以看到输出hello，world交替出现，程序不再是串行执行了。</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>earn_goroutine <span style=color:#f92672>(</span>main*<span style=color:#f92672>)</span> » go run a.go
+</span></span><span style=display:flex><span>hello
+</span></span><span style=display:flex><span>world
+</span></span><span style=display:flex><span>hello
+</span></span><span style=display:flex><span>world
+</span></span><span style=display:flex><span>hello
+</span></span><span style=display:flex><span>world
+</span></span><span style=display:flex><span>world
+</span></span><span style=display:flex><span>hello
+</span></span><span style=display:flex><span>hello
+</span></span></code></pre></td></tr></table></div></div><p>如果say(&ldquo;hello&rdquo;)前面也加上go呢？</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>go</span> <span style=color:#a6e22e>say</span>(<span style=color:#e6db74>&#34;world&#34;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>go</span> <span style=color:#a6e22e>say</span>(<span style=color:#e6db74>&#34;hello&#34;</span>)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></td></tr></table></div></div><p>结果程序什么都不会输出！因为main函数执行完了程序就会退出，不会等所有 goroutine 退出。</p><p>解决方法就是在 main 函数结尾 sleep 到所有 goroutine 执行完毕。</p><p>然而 sleep 多长时间合适，就不太好确定了。 而 sync.WaitGroup 可以解决这个问题，Add 有几个 goroutine 要等待， goroutine 完成后调用 Done，Wait 进行等待直到所有 Add 的 goroutine Done 了。</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=color:#f92672>package</span> <span style=color:#a6e22e>main</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> (
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#34;fmt&#34;</span>
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#34;time&#34;</span>
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#34;sync&#34;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>wg</span> <span style=color:#a6e22e>sync</span>.<span style=color:#a6e22e>WaitGroup</span>;
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>wg</span>.<span style=color:#a6e22e>Add</span>(<span style=color:#ae81ff>2</span>)
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>go</span> <span style=color:#66d9ef>func</span>() {
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>say</span>(<span style=color:#e6db74>&#34;world&#34;</span>)
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>wg</span>.<span style=color:#a6e22e>Done</span>()
+</span></span><span style=display:flex><span>	}()
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>go</span> <span style=color:#66d9ef>func</span>() {
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>say</span>(<span style=color:#e6db74>&#34;hello&#34;</span>)
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>wg</span>.<span style=color:#a6e22e>Done</span>()
+</span></span><span style=display:flex><span>	}()
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>wg</span>.<span style=color:#a6e22e>Wait</span>()
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>say</span>(<span style=color:#a6e22e>s</span> <span style=color:#66d9ef>string</span>) {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>:=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>i</span> &lt; <span style=color:#ae81ff>5</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span> {
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Sleep</span>(<span style=color:#ae81ff>100</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Millisecond</span>)
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#a6e22e>s</span>)
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></td></tr></table></div></div><h3 id=channel>channel<a hidden class=anchor aria-hidden=true href=#channel>#</a></h3><p>通道（channel）是用来传递数据的一个数据结构，CSP模型的精髓。</p><p>通道可用于两个 goroutine 之间通过传递一个指定类型的值来同步运行和通讯。操作符 <code>&lt;-</code> 用于指定通道的方向, 默认则为双向通道</p><p>使用chan关键字声明一个 channel。</p><p>发送和接收消息是阻塞的，如果没人接收，发送方会阻塞在那里，反之同理。</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=color:#75715e>// 将数组分成两半求和的程序</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>package</span> <span style=color:#a6e22e>main</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> <span style=color:#e6db74>&#34;fmt&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>sum</span>(<span style=color:#a6e22e>s</span> []<span style=color:#66d9ef>int</span>, <span style=color:#a6e22e>c</span> <span style=color:#66d9ef>chan</span> <span style=color:#66d9ef>int</span>) {
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>sum</span> <span style=color:#f92672>:=</span> <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> <span style=color:#a6e22e>_</span>, <span style=color:#a6e22e>v</span> <span style=color:#f92672>:=</span> <span style=color:#66d9ef>range</span> <span style=color:#a6e22e>s</span> {
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>sum</span> <span style=color:#f92672>+=</span> <span style=color:#a6e22e>v</span>
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>c</span> <span style=color:#f92672>&lt;-</span> <span style=color:#a6e22e>sum</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>s</span> <span style=color:#f92672>:=</span> []<span style=color:#66d9ef>int</span>{<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>5</span>, <span style=color:#ae81ff>6</span>}
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>c</span> <span style=color:#f92672>:=</span> make(<span style=color:#66d9ef>chan</span> <span style=color:#66d9ef>int</span>)
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>go</span> <span style=color:#a6e22e>sum</span>(<span style=color:#a6e22e>s</span>[:len(<span style=color:#a6e22e>s</span>)<span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>], <span style=color:#a6e22e>c</span>)
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>go</span> <span style=color:#a6e22e>sum</span>(<span style=color:#a6e22e>s</span>[len(<span style=color:#a6e22e>s</span>)<span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>:], <span style=color:#a6e22e>c</span>)
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>x</span>,<span style=color:#a6e22e>y</span> <span style=color:#f92672>:=</span> <span style=color:#f92672>&lt;-</span><span style=color:#a6e22e>c</span>, <span style=color:#f92672>&lt;-</span><span style=color:#a6e22e>c</span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#a6e22e>x</span>, <span style=color:#a6e22e>y</span>, <span style=color:#a6e22e>x</span><span style=color:#f92672>+</span><span style=color:#a6e22e>y</span>)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></td></tr></table></div></div><p>通过 <code>close(c)</code> 可以关闭 channel, <code>c&lt;-</code> 的第二个参数表示 channel 的开闭。</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=color:#66d9ef>for</span> {
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>message</span>,<span style=color:#a6e22e>open</span> <span style=color:#f92672>:=</span> <span style=color:#f92672>&lt;-</span><span style=color:#a6e22e>c</span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (!<span style=color:#a6e22e>open</span>) <span style=color:#66d9ef>break</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></td></tr></table></div></div><p>也可以用 range</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=color:#66d9ef>for</span> <span style=color:#a6e22e>message</span> <span style=color:#f92672>:=</span> <span style=color:#66d9ef>range</span> <span style=color:#a6e22e>c</span> {
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></td></tr></table></div></div><h4 id=通道缓冲区>通道缓冲区<a hidden class=anchor aria-hidden=true href=#通道缓冲区>#</a></h4><p>如果没有缓冲区，可能造成发送消息溢出，导致接收方永远收不到溢出的信息，一直阻塞，如下例</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=color:#f92672>package</span> <span style=color:#a6e22e>main</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> <span style=color:#e6db74>&#34;fmt&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>ch</span> <span style=color:#f92672>:=</span> make(<span style=color:#66d9ef>chan</span> <span style=color:#66d9ef>int</span>)
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>ch</span> <span style=color:#f92672>&lt;-</span> <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>ch</span> <span style=color:#f92672>&lt;-</span> <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#f92672>&lt;-</span><span style=color:#a6e22e>ch</span>)
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#f92672>&lt;-</span><span style=color:#a6e22e>ch</span>)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></td></tr></table></div></div><p>运行结果</p><blockquote><p>learn_goroutine (main*) » go run c.go
 fatal error: all goroutines are asleep - deadlock!goroutine 1 [chan send]:
 main.main()
 /home/rew/CodeDrafts/learn_goroutine/c.go:12 +0x59
-exit status 2</p></blockquote><p>我们可以通过 make 的第二个参数指定缓冲区大小：</p><pre><code>ch := make(chan int, 100)
-</code></pre><p>带缓冲区的通道允许发送端的数据发送和接收端的数据获取处于异步状态，就是说发送端发送的数据可以放在缓冲区里面，可以等待接收端去获取数据，而不是立刻需要接收端去获取数据。</p><pre><code class=language-go>func main() {
-       // 定义了一个可以存储整数类型的带缓冲通道 缓冲区大小为2
-        ch := make(chan int, 2)
-        ch &lt;- 1
-        ch &lt;- 2
-        fmt.Println(&lt;-ch)
-        fmt.Println(&lt;-ch)
-}
-</code></pre><p>注意，如果缓冲区不够大，依然会溢出，</p><h3 id=select>select</h3><p>select 是 Go 中的一个控制结构，类似于用于通信的 switch 语句。每个 case 必须是一个通信操作，要么是发送要么是接收。</p><p>select 随机执行一个可运行的 case。如果没有 case 可运行，它将阻塞，直到有 case 可运行。一个默认的子句应该总是可运行的。</p><pre><code class=language-go>package main
-
-import (
-	&quot;fmt&quot;
-	&quot;time&quot;
-)
-
-func main() {
-	c1 := make(chan string)
-	c2 := make(chan string)
-	go func() {
-		for {
-			c1 &lt;- &quot;Hello&quot;
-			time.Sleep(10 * time.Millisecond)
-		}
-	} ()
-	go func() {
-		for {
-			c2 &lt;- &quot;World&quot;
-			time.Sleep(100 * time.Millisecond)
-		}
-	} ()
-	for {
-		fmt.Println(&lt;- c1)
-		fmt.Println(&lt;- c2)
-	}
-}
-</code></pre><p>在上例中，&ldquo;Hello&rdquo;，&ldquo;World"交替输出，但是，明显"World"发送频率慢的多，拖了进度
-下面，使用 select</p><pre><code class=language-go>	var a1, a2 string
-	for {
-		select {
-		case a1 = &lt;-c1:
-			fmt.Println(a1)
-		case a2 = &lt;-c2:
-			fmt.Println(a2)
-        }
-    }
-</code></pre><p>输出变为</p><blockquote><p>World
+exit status 2</p></blockquote><p>我们可以通过 make 的第二个参数指定缓冲区大小：</p><div class="goat svg-container"><svg font-family="Menlo,Lucida Console,monospace" viewBox="0 0 208 25"><g transform="translate(8,16)"><text text-anchor="middle" x="0" y="4" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="8" y="4" fill="currentcolor" style="font-size:1em">h</text><text text-anchor="middle" x="24" y="4" fill="currentcolor" style="font-size:1em">:</text><text text-anchor="middle" x="32" y="4" fill="currentcolor" style="font-size:1em">=</text><text text-anchor="middle" x="48" y="4" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="56" y="4" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="64" y="4" fill="currentcolor" style="font-size:1em">k</text><text text-anchor="middle" x="72" y="4" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="80" y="4" fill="currentcolor" style="font-size:1em">(</text><text text-anchor="middle" x="88" y="4" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="96" y="4" fill="currentcolor" style="font-size:1em">h</text><text text-anchor="middle" x="104" y="4" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="112" y="4" fill="currentcolor" style="font-size:1em">n</text><text text-anchor="middle" x="128" y="4" fill="currentcolor" style="font-size:1em">i</text><text text-anchor="middle" x="136" y="4" fill="currentcolor" style="font-size:1em">n</text><text text-anchor="middle" x="144" y="4" fill="currentcolor" style="font-size:1em">t</text><text text-anchor="middle" x="152" y="4" fill="currentcolor" style="font-size:1em">,</text><text text-anchor="middle" x="168" y="4" fill="currentcolor" style="font-size:1em">1</text><text text-anchor="middle" x="176" y="4" fill="currentcolor" style="font-size:1em">0</text><text text-anchor="middle" x="184" y="4" fill="currentcolor" style="font-size:1em">0</text><text text-anchor="middle" x="192" y="4" fill="currentcolor" style="font-size:1em">)</text></g></svg></div><p>带缓冲区的通道允许发送端的数据发送和接收端的数据获取处于异步状态，就是说发送端发送的数据可以放在缓冲区里面，可以等待接收端去获取数据，而不是立刻需要接收端去获取数据。</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>       <span style=color:#75715e>// 定义了一个可以存储整数类型的带缓冲通道 缓冲区大小为2</span>
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>ch</span> <span style=color:#f92672>:=</span> make(<span style=color:#66d9ef>chan</span> <span style=color:#66d9ef>int</span>, <span style=color:#ae81ff>2</span>)
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>ch</span> <span style=color:#f92672>&lt;-</span> <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>ch</span> <span style=color:#f92672>&lt;-</span> <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#f92672>&lt;-</span><span style=color:#a6e22e>ch</span>)
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#f92672>&lt;-</span><span style=color:#a6e22e>ch</span>)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></td></tr></table></div></div><p>注意，如果缓冲区不够大，依然会溢出，</p><h3 id=select>select<a hidden class=anchor aria-hidden=true href=#select>#</a></h3><p>select 是 Go 中的一个控制结构，类似于用于通信的 switch 语句。每个 case 必须是一个通信操作，要么是发送要么是接收。</p><p>select 随机执行一个可运行的 case。如果没有 case 可运行，它将阻塞，直到有 case 可运行。一个默认的子句应该总是可运行的。</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=color:#f92672>package</span> <span style=color:#a6e22e>main</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> (
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#34;fmt&#34;</span>
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#34;time&#34;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>c1</span> <span style=color:#f92672>:=</span> make(<span style=color:#66d9ef>chan</span> <span style=color:#66d9ef>string</span>)
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>c2</span> <span style=color:#f92672>:=</span> make(<span style=color:#66d9ef>chan</span> <span style=color:#66d9ef>string</span>)
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>go</span> <span style=color:#66d9ef>func</span>() {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>for</span> {
+</span></span><span style=display:flex><span>			<span style=color:#a6e22e>c1</span> <span style=color:#f92672>&lt;-</span> <span style=color:#e6db74>&#34;Hello&#34;</span>
+</span></span><span style=display:flex><span>			<span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Sleep</span>(<span style=color:#ae81ff>10</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Millisecond</span>)
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>	} ()
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>go</span> <span style=color:#66d9ef>func</span>() {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>for</span> {
+</span></span><span style=display:flex><span>			<span style=color:#a6e22e>c2</span> <span style=color:#f92672>&lt;-</span> <span style=color:#e6db74>&#34;World&#34;</span>
+</span></span><span style=display:flex><span>			<span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Sleep</span>(<span style=color:#ae81ff>100</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Millisecond</span>)
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>	} ()
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> {
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#f92672>&lt;-</span> <span style=color:#a6e22e>c1</span>)
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#f92672>&lt;-</span> <span style=color:#a6e22e>c2</span>)
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></td></tr></table></div></div><p>在上例中，&ldquo;Hello&rdquo;，&ldquo;World"交替输出，但是，明显"World"发送频率慢的多，拖了进度
+下面，使用 select</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">9
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span>	<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>a1</span>, <span style=color:#a6e22e>a2</span> <span style=color:#66d9ef>string</span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>select</span> {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>case</span> <span style=color:#a6e22e>a1</span> = <span style=color:#f92672>&lt;-</span><span style=color:#a6e22e>c1</span>:
+</span></span><span style=display:flex><span>			<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#a6e22e>a1</span>)
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>case</span> <span style=color:#a6e22e>a2</span> = <span style=color:#f92672>&lt;-</span><span style=color:#a6e22e>c2</span>:
+</span></span><span style=display:flex><span>			<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#a6e22e>a2</span>)
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span></code></pre></td></tr></table></div></div><p>输出变为</p><blockquote><p>World
 Hello
 Hello
 Hello
 Hello
 Hello
 Hello
-Hello</p></blockquote><p>不会再被慢的一方拖累了。</p><h3 id=参考教程>参考教程</h3><p><a href=https://www.bilibili.com/video/BV1qT4y1c77u target=_blank>Golang高并发教程+实战 bilibili</a></p><p><a href=https://www.runoob.com/go/go-concurrent.html target=_blank>菜鸟教程的 GO</a></p></div></article><div class="license markdown-body"><blockquote><p>除特殊注明部分，本站内容采用 <a rel=license href=http://creativecommons.org/licenses/by-nc-sa/4.0/ target=_blank>CC BY-NC-SA 4.0</a> 进行许可。</p></blockquote></div><div class=post-comment data-comment=utterances><span class=post-comment-notloaded><i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;查看评论
-</span><script>function loadComment(){var e,n=document.querySelector(".post-comment"),t=document.body.getAttribute("data-theme");t==="auto"?t=window.matchMedia("(prefers-color-scheme: dark)").matches?"photon-dark":"github-light":t=t==="dark"?"photon-dark":"github-light",e=document.createElement("script"),e.src="https://utteranc.es/client.js",e.setAttribute("repo","wineee/hugoblogtalks"),e.setAttribute("issue-term","pathname"),e.setAttribute("theme",t),e.setAttribute("crossorigin","anonymous"),e.setAttribute("async",""),document.querySelector(".post-comment").appendChild(e),document.querySelector("span.post-comment-notloaded").setAttribute("style","display: none;")}</script></div></div><aside class="col-12 col-md-3 float-left sidebar"><div class="sidebar-item sidebar-pages"><h3>页面</h3><ul><li><a href=/>Home</a></li><li><a href=/archives/>Archives</a></li><li><a href=/about/>About</a></li><li><a href=/search/>Search</a></li><li><a href=/friends/>Friends</a></li><li><a href=/index.xml>RSS</a></li></ul></div><div class="sidebar-item sidebar-toc"><h3>目录</h3><nav id=TableOfContents><ul><li><ul><li><a href=#go>go</a></li><li><a href=#channel>channel</a></li><li><a href=#select>select</a></li><li><a href=#参考教程>参考教程</a></li></ul></li></ul></nav></div></aside></div><div class=btn><div class=btn-menu id=btn-menu><i class="iconfont icon-grid-sharp"></i></div><div class=btn-toggle-mode><i class="iconfont icon-contrast-sharp"></i></div><div class=btn-scroll-top><i class="iconfont icon-chevron-up-circle-sharp"></i></div></div><aside class=sidebar-mobile style=display:none><div class=sidebar-wrapper><div class="sidebar-item sidebar-pages"><h3>页面</h3><ul><li><a href=/>Home</a></li><li><a href=/archives/>Archives</a></li><li><a href=/about/>About</a></li><li><a href=/search/>Search</a></li><li><a href=/friends/>Friends</a></li><li><a href=/index.xml>RSS</a></li></ul></div><div class="sidebar-item sidebar-links"><h3>链接</h3><ul><li><a href=https://github.com/wineee target=_blank><span>GitHub</span></a></li><li><a href=https://twitter.com/rewineeee target=_blank><span>Twitter</span></a></li><li><a href=https://space.bilibili.com/23192485 target=_blank><span>bilibili</span></a></li></ul></div><div class="sidebar-item sidebar-tags"><h3>标签</h3><div><span><a href=/tags/acm/>ACM</a>
-</span><span><a href=/tags/bfs/>Bfs</a>
-</span><span><a href=/tags/c/>C</a>
-</span><span><a href=/tags/c++/>C++</a>
-</span><span><a href=/tags/cryptography/>Cryptography</a>
-</span><span><a href=/tags/emacs/>Emacs</a>
-</span><span><a href=/tags/go/>Go</a>
-</span><span><a href=/tags/goroutine/>Goroutine</a>
-</span><span><a href=/tags/haskell/>Haskell</a>
-</span><span><a href=/tags/hugo/>Hugo</a>
-</span><span><a href=/tags/lab/>Lab</a>
-</span><span><a href=/tags/leetcode/>Leetcode</a>
-</span><span><a href=/tags/mfc/>Mfc</a>
-</span><span><a href=/tags/nixos/>Nixos</a>
-</span><span><a href=/tags/onlyoffice/>Onlyoffice</a>
-</span><span><a href=/tags/qt/>Qt</a>
-</span><span><a href=/tags/turing-award/>Turing Award</a>
-</span><span><a href=/tags/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95/>匈牙利算法</a>
-</span><span><a href=/tags/%E5%8D%95%E7%BA%AF%E5%9E%8B/>单纯型</a>
-</span><span><a href=/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/>多线程</a>
-</span><span><a href=/tags/%E5%B9%B6%E5%8F%91/>并发</a>
-</span><span><a href=/tags/%E5%BA%B7%E6%89%98%E5%B1%95%E5%BC%80/>康托展开</a>
-</span><span><a href=/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/>蓝桥杯</a>
-</span><span><a href=/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/>软件工程</a>
-</span><span><a href=/tags/%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90/>软件推荐</a></span></div></div><div class="sidebar-item sidebar-toc"><h3>目录</h3><nav id=TableOfContents><ul><li><ul><li><a href=#go>go</a></li><li><a href=#channel>channel</a></li><li><a href=#select>select</a></li><li><a href=#参考教程>参考教程</a></li></ul></li></ul></nav></div></div></aside></main><footer><div class="container-lg clearfix"><div class="col-12 footer"><span>&copy; 2020-2025
-<a href=/>rewine</a>
-| <a href=https://github.com/wineee/wineee.github.io>Source code</a>
-| 基于 <a href=https://github.com/andrew-aiken/hugo-theme-fuji/ target=_blank>Fuji</a> & <a href=https://gohugo.io/ target=_blank>Hugo</a> 构建
-| <a href="https://icp.gov.moe/?keyword=20211211" target=_blank>萌ICP备20211211号</a></span></div></div></footer><script defer src=https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js integrity="sha512-q583ppKrCRc7N5O0n2nzUiJ+suUv7Et1JGels4bXOaMFQcamPk9HjdUknZuuFjBNs7tsMuadge5k9RzdmO+1GQ==" crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.27.0/components/prism-core.min.js integrity="sha512-LCKPTo0gtJ74zCNMbWw04ltmujpzSR4oW+fgN+Y1YclhM5ZrHCZQAJE4quEodcI/G122sRhSGU2BsSRUZ2Gu3w==" crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/autoloader/prism-autoloader.min.js integrity="sha512-GP4x8UWxWyh4BMbyJGOGneiTbkrWEF5izsVJByzVLodP8CuJH/n936+yQDMJJrOPUHLgyPbLiGw2rXmdvGdXHA==" crossorigin=anonymous></script><script defer src=/assets/js/fuji.min.645f1123be695831f419ab54c1bcba327325895c740014006e57070d4f3e5d6b553e929c4b46f40ea707249e9c7f7c2a446d32a39ce7319f80a34525586a8e0f.js integrity="sha512-ZF8RI75pWDH0GatUwby6MnMliVx0ABQAblcHDU8+XWtVPpKcS0b0DqcHJJ6cf3wqRG0yo5znMZ+Ao0UlWGqODw=="></script><script>MathJax={tex:{inlineMath:[["$","$"]]},displayMath:[["$$","$$"],["[[","]]"]],svg:{fontCache:"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script></body></html>
+Hello</p></blockquote><p>不会再被慢的一方拖累了。</p><h3 id=参考教程>参考教程<a hidden class=anchor aria-hidden=true href=#参考教程>#</a></h3><p><a href=https://www.bilibili.com/video/BV1qT4y1c77u>Golang高并发教程+实战 bilibili</a></p><p><a href=https://www.runoob.com/go/go-concurrent.html>菜鸟教程的 GO</a></p></div><footer class=post-footer><ul class=post-tags><li><a href=/tags/go/>Go</a></li><li><a href=/tags/goroutine/>Goroutine</a></li><li><a href=/tags/%E5%B9%B6%E5%8F%91/>并发</a></li></ul></footer><script src=https://giscus.app/client.js data-repo=wineee/wineee.github.io data-repo-id="MDEwOlJlcG9zaXRvcnk5NzgxOTY1OA==" data-category=General data-category-id=DIC_kwDOBdScCs4C4Xj1 data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=bottom data-theme=preferred_color_scheme data-lang=zh-CN crossorigin=anonymous async></script></article></main><footer class=footer><span>&copy; 2026 <a href=/>REWINE NOTE</a></span> ·
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>

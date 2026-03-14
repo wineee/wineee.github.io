@@ -1,16 +1,16 @@
-<!doctype html><html lang=zh-hans><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=HandheldFriendly content="True"><meta http-equiv=X-UA-Compatible content="IE=edge"><meta http-equiv=Cache-Control content="no-transform"><meta http-equiv=Cache-Control content="no-siteapp"><meta name=generator content="Hugo 0.140.1"><link rel=apple-touch-icon sizes=180x180 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png><link rel=manifest href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest><link rel=mask-icon href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg color=#8aa2d3><link rel="shortcut icon" href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico><meta name=theme-color content="#ffffff"><title>使用c++解决leetcode多线程题题目（之一）semaphore - REWINE NOTE</title>
-<meta name=author content="rewine"><meta name=description content="A minimal Hugo theme with nice theme color."><meta name=keywords content="c++,leetcode,多线程"><meta property="og:title" content="使用c++解决leetcode多线程题题目（之一）semaphore"><meta name=twitter:title content="使用c++解决leetcode多线程题题目（之一）semaphore"><meta property="og:type" content="article"><meta property="og:url" content="/post/leetcode_cpp_sem/"><meta property="og:description" content="通过 man sem_init 可以查看具体文档。
+<!doctype html><html lang=zh-hans dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>使用c++解决leetcode多线程题题目（之一）semaphore | REWINE NOTE</title>
+<meta name=keywords content="c++,leetcode,多线程"><meta name=description content="通过 man sem_init 可以查看具体文档。
 或者使用： https://man7.org/linux/man-pages/man3/sem_init.3.html
 sem_init函数是Posix信号量操作中的函数。sem_init() 初始化一个定位在 sem 的匿名信号量。pshared 参数指明信号量是由进程内共享，还是由进程之间共享。如果 pshared 的值为 0，那么信号量将被进程内的线程共享。value 参数指定的初始值。
 sem_post是给信号量的值加上一个“1”，它是一个“原子操作”－－－即同时对同一个信号量做加“1”操作的两个线程是不会冲突的。
-sem_wait是一个函数，也是一个原子操作，它的作用是从信号量的值减去一个“1”，但它永远会先等待该信号量为一个非零值才开始做减法。也就是说，如果你对一个值为2的信号量调用sem_wait()，线程将会继续执行，将信号量的值将减到1。如果对一个值为0的信号量调用sem_wait()，这个函数就会原地等待直到有其它线程增加了这个值使它不再是0为止。"><meta name=twitter:description content="通过 man sem_init 可以查看具体文档。
-或者使用： https://man7.org/linux/man-pages/man3/sem_init.3.html
+sem_wait是一个函数，也是一个原子操作，它的作用是从信号量的值减去一个“1”，但它永远会先等待该信号量为一个非零值才开始做减法。也就是说，如果你对一个值为2的信号量调用sem_wait()，线程将会继续执行，将信号量的值将减到1。如果对一个值为0的信号量调用sem_wait()，这个函数就会原地等待直到有其它线程增加了这个值使它不再是0为止。"><meta name=author content="rewine"><link rel=canonical href=/post/leetcode_cpp_sem/><link crossorigin=anonymous href=/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css integrity="sha256-2jIR5e+Ge/K3X9WmUVz+1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as=style><link rel=icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=apple-touch-icon href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh-hans href=/post/leetcode_cpp_sem/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}@media(prefers-color-scheme:light){.list::-webkit-scrollbar-thumb{border-color:var(--code-bg)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><meta property="og:url" content="/post/leetcode_cpp_sem/"><meta property="og:site_name" content="REWINE NOTE"><meta property="og:title" content="使用c++解决leetcode多线程题题目（之一）semaphore"><meta property="og:description" content="通过 man sem_init 可以查看具体文档。 或者使用： https://man7.org/linux/man-pages/man3/sem_init.3.html
 sem_init函数是Posix信号量操作中的函数。sem_init() 初始化一个定位在 sem 的匿名信号量。pshared 参数指明信号量是由进程内共享，还是由进程之间共享。如果 pshared 的值为 0，那么信号量将被进程内的线程共享。value 参数指定的初始值。
 sem_post是给信号量的值加上一个“1”，它是一个“原子操作”－－－即同时对同一个信号量做加“1”操作的两个线程是不会冲突的。
-sem_wait是一个函数，也是一个原子操作，它的作用是从信号量的值减去一个“1”，但它永远会先等待该信号量为一个非零值才开始做减法。也就是说，如果你对一个值为2的信号量调用sem_wait()，线程将会继续执行，将信号量的值将减到1。如果对一个值为0的信号量调用sem_wait()，这个函数就会原地等待直到有其它线程增加了这个值使它不再是0为止。"><meta property="og:image" content="/img/og.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/img/og.png"><meta property="article:published_time" content="2021-04-09T00:00:00+00:00"><meta property="article:modified_time" content="2021-04-09T00:00:00+00:00"><style>@media(prefers-color-scheme:dark){body[data-theme=auto] img{filter:brightness(60%)}}body[data-theme=dark] img{filter:brightness(60%)}</style><link rel=stylesheet href=/assets/css/fuji.min.b4a21b5d3eb1d0a51297e31230a65fc25e387843e45ec3a2d9176cd8d163c216d99b9b13a618b28f537c3b559ec8a408183b0fbfad48daddb9befa7d3ef90eed.css integrity="sha512-tKIbXT6x0KUSl+MSMKZfwl44eEPkXsOi2Rds2NFjwhbZm5sTphiyj1N8O1WeyKQIGDsPv61I2t25vvp9PvkO7Q=="></head><body data-theme=auto data-theme-auto=false><script data-cfasync=false>var fujiThemeData=localStorage.getItem("fuji_data-theme");fujiThemeData?fujiThemeData!=="auto"&&document.body.setAttribute("data-theme",fujiThemeData==="dark"?"dark":"light"):localStorage.setItem("fuji_data-theme","auto")</script><header></header><main><div class="container-lg clearfix"><div class="col-12 col-md-9 float-left content"><article><h1 class="post-item post-title"><a href=/post/leetcode_cpp_sem/>使用c++解决leetcode多线程题题目（之一）semaphore</a></h1><div class="post-item post-meta"><span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-04-09</span>
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;3534 字</span>
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href=/tags/c++>c++</a>&nbsp;<a href=/tags/leetcode>leetcode</a>&nbsp;<a href=/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B>多线程</a>&nbsp;</span></div><div class="post-content markdown-body"><p>通过 <code>man sem_init</code> 可以查看具体文档。
-或者使用： <a href=https://man7.org/linux/man-pages/man3/sem_init.3.html target=_blank>https://man7.org/linux/man-pages/man3/sem_init.3.html</a></p><p>sem_init函数是Posix信号量操作中的函数。sem_init() 初始化一个定位在 sem 的匿名信号量。pshared 参数指明信号量是由进程内共享，还是由进程之间共享。如果 pshared 的值为 0，那么信号量将被进程内的线程共享。value 参数指定的初始值。</p><p>sem_post是给信号量的值加上一个“1”，它是一个“原子操作”－－－即同时对同一个信号量做加“1”操作的两个线程是不会冲突的。</p><p>sem_wait是一个函数，也是一个原子操作，它的作用是从信号量的值减去一个“1”，但它永远会先等待该信号量为一个非零值才开始做减法。也就是说，如果你对一个值为2的信号量调用sem_wait()，线程将会继续执行，将信号量的值将减到1。如果对一个值为0的信号量调用sem_wait()，这个函数就会原地等待直到有其它线程增加了这个值使它不再是0为止。</p><h3 id=-交替打印foobarhttpsleetcode-cncomproblemsprint-foobar-alternately><a href=https://leetcode-cn.com/problems/print-foobar-alternately target=_blank>交替打印FooBar</a></h3><blockquote><p>我们提供一个类：</p><p>class FooBar {
+sem_wait是一个函数，也是一个原子操作，它的作用是从信号量的值减去一个“1”，但它永远会先等待该信号量为一个非零值才开始做减法。也就是说，如果你对一个值为2的信号量调用sem_wait()，线程将会继续执行，将信号量的值将减到1。如果对一个值为0的信号量调用sem_wait()，这个函数就会原地等待直到有其它线程增加了这个值使它不再是0为止。"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="post"><meta property="article:published_time" content="2021-04-09T00:00:00+00:00"><meta property="article:modified_time" content="2021-04-09T00:00:00+00:00"><meta property="article:tag" content="C++"><meta property="article:tag" content="Leetcode"><meta property="article:tag" content="多线程"><meta name=twitter:card content="summary"><meta name=twitter:title content="使用c++解决leetcode多线程题题目（之一）semaphore"><meta name=twitter:description content="通过 man sem_init 可以查看具体文档。 或者使用： https://man7.org/linux/man-pages/man3/sem_init.3.html
+sem_init函数是Posix信号量操作中的函数。sem_init() 初始化一个定位在 sem 的匿名信号量。pshared 参数指明信号量是由进程内共享，还是由进程之间共享。如果 pshared 的值为 0，那么信号量将被进程内的线程共享。value 参数指定的初始值。
+sem_post是给信号量的值加上一个“1”，它是一个“原子操作”－－－即同时对同一个信号量做加“1”操作的两个线程是不会冲突的。
+sem_wait是一个函数，也是一个原子操作，它的作用是从信号量的值减去一个“1”，但它永远会先等待该信号量为一个非零值才开始做减法。也就是说，如果你对一个值为2的信号量调用sem_wait()，线程将会继续执行，将信号量的值将减到1。如果对一个值为0的信号量调用sem_wait()，这个函数就会原地等待直到有其它线程增加了这个值使它不再是0为止。"><script type=application/ld+json>"{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"/post/\",\"name\":\"Posts\",\"position\":1}]}"</script><script type=application/ld+json>"{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"articleBody\":\"通过 man sem_init 可以查看具体文档。 或者使用： https://man7.org/linux/man-pages/man3/sem_init.3.html\\nsem_init函数是Posix信号量操作中的函数。sem_init() 初始化一个定位在 sem 的匿名信号量。pshared 参数指明信号量是由进程内共享，还是由进程之间共享。如果 pshared 的值为 0，那么信号量将被进程内的线程共享。value 参数指定的初始值。\\nsem_post是给信号量的值加上一个“1”，它是一个“原子操作”－－－即同时对同一个信号量做加“1”操作的两个线程是不会冲突的。\\nsem_wait是一个函数，也是一个原子操作，它的作用是从信号量的值减去一个“1”，但它永远会先等待该信号量为一个非零值才开始做减法。也就是说，如果你对一个值为2的信号量调用sem_wait()，线程将会继续执行，将信号量的值将减到1。如果对一个值为0的信号量调用sem_wait()，这个函数就会原地等待直到有其它线程增加了这个值使它不再是0为止。\\n交替打印FooBar 我们提供一个类：\\nclass FooBar { public void foo() { for (int i = 0; i \\u003c n; i++) { print(“foo”); } }\\npublic void bar() { for (int i = 0; i \\u003c n; i++) { print(“bar”); } } } 两个不同的线程将会共用一个 FooBar 实例。其中一个线程将会调用 foo() 方法，另一个线程将会调用 bar() 方法。\\n请设计修改程序，以确保 “foobar” 被输出 n 次。\\n来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/print-foobar-alternately 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。\\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 #include class FooBar { private: int n; sem_t sem_a, sem_b; public: FooBar(int n) { this-\\u003en = n; sem_init(\\u0026sem_a, 0, 0); sem_init(\\u0026sem_b, 0, 0); sem_post(\\u0026sem_a); } void foo(function\\u003cvoid()\\u003e printFoo) { for (int i = 0; i \\u003c n; i++) { sem_wait(\\u0026sem_a); // printFoo() outputs \\\"foo\\\". Do not change or remove this line. printFoo(); sem_post(\\u0026sem_b); } } void bar(function\\u003cvoid()\\u003e printBar) { for (int i = 0; i \\u003c n; i++) { sem_wait(\\u0026sem_b); // printBar() outputs \\\"bar\\\". Do not change or remove this line. printBar(); sem_post(\\u0026sem_a); } } }; 按序打印 我们提供了一个类：\\npublic class Foo { public void first() { print(“first”); } public void second() { print(“second”); } public void third() { print(“third”); } } 三个不同的线程 A、B、C 将会共用一个 Foo 实例。\\n一个将会调用 first() 方法 一个将会调用 second() 方法 还有一个将会调用 third() 方法 请设计修改程序，以确保 second() 方法在 first() 方法之后被执行，third() 方法在 second() 方法之后被执行。\\n来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/print-in-order 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。\\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 #include class Foo { sem_t sem_a, sem_b; public: int a,b; Foo() { sem_init(\\u0026sem_a, 0, 0); sem_init(\\u0026sem_b, 0, 0); } void first(function\\u003cvoid()\\u003e printFirst) { // printFirst() outputs \\\"first\\\". Do not change or remove this line. printFirst(); sem_post(\\u0026sem_a); } void second(function\\u003cvoid()\\u003e printSecond) { sem_wait(\\u0026sem_a); // printSecond() outputs \\\"second\\\". Do not change or remove this line. printSecond(); sem_post(\\u0026sem_b); } void third(function\\u003cvoid()\\u003e printThird) { sem_wait(\\u0026sem_b); // printThird() outputs \\\"third\\\". Do not change or remove this line. printThird(); } }; 打印零与奇偶数 假设有这么一个类：\\nclass ZeroEvenOdd { public ZeroEvenOdd(int n) { … } // 构造函数 public void zero(printNumber) { … } // 仅打印出 0 public void even(printNumber) { … } // 仅打印出 偶数 public void odd(printNumber) { … } // 仅打印出 奇数 } 相同的一个 ZeroEvenOdd 类实例将会传递给三个不同的线程：\\n线程 A 将调用 zero()，它只输出 0 。 线程 B 将调用 even()，它只输出偶数。 线程 C 将调用 odd()，它只输出奇数。 每个线程都有一个 printNumber 方法来输出一个整数。请修改给出的代码以输出整数序列 010203040506… ，其中序列的长度必须为 2n。\\n来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/print-zero-even-odd 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。\\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 #include class ZeroEvenOdd { private: int n; sem_t sem_zero, sem_odd, sem_even; public: ZeroEvenOdd(int n) { this-\\u003en = n; sem_init(\\u0026sem_zero, 0, 1); //初始化一个0 sem_init(\\u0026sem_odd, 0, 0); sem_init(\\u0026sem_even, 0, 0); } // printNumber(x) outputs \\\"x\\\", where x is an integer. void zero(function\\u003cvoid(int)\\u003e printNumber) { for(int i = 1; i \\u003c= n; i++) { sem_wait(\\u0026sem_zero); printNumber(0); if (i \\u0026 1) sem_post(\\u0026sem_odd); else sem_post(\\u0026sem_even); } } void even(function\\u003cvoid(int)\\u003e printNumber) { for (int i = 1; i \\u003c= n/2; i++) { sem_wait(\\u0026sem_even); printNumber(i*2); sem_post(\\u0026sem_zero); } } void odd(function\\u003cvoid(int)\\u003e printNumber) { for (int i = 1; i \\u003c= n-n/2; i++) { sem_wait(\\u0026sem_odd); printNumber((i-1)*2+1); sem_post(\\u0026sem_zero); } } }; 1195. 交替打印字符串 难度中等47收藏分享切换为英文接收动态反馈\\n编写一个可以从 1 到 n 输出代表这个数字的字符串的程序，但是：\\n如果这个数字可以被 3 整除，输出 \\\"fizz\\\"。 如果这个数字可以被 5 整除，输出 \\\"buzz\\\"。 如果这个数字可以同时被 3 和 5 整除，输出 \\\"fizzbuzz\\\"。 例如，当 n = 15，输出： 1, 2, fizz, 4, buzz, fizz, 7, 8, fizz, buzz, 11, fizz, 13, 14, fizzbuzz。\\n假设有这么一个类：\\nclass FizzBuzz { public FizzBuzz(int n) { … } // constructor public void fizz(printFizz) { … } // only output “fizz” public void buzz(printBuzz) { … } // only output “buzz” public void fizzbuzz(printFizzBuzz) { … } // only output “fizzbuzz” public void number(printNumber) { … } // only output the numbers }\\n请你实现一个有四个线程的多线程版 FizzBuzz， 同一个 FizzBuzz 实例会被如下四个线程使用：\\n线程A将调用 fizz() 来判断是否能被 3 整除，如果可以，则输出 fizz。 线程B将调用 buzz() 来判断是否能被 5 整除，如果可以，则输出 buzz。 线程C将调用 fizzbuzz() 来判断是否同时能被 3 和 5 整除，如果可以，则输出 fizzbuzz。 线程D将调用 number() 来实现输出既不能被 3 整除也不能被 5 整除的数字。 提示：\\n本题已经提供了打印字符串的相关方法，如 printFizz() 等，具体方法名请参考答题模板中的注释部分。 来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/fizz-buzz-multithreaded 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。\\n这是个假并行，所以now不需要加锁\\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 #include class FizzBuzz { private: int n, now; sem_t sem_fizz; sem_t sem_buzz; sem_t sem_fizz_buzz; sem_t sem_num; public: FizzBuzz(int n) { this-\\u003en = n; this-\\u003enow = 1; sem_init(\\u0026sem_fizz, 0, 0); sem_init(\\u0026sem_buzz, 0, 0); sem_init(\\u0026sem_fizz_buzz, 0, 0); sem_init(\\u0026sem_num, 0, 1); } void next() { now++; if (now == n+1) { sem_post(\\u0026sem_fizz_buzz); sem_post(\\u0026sem_buzz); sem_post(\\u0026sem_fizz); sem_post(\\u0026sem_num); return; } bool a = now%3==0; bool b = now%5==0; if (a \\u0026\\u0026 b) sem_post(\\u0026sem_fizz_buzz); else if (!a \\u0026\\u0026 b) sem_post(\\u0026sem_buzz); else if (a \\u0026\\u0026 !b) sem_post(\\u0026sem_fizz); else sem_post(\\u0026sem_num); } // printFizz() outputs \\\"fizz\\\". void fizz(function\\u003cvoid()\\u003e printFizz) { while(now \\u003c= n) { sem_wait(\\u0026sem_fizz); if(now \\u003e n) break; printFizz(); this-\\u003enext(); } } // printBuzz() outputs \\\"buzz\\\". void buzz(function\\u003cvoid()\\u003e printBuzz) { while(now \\u003c= n) { sem_wait(\\u0026sem_buzz); if(now \\u003e n) break; printBuzz(); this-\\u003enext(); } } // printFizzBuzz() outputs \\\"fizzbuzz\\\". void fizzbuzz(function\\u003cvoid()\\u003e printFizzBuzz) { while(now \\u003c= n) { sem_wait(\\u0026sem_fizz_buzz); if(now \\u003e n) break; printFizzBuzz(); this-\\u003enext(); } } // printNumber(x) outputs \\\"x\\\", where x is an integer. void number(function\\u003cvoid(int)\\u003e printNumber) { while(now \\u003c= n) { sem_wait(\\u0026sem_num); if(now \\u003e n) break; printNumber(now); this-\\u003enext(); } } }; 1117. H2O 生成 现在有两种线程，氧 oxygen 和氢 hydrogen，你的目标是组织这两种线程来产生水分子。\\n存在一个屏障（barrier）使得每个线程必须等候直到一个完整水分子能够被产生出来。\\n氢和氧线程会被分别给予 releaseHydrogen 和 releaseOxygen 方法来允许它们突破屏障。\\n这些线程应该三三成组突破屏障并能立即组合产生一个水分子。\\n你必须保证产生一个水分子所需线程的结合必须发生在下一个水分子产生之前。\\n换句话说:\\n如果一个氧线程到达屏障时没有氢线程到达，它必须等候直到两个氢线程到达。 如果一个氢线程到达屏障时没有其它线程到达，它必须等候直到一个氧线程和另一个氢线程到达。 书写满足这些限制条件的氢、氧线程同步代码。\\n来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/building-h2o 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。\\n这个参考了题解区大佬的思路，2个h,1个o是第一层限制，通过第一层限制后，如果是h,告诉半个o可以通过第二次限制，如果是o,告诉2个h可以通过第二层限制。\\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 #include class H2O { sem_t hjob, ojob; sem_t hlimit, olimit; public: H2O() { sem_init(\\u0026hjob,0,0);// H 反应条件信号量 sem_init(\\u0026ojob,0,0);// O 反应条件信号量 sem_init(\\u0026hlimit,0,2);// H线程信号量 sem_init(\\u0026olimit,0,1);// O线程信号量 } void hydrogen(function\\u003cvoid()\\u003e releaseHydrogen) { sem_wait(\\u0026hlimit);// 保证只有2个H线程进入执行 sem_post(\\u0026hjob);// 释放H原子到达信号 sem_wait(\\u0026ojob);// 等待O原子到达 // releaseHydrogen() outputs \\\"H\\\". Do not change or remove this line. releaseHydrogen(); sem_post(\\u0026hlimit);// 相当于唤醒1个H线程 } void oxygen(function\\u003cvoid()\\u003e releaseOxygen) { sem_wait(\\u0026olimit);// 保证只有1个O线程进入执行 sem_post(\\u0026ojob);// 释放O原子到达信号，因为有2个H线程等待所以释放2个 sem_post(\\u0026ojob); sem_wait(\\u0026hjob);// 等待H原子到达，2个原因同上 sem_wait(\\u0026hjob); // releaseOxygen() outputs \\\"O\\\". Do not change or remove this line. releaseOxygen(); sem_post(\\u0026olimit);// 相当于唤醒1个O线程 } }; 1226. 哲学家进餐 5 个沉默寡言的哲学家围坐在圆桌前，每人面前一盘意面。叉子放在哲学家之间的桌面上。（5 个哲学家，5 根叉子）\\n所有的哲学家都只会在思考和进餐两种行为间交替。哲学家只有同时拿到左边和右边的叉子才能吃到面，而同一根叉子在同一时间只能被一个哲学家使用。每个哲学家吃完面后都需要把叉子放回桌面以供其他哲学家吃面。只要条件允许，哲学家可以拿起左边或者右边的叉子，但在没有同时拿到左右叉子时不能进食。\\n假设面的数量没有限制，哲学家也能随便吃，不需要考虑吃不吃得下。\\n设计一个进餐规则（并行算法）使得每个哲学家都不会挨饿；也就是说，在没有人知道别人什么时候想吃东西或思考的情况下，每个哲学家都可以在吃饭和思考之间一直交替下去。\\n问题描述和图片来自维基百科 wikipedia.org\\n哲学家从 0 到 4 按 顺时针 编号。请实现函数 void wantsToEat(philosopher, pickLeftFork, pickRightFork, eat, putLeftFork, putRightFork)：\\nphilosopher 哲学家的编号。 pickLeftFork 和 pickRightFork 表示拿起左边或右边的叉子。 eat 表示吃面。 putLeftFork 和 putRightFork 表示放下左边或右边的叉子。 由于哲学家不是在吃面就是在想着啥时候吃面，所以思考这个方法没有对应的回调。 给你 5 个线程，每个都代表一个哲学家，请你使用类的同一个对象来模拟这个过程。在最后一次调用结束之前，可能会为同一个哲学家多次调用该函数。\\n来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/the-dining-philosophers 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。\\n只有同时最多4人就餐，就不可能循环等待\\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 #include //#include class DiningPhilosophers { sem_t sem, fork[5]; //pthread_mutex_t fork[5]; public: DiningPhilosophers() { sem_init(\\u0026sem, 0, 3); for(int i = 0; i \\u003c 5; i++) sem_init(\\u0026fork[i], 0, 1); //pthread_mutex_init(fork+i, nullptr); } void wantsToEat(int philosopher, function\\u003cvoid()\\u003e pickLeftFork, function\\u003cvoid()\\u003e pickRightFork, function\\u003cvoid()\\u003e eat, function\\u003cvoid()\\u003e putLeftFork, function\\u003cvoid()\\u003e putRightFork) { int right=philosopher; int left=(right+1)%5; sem_wait(\\u0026sem); //pthread_mutex_lock(fork+left); //pthread_mutex_lock(fork+right); sem_wait(\\u0026fork[left]); sem_wait(\\u0026fork[right]); pickLeftFork(); pickRightFork(); eat(); putLeftFork(); putRightFork(); sem_post(\\u0026fork[left]); sem_post(\\u0026fork[right]); //pthread_mutex_unlock(fork+left); //pthread_mutex_unlock(fork+right); sem_post(\\u0026sem); } }; \",\"author\":{\"@type\":\"Person\",\"name\":\"rewine\"},\"dateModified\":\"2021-04-09T00:00:00Z\",\"datePublished\":\"2021-04-09T00:00:00Z\",\"description\":\"通过 man sem_init 可以查看具体文档。 或者使用： https://man7.org/linux/man-pages/man3/sem_init.3.html\\nsem_init函数是Posix信号量操作中的函数。sem_init() 初始化一个定位在 sem 的匿名信号量。pshared 参数指明信号量是由进程内共享，还是由进程之间共享。如果 pshared 的值为 0，那么信号量将被进程内的线程共享。value 参数指定的初始值。\\nsem_post是给信号量的值加上一个“1”，它是一个“原子操作”－－－即同时对同一个信号量做加“1”操作的两个线程是不会冲突的。\\nsem_wait是一个函数，也是一个原子操作，它的作用是从信号量的值减去一个“1”，但它永远会先等待该信号量为一个非零值才开始做减法。也就是说，如果你对一个值为2的信号量调用sem_wait()，线程将会继续执行，将信号量的值将减到1。如果对一个值为0的信号量调用sem_wait()，这个函数就会原地等待直到有其它线程增加了这个值使它不再是0为止。\\n\",\"headline\":\"使用c++解决leetcode多线程题题目（之一）semaphore\",\"inLanguage\":\"zh-hans\",\"keywords\":[\"c++\",\"leetcode\",\"多线程\"],\"mainEntityOfPage\":{\"@id\":\"/post/leetcode_cpp_sem/\",\"@type\":\"WebPage\"},\"name\":\"使用c++解决leetcode多线程题题目（之一）semaphore\",\"publisher\":{\"@type\":\"Organization\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"/favicon.ico\"},\"name\":\"REWINE NOTE\"},\"wordCount\":3793}"</script></head><body id=top><header class=header><nav class=nav><div class=logo><a href=/ accesskey=h title="REWINE NOTE (Alt + H)">REWINE NOTE</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=/ title=Home><span>Home</span></a></li><li><a href=/archives/ title=Archives><span>Archives</span></a></li><li><a href=/search/ title="Search (Alt + /)" accesskey=/><span>Search</span></a></li><li><a href=/tags/ title=Tags><span>Tags</span></a></li><li><a href=/about/ title=About><span>About</span></a></li><li><a href=/friends/ title=Friends><span>Friends</span></a></li><li><a href=/index.xml title=RSS><span>RSS</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><h1 class="post-title entry-hint-parent">使用c++解决leetcode多线程题题目（之一）semaphore</h1><div class=post-meta><span title='2021-04-09 00:00:00 +0000 UTC'>2021年4月9日</span>&nbsp;·&nbsp;<span>3793 words</span>&nbsp;·&nbsp;<span>rewine</span></div></header><div class=toc><details><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#%e4%ba%a4%e6%9b%bf%e6%89%93%e5%8d%b0foobar aria-label=" 交替打印FooBar">交替打印FooBar</a></li><li><a href=#%e6%8c%89%e5%ba%8f%e6%89%93%e5%8d%b0 aria-label=" 按序打印">按序打印</a></li><li><a href=#%e6%89%93%e5%8d%b0%e9%9b%b6%e4%b8%8e%e5%a5%87%e5%81%b6%e6%95%b0 aria-label=打印零与奇偶数>打印零与奇偶数</a></li><li><a href=#1195-%e4%ba%a4%e6%9b%bf%e6%89%93%e5%8d%b0%e5%ad%97%e7%ac%a6%e4%b8%b2 aria-label="1195. 交替打印字符串">1195. 交替打印字符串</a></li><li><a href=#1117-h2o-%e7%94%9f%e6%88%90 aria-label="1117. H2O 生成">1117. H2O 生成</a></li><li><a href=#1226-%e5%93%b2%e5%ad%a6%e5%ae%b6%e8%bf%9b%e9%a4%90 aria-label="1226. 哲学家进餐">1226. 哲学家进餐</a></li></ul></div></details></div><div class=post-content><p>通过 <code>man sem_init</code> 可以查看具体文档。
+或者使用： <a href=https://man7.org/linux/man-pages/man3/sem_init.3.html>https://man7.org/linux/man-pages/man3/sem_init.3.html</a></p><p>sem_init函数是Posix信号量操作中的函数。sem_init() 初始化一个定位在 sem 的匿名信号量。pshared 参数指明信号量是由进程内共享，还是由进程之间共享。如果 pshared 的值为 0，那么信号量将被进程内的线程共享。value 参数指定的初始值。</p><p>sem_post是给信号量的值加上一个“1”，它是一个“原子操作”－－－即同时对同一个信号量做加“1”操作的两个线程是不会冲突的。</p><p>sem_wait是一个函数，也是一个原子操作，它的作用是从信号量的值减去一个“1”，但它永远会先等待该信号量为一个非零值才开始做减法。也就是说，如果你对一个值为2的信号量调用sem_wait()，线程将会继续执行，将信号量的值将减到1。如果对一个值为0的信号量调用sem_wait()，这个函数就会原地等待直到有其它线程增加了这个值使它不再是0为止。</p><h3 id=交替打印foobar><a href=https://leetcode-cn.com/problems/print-foobar-alternately>交替打印FooBar</a><a hidden class=anchor aria-hidden=true href=#交替打印foobar>#</a></h3><blockquote><p>我们提供一个类：</p><p>class FooBar {
 public void foo() {
 for (int i = 0; i &lt; n; i++) {
 print(&ldquo;foo&rdquo;);
@@ -23,42 +23,77 @@ print(&ldquo;bar&rdquo;);
 }
 两个不同的线程将会共用一个 FooBar 实例。其中一个线程将会调用 foo() 方法，另一个线程将会调用 bar() 方法。</p><p>请设计修改程序，以确保 &ldquo;foobar&rdquo; 被输出 n 次。</p><p>来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/print-foobar-alternately
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p></blockquote><pre><code class=language-c++>#include &lt;semaphore.h&gt;
-
-class FooBar {
-private:
-    int n;
-    sem_t sem_a, sem_b;
-
-public:
-    FooBar(int n) {
-        this-&gt;n = n;
-        sem_init(&amp;sem_a, 0, 0);
-        sem_init(&amp;sem_b, 0, 0);
-        sem_post(&amp;sem_a);
-    }
-
-    void foo(function&lt;void()&gt; printFoo) {
-        
-        for (int i = 0; i &lt; n; i++) {
-            sem_wait(&amp;sem_a);
-        	// printFoo() outputs &quot;foo&quot;. Do not change or remove this line.
-        	printFoo();
-            sem_post(&amp;sem_b);
-        }
-    }
-
-    void bar(function&lt;void()&gt; printBar) {
-        
-        for (int i = 0; i &lt; n; i++) {
-            sem_wait(&amp;sem_b);
-        	// printBar() outputs &quot;bar&quot;. Do not change or remove this line.
-        	printBar();
-            sem_post(&amp;sem_a);
-        }
-    }
-};
-</code></pre><h3 id=-按序打印httpsleetcode-cncomproblemsprint-in-order><a href=https://leetcode-cn.com/problems/print-in-order target=_blank>按序打印</a></h3><blockquote><p>我们提供了一个类：</p><p>public class Foo {
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p></blockquote><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;semaphore.h&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>FooBar</span> {
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> n;
+</span></span><span style=display:flex><span>    sem_t sem_a, sem_b;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    FooBar(<span style=color:#66d9ef>int</span> n) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>this</span><span style=color:#f92672>-&gt;</span>n <span style=color:#f92672>=</span> n;
+</span></span><span style=display:flex><span>        sem_init(<span style=color:#f92672>&amp;</span>sem_a, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>        sem_init(<span style=color:#f92672>&amp;</span>sem_b, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>        sem_post(<span style=color:#f92672>&amp;</span>sem_a);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>foo</span>(function<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>void</span>()<span style=color:#f92672>&gt;</span> printFoo) {
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; i <span style=color:#f92672>&lt;</span> n; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            sem_wait(<span style=color:#f92672>&amp;</span>sem_a);
+</span></span><span style=display:flex><span>        	<span style=color:#75715e>// printFoo() outputs &#34;foo&#34;. Do not change or remove this line.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        	printFoo();
+</span></span><span style=display:flex><span>            sem_post(<span style=color:#f92672>&amp;</span>sem_b);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>bar</span>(function<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>void</span>()<span style=color:#f92672>&gt;</span> printBar) {
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; i <span style=color:#f92672>&lt;</span> n; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            sem_wait(<span style=color:#f92672>&amp;</span>sem_b);
+</span></span><span style=display:flex><span>        	<span style=color:#75715e>// printBar() outputs &#34;bar&#34;. Do not change or remove this line.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        	printBar();
+</span></span><span style=display:flex><span>            sem_post(<span style=color:#f92672>&amp;</span>sem_a);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></td></tr></table></div></div><h3 id=按序打印><a href=https://leetcode-cn.com/problems/print-in-order>按序打印</a><a hidden class=anchor aria-hidden=true href=#按序打印>#</a></h3><blockquote><p>我们提供了一个类：</p><p>public class Foo {
 public void first() { print(&ldquo;first&rdquo;); }
 public void second() { print(&ldquo;second&rdquo;); }
 public void third() { print(&ldquo;third&rdquo;); }
@@ -68,37 +103,67 @@ public void third() { print(&ldquo;third&rdquo;); }
 还有一个将会调用 third() 方法
 请设计修改程序，以确保 second() 方法在 first() 方法之后被执行，third() 方法在 second() 方法之后被执行。</p><p>来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/print-in-order
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p></blockquote><pre><code class=language-c++>#include &lt;semaphore.h&gt;
-
-class Foo {
-    sem_t sem_a, sem_b;
-public:
-    int a,b; 
-    Foo() {
-        sem_init(&amp;sem_a, 0, 0);
-        sem_init(&amp;sem_b, 0, 0);
-    }
-
-    void first(function&lt;void()&gt; printFirst) {
-        // printFirst() outputs &quot;first&quot;. Do not change or remove this line.
-        printFirst();
-        sem_post(&amp;sem_a);
-    }
-
-    void second(function&lt;void()&gt; printSecond) {
-        sem_wait(&amp;sem_a);
-        // printSecond() outputs &quot;second&quot;. Do not change or remove this line.
-        printSecond();
-        sem_post(&amp;sem_b);
-    }
-
-    void third(function&lt;void()&gt; printThird) {
-        sem_wait(&amp;sem_b);
-        // printThird() outputs &quot;third&quot;. Do not change or remove this line.
-        printThird();
-    }
-};
-</code></pre><h3 id=打印零与奇偶数httpsleetcode-cncomproblemsprint-zero-even-odd><a href=https://leetcode-cn.com/problems/print-zero-even-odd target=_blank>打印零与奇偶数</a></h3><blockquote><p>假设有这么一个类：</p><p>class ZeroEvenOdd {
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p></blockquote><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;semaphore.h&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Foo</span> {
+</span></span><span style=display:flex><span>    sem_t sem_a, sem_b;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> a,b; 
+</span></span><span style=display:flex><span>    Foo() {
+</span></span><span style=display:flex><span>        sem_init(<span style=color:#f92672>&amp;</span>sem_a, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>        sem_init(<span style=color:#f92672>&amp;</span>sem_b, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>first</span>(function<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>void</span>()<span style=color:#f92672>&gt;</span> printFirst) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// printFirst() outputs &#34;first&#34;. Do not change or remove this line.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        printFirst();
+</span></span><span style=display:flex><span>        sem_post(<span style=color:#f92672>&amp;</span>sem_a);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>second</span>(function<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>void</span>()<span style=color:#f92672>&gt;</span> printSecond) {
+</span></span><span style=display:flex><span>        sem_wait(<span style=color:#f92672>&amp;</span>sem_a);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// printSecond() outputs &#34;second&#34;. Do not change or remove this line.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        printSecond();
+</span></span><span style=display:flex><span>        sem_post(<span style=color:#f92672>&amp;</span>sem_b);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>third</span>(function<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>void</span>()<span style=color:#f92672>&gt;</span> printThird) {
+</span></span><span style=display:flex><span>        sem_wait(<span style=color:#f92672>&amp;</span>sem_b);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// printThird() outputs &#34;third&#34;. Do not change or remove this line.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        printThird();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></td></tr></table></div></div><h3 id=打印零与奇偶数><a href=https://leetcode-cn.com/problems/print-zero-even-odd>打印零与奇偶数</a><a hidden class=anchor aria-hidden=true href=#打印零与奇偶数>#</a></h3><blockquote><p>假设有这么一个类：</p><p>class ZeroEvenOdd {
 public ZeroEvenOdd(int n) { &mldr; } // 构造函数
 public void zero(printNumber) { &mldr; } // 仅打印出 0
 public void even(printNumber) { &mldr; } // 仅打印出 偶数
@@ -109,49 +174,89 @@ public void odd(printNumber) { &mldr; } // 仅打印出 奇数
 线程 C 将调用 odd()，它只输出奇数。
 每个线程都有一个 printNumber 方法来输出一个整数。请修改给出的代码以输出整数序列 010203040506&mldr; ，其中序列的长度必须为 2n。</p><p>来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/print-zero-even-odd
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p></blockquote><pre><code class=language-c++>#include &lt;semaphore.h&gt;
-
-class ZeroEvenOdd {
-private:
-    int n;
-    sem_t sem_zero, sem_odd, sem_even;
-
-public:
-    ZeroEvenOdd(int n) {
-        this-&gt;n = n;
-        sem_init(&amp;sem_zero, 0, 1); //初始化一个0
-        sem_init(&amp;sem_odd, 0, 0);
-        sem_init(&amp;sem_even, 0, 0);     
-    }
-
-    // printNumber(x) outputs &quot;x&quot;, where x is an integer.
-    void zero(function&lt;void(int)&gt; printNumber) {
-         for(int i = 1; i &lt;= n; i++) {
-            sem_wait(&amp;sem_zero);
-            printNumber(0);
-            if (i &amp; 1) sem_post(&amp;sem_odd);
-            else sem_post(&amp;sem_even);
-        }
-    }
-
-    void even(function&lt;void(int)&gt; printNumber) {
-        for (int i = 1; i &lt;= n/2; i++) {
-            sem_wait(&amp;sem_even);
-            printNumber(i*2);
-            sem_post(&amp;sem_zero);
-        }
-    }
-
-    void odd(function&lt;void(int)&gt; printNumber) {
-        for (int i = 1; i &lt;= n-n/2; i++) {
-            sem_wait(&amp;sem_odd);
-            printNumber((i-1)*2+1);
-            sem_post(&amp;sem_zero);
-        }
-    }
-};
-
-</code></pre><h3 id=1195-交替打印字符串httpsleetcode-cncomproblemsfizz-buzz-multithreaded><a href=https://leetcode-cn.com/problems/fizz-buzz-multithreaded/ target=_blank>1195. 交替打印字符串</a></h3><blockquote><p>难度中等47收藏分享切换为英文接收动态反馈</p><p>编写一个可以从 1 到 n 输出代表这个数字的字符串的程序，但是：</p><pre><code>如果这个数字可以被 3 整除，输出 &quot;fizz&quot;。
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p></blockquote><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;semaphore.h&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ZeroEvenOdd</span> {
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> n;
+</span></span><span style=display:flex><span>    sem_t sem_zero, sem_odd, sem_even;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    ZeroEvenOdd(<span style=color:#66d9ef>int</span> n) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>this</span><span style=color:#f92672>-&gt;</span>n <span style=color:#f92672>=</span> n;
+</span></span><span style=display:flex><span>        sem_init(<span style=color:#f92672>&amp;</span>sem_zero, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>); <span style=color:#75715e>//初始化一个0
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        sem_init(<span style=color:#f92672>&amp;</span>sem_odd, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>        sem_init(<span style=color:#f92672>&amp;</span>sem_even, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>);     
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// printNumber(x) outputs &#34;x&#34;, where x is an integer.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>zero</span>(function<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>void</span>(<span style=color:#66d9ef>int</span>)<span style=color:#f92672>&gt;</span> printNumber) {
+</span></span><span style=display:flex><span>         <span style=color:#66d9ef>for</span>(<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> n; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            sem_wait(<span style=color:#f92672>&amp;</span>sem_zero);
+</span></span><span style=display:flex><span>            printNumber(<span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (i <span style=color:#f92672>&amp;</span> <span style=color:#ae81ff>1</span>) sem_post(<span style=color:#f92672>&amp;</span>sem_odd);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>else</span> sem_post(<span style=color:#f92672>&amp;</span>sem_even);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>even</span>(function<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>void</span>(<span style=color:#66d9ef>int</span>)<span style=color:#f92672>&gt;</span> printNumber) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> n<span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            sem_wait(<span style=color:#f92672>&amp;</span>sem_even);
+</span></span><span style=display:flex><span>            printNumber(i<span style=color:#f92672>*</span><span style=color:#ae81ff>2</span>);
+</span></span><span style=display:flex><span>            sem_post(<span style=color:#f92672>&amp;</span>sem_zero);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>odd</span>(function<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>void</span>(<span style=color:#66d9ef>int</span>)<span style=color:#f92672>&gt;</span> printNumber) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> n<span style=color:#f92672>-</span>n<span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            sem_wait(<span style=color:#f92672>&amp;</span>sem_odd);
+</span></span><span style=display:flex><span>            printNumber((i<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>)<span style=color:#f92672>*</span><span style=color:#ae81ff>2</span><span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>            sem_post(<span style=color:#f92672>&amp;</span>sem_zero);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></td></tr></table></div></div><h3 id=1195-交替打印字符串><a href=https://leetcode-cn.com/problems/fizz-buzz-multithreaded/>1195. 交替打印字符串</a><a hidden class=anchor aria-hidden=true href=#1195-交替打印字符串>#</a></h3><blockquote><p>难度中等47收藏分享切换为英文接收动态反馈</p><p>编写一个可以从 1 到 n 输出代表这个数字的字符串的程序，但是：</p><pre><code>如果这个数字可以被 3 整除，输出 &quot;fizz&quot;。
 如果这个数字可以被 5 整除，输出 &quot;buzz&quot;。
 如果这个数字可以同时被 3 和 5 整除，输出 &quot;fizzbuzz&quot;。
 </code></pre><p>例如，当 n = 15，输出： 1, 2, fizz, 4, buzz, fizz, 7, 8, fizz, buzz, 11, fizz, 13, 14, fizzbuzz。</p><p>假设有这么一个类：</p><p>class FizzBuzz {
@@ -167,198 +272,325 @@ public void number(printNumber) { &mldr; } // only output the numbers
 </code></pre><p>提示：</p><pre><code>本题已经提供了打印字符串的相关方法，如 printFizz() 等，具体方法名请参考答题模板中的注释部分。
 </code></pre><p>来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/fizz-buzz-multithreaded
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p></blockquote><p>这是个假并行，所以now不需要加锁</p><pre><code class=language-c++>#include &lt;semaphore.h&gt;
-
-class FizzBuzz {
-private:
-    int n, now;
-    sem_t sem_fizz;
-    sem_t sem_buzz;
-    sem_t sem_fizz_buzz;
-    sem_t sem_num;
-public:
-    FizzBuzz(int n) {
-        this-&gt;n = n;
-        this-&gt;now = 1;
-        sem_init(&amp;sem_fizz, 0, 0);
-        sem_init(&amp;sem_buzz, 0, 0);
-        sem_init(&amp;sem_fizz_buzz, 0, 0);
-        sem_init(&amp;sem_num, 0, 1);
-    }
-
-    void next() {
-        now++;
-        if (now == n+1) {
-            sem_post(&amp;sem_fizz_buzz);
-            sem_post(&amp;sem_buzz);
-            sem_post(&amp;sem_fizz);
-            sem_post(&amp;sem_num);
-            return;
-        }
-        bool a = now%3==0;
-        bool b = now%5==0;
-        if (a &amp;&amp; b) sem_post(&amp;sem_fizz_buzz);
-        else if (!a &amp;&amp; b) sem_post(&amp;sem_buzz);
-        else if (a &amp;&amp; !b) sem_post(&amp;sem_fizz);
-        else sem_post(&amp;sem_num);
-    }
-    // printFizz() outputs &quot;fizz&quot;.
-    void fizz(function&lt;void()&gt; printFizz) {
-        while(now &lt;= n) {
-            sem_wait(&amp;sem_fizz);
-            if(now &gt; n) break;
-            printFizz();
-            this-&gt;next();
-        }
-    }
-
-    // printBuzz() outputs &quot;buzz&quot;.
-    void buzz(function&lt;void()&gt; printBuzz) {
-        while(now &lt;= n) {
-            sem_wait(&amp;sem_buzz);
-            if(now &gt; n) break;
-            printBuzz();
-            this-&gt;next();
-        }
-    }
-
-    // printFizzBuzz() outputs &quot;fizzbuzz&quot;.
-	void fizzbuzz(function&lt;void()&gt; printFizzBuzz) {
-        while(now &lt;= n) {
-            sem_wait(&amp;sem_fizz_buzz);
-            if(now &gt; n) break;
-            printFizzBuzz();
-            this-&gt;next();
-        }
-    }
-
-    // printNumber(x) outputs &quot;x&quot;, where x is an integer.
-    void number(function&lt;void(int)&gt; printNumber) {
-        while(now &lt;= n) {
-            sem_wait(&amp;sem_num);
-            if(now &gt; n) break;
-            printNumber(now);
-            this-&gt;next();
-        }
-    }
-};
-</code></pre><h3 id=1117-h2o-生成httpsleetcode-cncomproblemsbuilding-h2o><a href=https://leetcode-cn.com/problems/building-h2o/ target=_blank>1117. H2O 生成</a></h3><blockquote><p>现在有两种线程，氧 oxygen 和氢 hydrogen，你的目标是组织这两种线程来产生水分子。</p><p>存在一个屏障（barrier）使得每个线程必须等候直到一个完整水分子能够被产生出来。</p><p>氢和氧线程会被分别给予 releaseHydrogen 和 releaseOxygen 方法来允许它们突破屏障。</p><p>这些线程应该三三成组突破屏障并能立即组合产生一个水分子。</p><p>你必须保证产生一个水分子所需线程的结合必须发生在下一个水分子产生之前。</p><p>换句话说:</p><p>如果一个氧线程到达屏障时没有氢线程到达，它必须等候直到两个氢线程到达。
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p></blockquote><p>这是个假并行，所以now不需要加锁</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">62
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">63
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">64
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">65
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">66
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">67
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">68
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">69
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">70
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">71
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">72
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">73
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">74
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">75
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;semaphore.h&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>FizzBuzz</span> {
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> n, now;
+</span></span><span style=display:flex><span>    sem_t sem_fizz;
+</span></span><span style=display:flex><span>    sem_t sem_buzz;
+</span></span><span style=display:flex><span>    sem_t sem_fizz_buzz;
+</span></span><span style=display:flex><span>    sem_t sem_num;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    FizzBuzz(<span style=color:#66d9ef>int</span> n) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>this</span><span style=color:#f92672>-&gt;</span>n <span style=color:#f92672>=</span> n;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>this</span><span style=color:#f92672>-&gt;</span>now <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>        sem_init(<span style=color:#f92672>&amp;</span>sem_fizz, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>        sem_init(<span style=color:#f92672>&amp;</span>sem_buzz, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>        sem_init(<span style=color:#f92672>&amp;</span>sem_fizz_buzz, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>        sem_init(<span style=color:#f92672>&amp;</span>sem_num, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>next</span>() {
+</span></span><span style=display:flex><span>        now<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (now <span style=color:#f92672>==</span> n<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>) {
+</span></span><span style=display:flex><span>            sem_post(<span style=color:#f92672>&amp;</span>sem_fizz_buzz);
+</span></span><span style=display:flex><span>            sem_post(<span style=color:#f92672>&amp;</span>sem_buzz);
+</span></span><span style=display:flex><span>            sem_post(<span style=color:#f92672>&amp;</span>sem_fizz);
+</span></span><span style=display:flex><span>            sem_post(<span style=color:#f92672>&amp;</span>sem_num);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>bool</span> a <span style=color:#f92672>=</span> now<span style=color:#f92672>%</span><span style=color:#ae81ff>3</span><span style=color:#f92672>==</span><span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>bool</span> b <span style=color:#f92672>=</span> now<span style=color:#f92672>%</span><span style=color:#ae81ff>5</span><span style=color:#f92672>==</span><span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (a <span style=color:#f92672>&amp;&amp;</span> b) sem_post(<span style=color:#f92672>&amp;</span>sem_fizz_buzz);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>a <span style=color:#f92672>&amp;&amp;</span> b) sem_post(<span style=color:#f92672>&amp;</span>sem_buzz);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (a <span style=color:#f92672>&amp;&amp;</span> <span style=color:#f92672>!</span>b) sem_post(<span style=color:#f92672>&amp;</span>sem_fizz);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span> sem_post(<span style=color:#f92672>&amp;</span>sem_num);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// printFizz() outputs &#34;fizz&#34;.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>fizz</span>(function<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>void</span>()<span style=color:#f92672>&gt;</span> printFizz) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span>(now <span style=color:#f92672>&lt;=</span> n) {
+</span></span><span style=display:flex><span>            sem_wait(<span style=color:#f92672>&amp;</span>sem_fizz);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span>(now <span style=color:#f92672>&gt;</span> n) <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            printFizz();
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>this</span><span style=color:#f92672>-&gt;</span>next();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// printBuzz() outputs &#34;buzz&#34;.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>buzz</span>(function<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>void</span>()<span style=color:#f92672>&gt;</span> printBuzz) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span>(now <span style=color:#f92672>&lt;=</span> n) {
+</span></span><span style=display:flex><span>            sem_wait(<span style=color:#f92672>&amp;</span>sem_buzz);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span>(now <span style=color:#f92672>&gt;</span> n) <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            printBuzz();
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>this</span><span style=color:#f92672>-&gt;</span>next();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// printFizzBuzz() outputs &#34;fizzbuzz&#34;.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	<span style=color:#66d9ef>void</span> <span style=color:#a6e22e>fizzbuzz</span>(function<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>void</span>()<span style=color:#f92672>&gt;</span> printFizzBuzz) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span>(now <span style=color:#f92672>&lt;=</span> n) {
+</span></span><span style=display:flex><span>            sem_wait(<span style=color:#f92672>&amp;</span>sem_fizz_buzz);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span>(now <span style=color:#f92672>&gt;</span> n) <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            printFizzBuzz();
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>this</span><span style=color:#f92672>-&gt;</span>next();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// printNumber(x) outputs &#34;x&#34;, where x is an integer.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>number</span>(function<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>void</span>(<span style=color:#66d9ef>int</span>)<span style=color:#f92672>&gt;</span> printNumber) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span>(now <span style=color:#f92672>&lt;=</span> n) {
+</span></span><span style=display:flex><span>            sem_wait(<span style=color:#f92672>&amp;</span>sem_num);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span>(now <span style=color:#f92672>&gt;</span> n) <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            printNumber(now);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>this</span><span style=color:#f92672>-&gt;</span>next();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></td></tr></table></div></div><h3 id=1117-h2o-生成><a href=https://leetcode-cn.com/problems/building-h2o/>1117. H2O 生成</a><a hidden class=anchor aria-hidden=true href=#1117-h2o-生成>#</a></h3><blockquote><p>现在有两种线程，氧 oxygen 和氢 hydrogen，你的目标是组织这两种线程来产生水分子。</p><p>存在一个屏障（barrier）使得每个线程必须等候直到一个完整水分子能够被产生出来。</p><p>氢和氧线程会被分别给予 releaseHydrogen 和 releaseOxygen 方法来允许它们突破屏障。</p><p>这些线程应该三三成组突破屏障并能立即组合产生一个水分子。</p><p>你必须保证产生一个水分子所需线程的结合必须发生在下一个水分子产生之前。</p><p>换句话说:</p><p>如果一个氧线程到达屏障时没有氢线程到达，它必须等候直到两个氢线程到达。
 如果一个氢线程到达屏障时没有其它线程到达，它必须等候直到一个氧线程和另一个氢线程到达。
 书写满足这些限制条件的氢、氧线程同步代码。</p><p>来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/building-h2o
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p></blockquote><p>这个参考了题解区大佬的思路，2个h,1个o是第一层限制，通过第一层限制后，如果是h,告诉半个o可以通过第二次限制，如果是o,告诉2个h可以通过第二层限制。</p><pre><code class=language-c++>#include &lt;semaphore.h&gt;
-
-class H2O {
-    sem_t hjob, ojob;
-    sem_t hlimit, olimit;
-public:
-    H2O() {
-        sem_init(&amp;hjob,0,0);// H 反应条件信号量
-        sem_init(&amp;ojob,0,0);// O 反应条件信号量
-        sem_init(&amp;hlimit,0,2);// H线程信号量
-        sem_init(&amp;olimit,0,1);// O线程信号量
-    }
-
-    void hydrogen(function&lt;void()&gt; releaseHydrogen) {
-        sem_wait(&amp;hlimit);// 保证只有2个H线程进入执行
-        sem_post(&amp;hjob);// 释放H原子到达信号
-        sem_wait(&amp;ojob);// 等待O原子到达
-        // releaseHydrogen() outputs &quot;H&quot;. Do not change or remove this line.
-        releaseHydrogen();        
-        sem_post(&amp;hlimit);// 相当于唤醒1个H线程
-    }
-
-    void oxygen(function&lt;void()&gt; releaseOxygen) {
-        sem_wait(&amp;olimit);// 保证只有1个O线程进入执行
-        sem_post(&amp;ojob);// 释放O原子到达信号，因为有2个H线程等待所以释放2个
-        sem_post(&amp;ojob);
-        sem_wait(&amp;hjob);// 等待H原子到达，2个原因同上
-        sem_wait(&amp;hjob);
-        // releaseOxygen() outputs &quot;O&quot;. Do not change or remove this line.
-        releaseOxygen();
-        sem_post(&amp;olimit);// 相当于唤醒1个O线程
-    }
-};
-</code></pre><h3 id=1226-哲学家进餐httpsleetcode-cncomproblemsthe-dining-philosophers><a href=https://leetcode-cn.com/problems/the-dining-philosophers/ target=_blank>1226. 哲学家进餐</a></h3><blockquote><p>5 个沉默寡言的哲学家围坐在圆桌前，每人面前一盘意面。叉子放在哲学家之间的桌面上。（5 个哲学家，5 根叉子）</p><p>所有的哲学家都只会在思考和进餐两种行为间交替。哲学家只有同时拿到左边和右边的叉子才能吃到面，而同一根叉子在同一时间只能被一个哲学家使用。每个哲学家吃完面后都需要把叉子放回桌面以供其他哲学家吃面。只要条件允许，哲学家可以拿起左边或者右边的叉子，但在没有同时拿到左右叉子时不能进食。</p><p>假设面的数量没有限制，哲学家也能随便吃，不需要考虑吃不吃得下。</p><p>设计一个进餐规则（并行算法）使得每个哲学家都不会挨饿；也就是说，在没有人知道别人什么时候想吃东西或思考的情况下，每个哲学家都可以在吃饭和思考之间一直交替下去。</p><p>问题描述和图片来自维基百科 wikipedia.org</p><p>哲学家从 0 到 4 按 顺时针 编号。请实现函数 void wantsToEat(philosopher, pickLeftFork, pickRightFork, eat, putLeftFork, putRightFork)：</p><pre><code>philosopher 哲学家的编号。
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p></blockquote><p>这个参考了题解区大佬的思路，2个h,1个o是第一层限制，通过第一层限制后，如果是h,告诉半个o可以通过第二次限制，如果是o,告诉2个h可以通过第二层限制。</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;semaphore.h&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>H2O</span> {
+</span></span><span style=display:flex><span>    sem_t hjob, ojob;
+</span></span><span style=display:flex><span>    sem_t hlimit, olimit;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    H2O() {
+</span></span><span style=display:flex><span>        sem_init(<span style=color:#f92672>&amp;</span>hjob,<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>0</span>);<span style=color:#75715e>// H 反应条件信号量
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        sem_init(<span style=color:#f92672>&amp;</span>ojob,<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>0</span>);<span style=color:#75715e>// O 反应条件信号量
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        sem_init(<span style=color:#f92672>&amp;</span>hlimit,<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>2</span>);<span style=color:#75715e>// H线程信号量
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        sem_init(<span style=color:#f92672>&amp;</span>olimit,<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>1</span>);<span style=color:#75715e>// O线程信号量
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>hydrogen</span>(function<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>void</span>()<span style=color:#f92672>&gt;</span> releaseHydrogen) {
+</span></span><span style=display:flex><span>        sem_wait(<span style=color:#f92672>&amp;</span>hlimit);<span style=color:#75715e>// 保证只有2个H线程进入执行
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        sem_post(<span style=color:#f92672>&amp;</span>hjob);<span style=color:#75715e>// 释放H原子到达信号
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        sem_wait(<span style=color:#f92672>&amp;</span>ojob);<span style=color:#75715e>// 等待O原子到达
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>// releaseHydrogen() outputs &#34;H&#34;. Do not change or remove this line.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        releaseHydrogen();        
+</span></span><span style=display:flex><span>        sem_post(<span style=color:#f92672>&amp;</span>hlimit);<span style=color:#75715e>// 相当于唤醒1个H线程
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>oxygen</span>(function<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>void</span>()<span style=color:#f92672>&gt;</span> releaseOxygen) {
+</span></span><span style=display:flex><span>        sem_wait(<span style=color:#f92672>&amp;</span>olimit);<span style=color:#75715e>// 保证只有1个O线程进入执行
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        sem_post(<span style=color:#f92672>&amp;</span>ojob);<span style=color:#75715e>// 释放O原子到达信号，因为有2个H线程等待所以释放2个
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        sem_post(<span style=color:#f92672>&amp;</span>ojob);
+</span></span><span style=display:flex><span>        sem_wait(<span style=color:#f92672>&amp;</span>hjob);<span style=color:#75715e>// 等待H原子到达，2个原因同上
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        sem_wait(<span style=color:#f92672>&amp;</span>hjob);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// releaseOxygen() outputs &#34;O&#34;. Do not change or remove this line.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        releaseOxygen();
+</span></span><span style=display:flex><span>        sem_post(<span style=color:#f92672>&amp;</span>olimit);<span style=color:#75715e>// 相当于唤醒1个O线程
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    }
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></td></tr></table></div></div><h3 id=1226-哲学家进餐><a href=https://leetcode-cn.com/problems/the-dining-philosophers/>1226. 哲学家进餐</a><a hidden class=anchor aria-hidden=true href=#1226-哲学家进餐>#</a></h3><blockquote><p>5 个沉默寡言的哲学家围坐在圆桌前，每人面前一盘意面。叉子放在哲学家之间的桌面上。（5 个哲学家，5 根叉子）</p><p>所有的哲学家都只会在思考和进餐两种行为间交替。哲学家只有同时拿到左边和右边的叉子才能吃到面，而同一根叉子在同一时间只能被一个哲学家使用。每个哲学家吃完面后都需要把叉子放回桌面以供其他哲学家吃面。只要条件允许，哲学家可以拿起左边或者右边的叉子，但在没有同时拿到左右叉子时不能进食。</p><p>假设面的数量没有限制，哲学家也能随便吃，不需要考虑吃不吃得下。</p><p>设计一个进餐规则（并行算法）使得每个哲学家都不会挨饿；也就是说，在没有人知道别人什么时候想吃东西或思考的情况下，每个哲学家都可以在吃饭和思考之间一直交替下去。</p><p>问题描述和图片来自维基百科 wikipedia.org</p><p>哲学家从 0 到 4 按 顺时针 编号。请实现函数 void wantsToEat(philosopher, pickLeftFork, pickRightFork, eat, putLeftFork, putRightFork)：</p><pre><code>philosopher 哲学家的编号。
 pickLeftFork 和 pickRightFork 表示拿起左边或右边的叉子。
 eat 表示吃面。
 putLeftFork 和 putRightFork 表示放下左边或右边的叉子。
 由于哲学家不是在吃面就是在想着啥时候吃面，所以思考这个方法没有对应的回调。
 </code></pre><p>给你 5 个线程，每个都代表一个哲学家，请你使用类的同一个对象来模拟这个过程。在最后一次调用结束之前，可能会为同一个哲学家多次调用该函数。</p><p>来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/the-dining-philosophers
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p></blockquote><p>只有同时最多4人就餐，就不可能循环等待</p><pre><code class=language-c++>#include&lt;semaphore.h&gt;
-//#include&lt;pthread.h&gt;
-
-class DiningPhilosophers {
-    sem_t sem, fork[5];
-    //pthread_mutex_t fork[5];
-public:
-    DiningPhilosophers() {
-        sem_init(&amp;sem, 0, 3);
-        for(int i = 0; i &lt; 5; i++)
-            sem_init(&amp;fork[i], 0, 1);
-            //pthread_mutex_init(fork+i, nullptr);
-    }
-
-    void wantsToEat(int philosopher,
-                    function&lt;void()&gt; pickLeftFork,
-                    function&lt;void()&gt; pickRightFork,
-                    function&lt;void()&gt; eat,
-                    function&lt;void()&gt; putLeftFork,
-                    function&lt;void()&gt; putRightFork) {
-
-		int right=philosopher;
-		int left=(right+1)%5;
-		
-		sem_wait(&amp;sem);
-		
-		//pthread_mutex_lock(fork+left);
-		//pthread_mutex_lock(fork+right);
-		sem_wait(&amp;fork[left]);
-		sem_wait(&amp;fork[right]);
-
-		pickLeftFork();
-		pickRightFork();
-		eat();
-		putLeftFork();
-		putRightFork();
-		
-        sem_post(&amp;fork[left]);
-        sem_post(&amp;fork[right]);
-		//pthread_mutex_unlock(fork+left);
-		//pthread_mutex_unlock(fork+right);
-		
-		sem_post(&amp;sem);
-    }
-};
-
-</code></pre></div></article><div class="license markdown-body"><blockquote><p>除特殊注明部分，本站内容采用 <a rel=license href=http://creativecommons.org/licenses/by-nc-sa/4.0/ target=_blank>CC BY-NC-SA 4.0</a> 进行许可。</p></blockquote></div><div class=post-comment data-comment=utterances><span class=post-comment-notloaded><i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;查看评论
-</span><script>function loadComment(){var e,n=document.querySelector(".post-comment"),t=document.body.getAttribute("data-theme");t==="auto"?t=window.matchMedia("(prefers-color-scheme: dark)").matches?"photon-dark":"github-light":t=t==="dark"?"photon-dark":"github-light",e=document.createElement("script"),e.src="https://utteranc.es/client.js",e.setAttribute("repo","wineee/hugoblogtalks"),e.setAttribute("issue-term","pathname"),e.setAttribute("theme",t),e.setAttribute("crossorigin","anonymous"),e.setAttribute("async",""),document.querySelector(".post-comment").appendChild(e),document.querySelector("span.post-comment-notloaded").setAttribute("style","display: none;")}</script></div></div><aside class="col-12 col-md-3 float-left sidebar"><div class="sidebar-item sidebar-pages"><h3>页面</h3><ul><li><a href=/>Home</a></li><li><a href=/archives/>Archives</a></li><li><a href=/about/>About</a></li><li><a href=/search/>Search</a></li><li><a href=/friends/>Friends</a></li><li><a href=/index.xml>RSS</a></li></ul></div><div class="sidebar-item sidebar-toc"><h3>目录</h3><nav id=TableOfContents><ul><li><ul><li><a href=#-交替打印foobarhttpsleetcode-cncomproblemsprint-foobar-alternately><a href=https://leetcode-cn.com/problems/print-foobar-alternately>交替打印FooBar</a></a></li><li><a href=#-按序打印httpsleetcode-cncomproblemsprint-in-order><a href=https://leetcode-cn.com/problems/print-in-order>按序打印</a></a></li><li><a href=#打印零与奇偶数httpsleetcode-cncomproblemsprint-zero-even-odd><a href=https://leetcode-cn.com/problems/print-zero-even-odd>打印零与奇偶数</a></a></li><li><a href=#1195-交替打印字符串httpsleetcode-cncomproblemsfizz-buzz-multithreaded><a href=https://leetcode-cn.com/problems/fizz-buzz-multithreaded/>1195. 交替打印字符串</a></a></li><li><a href=#1117-h2o-生成httpsleetcode-cncomproblemsbuilding-h2o><a href=https://leetcode-cn.com/problems/building-h2o/>1117. H2O 生成</a></a></li><li><a href=#1226-哲学家进餐httpsleetcode-cncomproblemsthe-dining-philosophers><a href=https://leetcode-cn.com/problems/the-dining-philosophers/>1226. 哲学家进餐</a></a></li></ul></li></ul></nav></div></aside></div><div class=btn><div class=btn-menu id=btn-menu><i class="iconfont icon-grid-sharp"></i></div><div class=btn-toggle-mode><i class="iconfont icon-contrast-sharp"></i></div><div class=btn-scroll-top><i class="iconfont icon-chevron-up-circle-sharp"></i></div></div><aside class=sidebar-mobile style=display:none><div class=sidebar-wrapper><div class="sidebar-item sidebar-pages"><h3>页面</h3><ul><li><a href=/>Home</a></li><li><a href=/archives/>Archives</a></li><li><a href=/about/>About</a></li><li><a href=/search/>Search</a></li><li><a href=/friends/>Friends</a></li><li><a href=/index.xml>RSS</a></li></ul></div><div class="sidebar-item sidebar-links"><h3>链接</h3><ul><li><a href=https://github.com/wineee target=_blank><span>GitHub</span></a></li><li><a href=https://twitter.com/rewineeee target=_blank><span>Twitter</span></a></li><li><a href=https://space.bilibili.com/23192485 target=_blank><span>bilibili</span></a></li></ul></div><div class="sidebar-item sidebar-tags"><h3>标签</h3><div><span><a href=/tags/acm/>ACM</a>
-</span><span><a href=/tags/bfs/>Bfs</a>
-</span><span><a href=/tags/c/>C</a>
-</span><span><a href=/tags/c++/>C++</a>
-</span><span><a href=/tags/cryptography/>Cryptography</a>
-</span><span><a href=/tags/emacs/>Emacs</a>
-</span><span><a href=/tags/go/>Go</a>
-</span><span><a href=/tags/goroutine/>Goroutine</a>
-</span><span><a href=/tags/haskell/>Haskell</a>
-</span><span><a href=/tags/hugo/>Hugo</a>
-</span><span><a href=/tags/lab/>Lab</a>
-</span><span><a href=/tags/leetcode/>Leetcode</a>
-</span><span><a href=/tags/mfc/>Mfc</a>
-</span><span><a href=/tags/nixos/>Nixos</a>
-</span><span><a href=/tags/onlyoffice/>Onlyoffice</a>
-</span><span><a href=/tags/qt/>Qt</a>
-</span><span><a href=/tags/turing-award/>Turing Award</a>
-</span><span><a href=/tags/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95/>匈牙利算法</a>
-</span><span><a href=/tags/%E5%8D%95%E7%BA%AF%E5%9E%8B/>单纯型</a>
-</span><span><a href=/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/>多线程</a>
-</span><span><a href=/tags/%E5%B9%B6%E5%8F%91/>并发</a>
-</span><span><a href=/tags/%E5%BA%B7%E6%89%98%E5%B1%95%E5%BC%80/>康托展开</a>
-</span><span><a href=/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/>蓝桥杯</a>
-</span><span><a href=/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/>软件工程</a>
-</span><span><a href=/tags/%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90/>软件推荐</a></span></div></div><div class="sidebar-item sidebar-toc"><h3>目录</h3><nav id=TableOfContents><ul><li><ul><li><a href=#-交替打印foobarhttpsleetcode-cncomproblemsprint-foobar-alternately><a href=https://leetcode-cn.com/problems/print-foobar-alternately>交替打印FooBar</a></a></li><li><a href=#-按序打印httpsleetcode-cncomproblemsprint-in-order><a href=https://leetcode-cn.com/problems/print-in-order>按序打印</a></a></li><li><a href=#打印零与奇偶数httpsleetcode-cncomproblemsprint-zero-even-odd><a href=https://leetcode-cn.com/problems/print-zero-even-odd>打印零与奇偶数</a></a></li><li><a href=#1195-交替打印字符串httpsleetcode-cncomproblemsfizz-buzz-multithreaded><a href=https://leetcode-cn.com/problems/fizz-buzz-multithreaded/>1195. 交替打印字符串</a></a></li><li><a href=#1117-h2o-生成httpsleetcode-cncomproblemsbuilding-h2o><a href=https://leetcode-cn.com/problems/building-h2o/>1117. H2O 生成</a></a></li><li><a href=#1226-哲学家进餐httpsleetcode-cncomproblemsthe-dining-philosophers><a href=https://leetcode-cn.com/problems/the-dining-philosophers/>1226. 哲学家进餐</a></a></li></ul></li></ul></nav></div></div></aside></main><footer><div class="container-lg clearfix"><div class="col-12 footer"><span>&copy; 2020-2025
-<a href=/>rewine</a>
-| <a href=https://github.com/wineee/wineee.github.io>Source code</a>
-| 基于 <a href=https://github.com/andrew-aiken/hugo-theme-fuji/ target=_blank>Fuji</a> & <a href=https://gohugo.io/ target=_blank>Hugo</a> 构建
-| <a href="https://icp.gov.moe/?keyword=20211211" target=_blank>萌ICP备20211211号</a></span></div></div></footer><script defer src=https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js integrity="sha512-q583ppKrCRc7N5O0n2nzUiJ+suUv7Et1JGels4bXOaMFQcamPk9HjdUknZuuFjBNs7tsMuadge5k9RzdmO+1GQ==" crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.27.0/components/prism-core.min.js integrity="sha512-LCKPTo0gtJ74zCNMbWw04ltmujpzSR4oW+fgN+Y1YclhM5ZrHCZQAJE4quEodcI/G122sRhSGU2BsSRUZ2Gu3w==" crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/autoloader/prism-autoloader.min.js integrity="sha512-GP4x8UWxWyh4BMbyJGOGneiTbkrWEF5izsVJByzVLodP8CuJH/n936+yQDMJJrOPUHLgyPbLiGw2rXmdvGdXHA==" crossorigin=anonymous></script><script defer src=/assets/js/fuji.min.645f1123be695831f419ab54c1bcba327325895c740014006e57070d4f3e5d6b553e929c4b46f40ea707249e9c7f7c2a446d32a39ce7319f80a34525586a8e0f.js integrity="sha512-ZF8RI75pWDH0GatUwby6MnMliVx0ABQAblcHDU8+XWtVPpKcS0b0DqcHJJ6cf3wqRG0yo5znMZ+Ao0UlWGqODw=="></script><script>MathJax={tex:{inlineMath:[["$","$"]]},displayMath:[["$$","$$"],["[[","]]"]],svg:{fontCache:"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script></body></html>
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p></blockquote><p>只有同时最多4人就餐，就不可能循环等待</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#75715e>#include&lt;semaphore.h&gt;
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e>//#include&lt;pthread.h&gt;
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>DiningPhilosophers</span> {
+</span></span><span style=display:flex><span>    sem_t sem, fork[<span style=color:#ae81ff>5</span>];
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//pthread_mutex_t fork[5];
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>public</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    DiningPhilosophers() {
+</span></span><span style=display:flex><span>        sem_init(<span style=color:#f92672>&amp;</span>sem, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>3</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span>(<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; i <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>5</span>; i<span style=color:#f92672>++</span>)
+</span></span><span style=display:flex><span>            sem_init(<span style=color:#f92672>&amp;</span>fork[i], <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>            <span style=color:#75715e>//pthread_mutex_init(fork+i, nullptr);
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>wantsToEat</span>(<span style=color:#66d9ef>int</span> philosopher,
+</span></span><span style=display:flex><span>                    function<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>void</span>()<span style=color:#f92672>&gt;</span> pickLeftFork,
+</span></span><span style=display:flex><span>                    function<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>void</span>()<span style=color:#f92672>&gt;</span> pickRightFork,
+</span></span><span style=display:flex><span>                    function<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>void</span>()<span style=color:#f92672>&gt;</span> eat,
+</span></span><span style=display:flex><span>                    function<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>void</span>()<span style=color:#f92672>&gt;</span> putLeftFork,
+</span></span><span style=display:flex><span>                    function<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>void</span>()<span style=color:#f92672>&gt;</span> putRightFork) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>int</span> right<span style=color:#f92672>=</span>philosopher;
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>int</span> left<span style=color:#f92672>=</span>(right<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>)<span style=color:#f92672>%</span><span style=color:#ae81ff>5</span>;
+</span></span><span style=display:flex><span>		
+</span></span><span style=display:flex><span>		sem_wait(<span style=color:#f92672>&amp;</span>sem);
+</span></span><span style=display:flex><span>		
+</span></span><span style=display:flex><span>		<span style=color:#75715e>//pthread_mutex_lock(fork+left);
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>		<span style=color:#75715e>//pthread_mutex_lock(fork+right);
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>		sem_wait(<span style=color:#f92672>&amp;</span>fork[left]);
+</span></span><span style=display:flex><span>		sem_wait(<span style=color:#f92672>&amp;</span>fork[right]);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>		pickLeftFork();
+</span></span><span style=display:flex><span>		pickRightFork();
+</span></span><span style=display:flex><span>		eat();
+</span></span><span style=display:flex><span>		putLeftFork();
+</span></span><span style=display:flex><span>		putRightFork();
+</span></span><span style=display:flex><span>		
+</span></span><span style=display:flex><span>        sem_post(<span style=color:#f92672>&amp;</span>fork[left]);
+</span></span><span style=display:flex><span>        sem_post(<span style=color:#f92672>&amp;</span>fork[right]);
+</span></span><span style=display:flex><span>		<span style=color:#75715e>//pthread_mutex_unlock(fork+left);
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>		<span style=color:#75715e>//pthread_mutex_unlock(fork+right);
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>		
+</span></span><span style=display:flex><span>		sem_post(<span style=color:#f92672>&amp;</span>sem);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></td></tr></table></div></div></div><footer class=post-footer><ul class=post-tags><li><a href=/tags/c++/>C++</a></li><li><a href=/tags/leetcode/>Leetcode</a></li><li><a href=/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/>多线程</a></li></ul></footer><script src=https://giscus.app/client.js data-repo=wineee/wineee.github.io data-repo-id="MDEwOlJlcG9zaXRvcnk5NzgxOTY1OA==" data-category=General data-category-id=DIC_kwDOBdScCs4C4Xj1 data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=bottom data-theme=preferred_color_scheme data-lang=zh-CN crossorigin=anonymous async></script></article></main><footer class=footer><span>&copy; 2026 <a href=/>REWINE NOTE</a></span> ·
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>

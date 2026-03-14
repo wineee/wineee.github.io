@@ -1,304 +1,539 @@
-<!doctype html><html lang=zh-hans><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=HandheldFriendly content="True"><meta http-equiv=X-UA-Compatible content="IE=edge"><meta http-equiv=Cache-Control content="no-transform"><meta http-equiv=Cache-Control content="no-siteapp"><meta name=generator content="Hugo 0.140.1"><link rel=apple-touch-icon sizes=180x180 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png><link rel=manifest href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest><link rel=mask-icon href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg color=#8aa2d3><link rel="shortcut icon" href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico><meta name=theme-color content="#ffffff"><title>Codeworld: 使用Haskell实现一个贪吃蛇小游戏 - REWINE NOTE</title>
-<meta name=author content="rewine"><meta name=description content="A minimal Hugo theme with nice theme color."><meta name=keywords content="Haskell"><meta property="og:title" content="Codeworld: 使用Haskell实现一个贪吃蛇小游戏"><meta name=twitter:title content="Codeworld: 使用Haskell实现一个贪吃蛇小游戏"><meta property="og:type" content="article"><meta property="og:url" content="/post/haskell_snake_game/"><meta property="og:description" content="haskell 的一些教学可以参考：
+<!doctype html><html lang=zh-hans dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Codeworld: 使用Haskell实现一个贪吃蛇小游戏 | REWINE NOTE</title>
+<meta name=keywords content="Haskell"><meta name=description content="haskell 的一些教学可以参考：
 https://www.seas.upenn.edu/~cis194/fall16/index.html
 CodeWorld：可以在线运行hs代码，基于ghc.js，四舍五入还是在本地跑
 https://code.world/haskell
 下面是利用 CodeWorld 画圆的小例子
+
+
+1
+2
+3
+4
+5
+
+
 import CodeWorld
 
 main :: IO()
 main = do
        drawingOf $ circle 1
-"><meta name=twitter:description content="haskell 的一些教学可以参考：
+
+
+"><meta name=author content="rewine"><link rel=canonical href=/post/haskell_snake_game/><link crossorigin=anonymous href=/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css integrity="sha256-2jIR5e+Ge/K3X9WmUVz+1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as=style><link rel=icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=apple-touch-icon href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh-hans href=/post/haskell_snake_game/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}@media(prefers-color-scheme:light){.list::-webkit-scrollbar-thumb{border-color:var(--code-bg)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><meta property="og:url" content="/post/haskell_snake_game/"><meta property="og:site_name" content="REWINE NOTE"><meta property="og:title" content="Codeworld: 使用Haskell实现一个贪吃蛇小游戏"><meta property="og:description" content="haskell 的一些教学可以参考：
 https://www.seas.upenn.edu/~cis194/fall16/index.html
 CodeWorld：可以在线运行hs代码，基于ghc.js，四舍五入还是在本地跑
 https://code.world/haskell
 下面是利用 CodeWorld 画圆的小例子
-import CodeWorld
-
-main :: IO()
-main = do
-       drawingOf $ circle 1
-"><meta property="og:image" content="/img/og.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/img/og.png"><meta property="article:published_time" content="2021-08-20T00:00:00+00:00"><meta property="article:modified_time" content="2021-08-20T00:00:00+00:00"><style>@media(prefers-color-scheme:dark){body[data-theme=auto] img{filter:brightness(60%)}}body[data-theme=dark] img{filter:brightness(60%)}</style><link rel=stylesheet href=/assets/css/fuji.min.b4a21b5d3eb1d0a51297e31230a65fc25e387843e45ec3a2d9176cd8d163c216d99b9b13a618b28f537c3b559ec8a408183b0fbfad48daddb9befa7d3ef90eed.css integrity="sha512-tKIbXT6x0KUSl+MSMKZfwl44eEPkXsOi2Rds2NFjwhbZm5sTphiyj1N8O1WeyKQIGDsPv61I2t25vvp9PvkO7Q=="></head><body data-theme=auto data-theme-auto=false><script data-cfasync=false>var fujiThemeData=localStorage.getItem("fuji_data-theme");fujiThemeData?fujiThemeData!=="auto"&&document.body.setAttribute("data-theme",fujiThemeData==="dark"?"dark":"light"):localStorage.setItem("fuji_data-theme","auto")</script><header></header><main><div class="container-lg clearfix"><div class="col-12 col-md-9 float-left content"><article><h1 class="post-item post-title"><a href=/post/haskell_snake_game/>Codeworld: 使用Haskell实现一个贪吃蛇小游戏</a></h1><div class="post-item post-meta"><span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-08-20</span>
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1741 字</span>
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href=/tags/haskell>Haskell</a>&nbsp;</span></div><div class="post-content markdown-body"><p>haskell 的一些教学可以参考：</p><p><a href=https://www.seas.upenn.edu/~cis194/fall16/index.html target=_blank>https://www.seas.upenn.edu/~cis194/fall16/index.html</a></p><p>CodeWorld：可以在线运行hs代码，基于ghc.js，<del>四舍五入还是在本地跑</del></p><p><a href=https://code.world/haskell# target=_blank>https://code.world/haskell</a></p><p>下面是利用 CodeWorld 画圆的小例子</p><pre><code class=language-haskell>import CodeWorld
-
-main :: IO()
-main = do
-       drawingOf $ circle 1
-</code></pre><p><img class=img-zoomable src=https://cdn.jsdelivr.net/gh/wineee/MarkDownPIC@master/img/73d0de53a33166008f9673fe5976f472.png alt=wishimg></p><p>还可以画多边形</p><pre><code class=language-haskell>import CodeWorld
-
-main :: IO ()
-main = drawingOf triangle
-
-triangle :: Picture
-triangle = polygon [(9,9),(0,-9),(-9,9)]
-</code></pre><p><img class=img-zoomable src=https://cdn.jsdelivr.net/gh/wineee/MarkDownPIC@master/img/7e06ec4a9da1e8b17a91fd75adae136e.png alt=wishimg></p><p>通过 colored 函数添加颜色， 参数是: color picture</p><pre><code class=language-haskell>import CodeWorld
-
-main :: IO ()
-main = drawingOf ourPicture
-
-ourPicture = colored green $ solidCircle 2
-</code></pre><p><img class=img-zoomable src=https://cdn.jsdelivr.net/gh/wineee/MarkDownPIC@master/img/e2c8030079aab9ed7cd2c7effba5b7f9.png alt=wishimg></p><p>& 函数可以将图片合并</p><pre><code class=language-haskell>import CodeWorld
-
-main :: IO ()
-main = drawingOf $ ourPicture &amp; (solidCircle 5)
-
-ourPicture = colored green $ solidCircle 2
-</code></pre><p><img class=img-zoomable src=https://cdn.jsdelivr.net/gh/wineee/MarkDownPIC@master/img/1e31b82ac61ce2e4a1d909ecab53d400.png alt=wishimg></p><p>translated 函数实现移位，参数dx dy picture</p><pre><code class=language-haskell>import CodeWorld
-
-main :: IO ()
-main = drawingOf $ ourPicture &amp; translated 1 2 $ solidCircle 1
-
-ourPicture = colored green $ solidCircle 1
-</code></pre><p><img class=img-zoomable src=https://cdn.jsdelivr.net/gh/wineee/MarkDownPIC@master/img/983d76eadcdbad3600cf0320007000f6.png alt=wishimg></p><p>下面实现贪吃蛇，代码参照了<a href=https://www.bilibili.com/video/BV19v411n7ww target=_blank>此教程</a>，我添加了一些注释</p><p>Haskell 类型系统确实强大，看名字和标注就能知道这个函数有什么用。编译器可以排查大部分错误，可惜我把 unfoldr i+1写成 i-1，无限递归了，找了半天bug（我都不知道怎么debug）</p><pre><code class=language-haskell>import CodeWorld
-import Data.List
-import Data.Text(pack, unpack)
-import System.Random
-
-type RandomNumber = Int
-gridSize = 0.5
--- 为了美观，
-gridSizeHf = 0.25
--- 坐标（0，0）为中心， 经调整（0，0）的格子占用（0，0）-（0.5，0.5）空间
-
-main :: IO()
-main = do
-       gen &lt;- getStdGen
-       activityOf (initialWorld gen) handleEvent drawWorld
-       --         初始化              事件相应     绘制
-       
--- 定义游戏状态，GameIdle              
-data GameState = GameIdle 
-               | GameRunning
-               | GameOver
-               deriving(Show, Eq)
-              
-data World = World {
-        rnds :: [RandomNumber]
-      , state :: GameState
-      , snake :: Snake
-      , apple :: Apple
-      , areaWidth :: Double
-      , areaHeight :: Double
-      }
-
-initialWorld :: StdGen -&gt; World
-initialWorld gen = restartWorld rnds width height
-      where rnds = randomRs (round(0-width), round(width-2)) gen
-            width = 20 :: Double
-            height = 20 :: Double
-      
-restartWorld :: [RandomNumber] -&gt; Double -&gt; Double -&gt; World
-restartWorld rnds w h = World rnds' GameRunning snake apple w h
-    where snake = mkSnake (-3, 0) 3 blue
-          apple = mkApple ((fromIntegral r1) / 2, (fromIntegral r2) / 2) green
-          (r1:r2:rnds') = rnds
- 
-drawWorld :: World -&gt; Picture
-drawWorld world
-  | state world == GameOver = draw world
-                              &amp; translated 0 (1)
-                                (styledLettering Bold Handwriting 
-                                  (pack &quot;Game Over&quot;))
-                              &amp; translated 0 (-1)
-                                (styledLettering Bold Handwriting 
-                                  (pack score_str))
-  | otherwise = draw world
-  where draw world = drawSnake (snake world)
-                   &amp; drawApple (apple world)
-                   &amp; rectangle (areaWidth world) (areaHeight world)
-        score_str = &quot;Playing Score is: &quot; ++ (show $ score $ snake world)
-
--- 蛇的方向
-data Direction = DirectUp
-               | DirectDown
-               | DirectLeft
-               | DirectRight
-               deriving(Show, Eq, Ord)
--- 蛇的动作
-data SnakeAction = SnakeNoAct
-                 | SnakeMove
-                 | SnakeEat
-                 | SnakeDead
-                 deriving(Show, Eq)
--- 定义蛇 
-data Snake = Snake {
-    bodyPoints :: [Point]
-  , ds :: Double
-  , score :: Double
-  , direct :: Direction
-  , color :: Color
-  , width :: Double
- }
- 
--- 初始化蛇 
-mkSnake :: Point -&gt; Int -&gt; Color -&gt; Snake
-mkSnake startPoint len color = Snake body 0 0 DirectUp color w
-  -- unfoldr 展开函数，从一个点生成其他点，直到产生Nothing
-  where body = unfoldr (\\i -&gt; if i &lt; len 
-                              then Just((x, y - w * fromIntegral i), i+1) 
-                              else Nothing) 
-                        0 -- 初始值
-        (x, y) = startPoint
-        w = gridSize
---  foldr1 相当于 foldr 起始值为列表第一个值
---  . 函数与数学定义相似，f.g(x) 相当于 g(f(x))
-drawSnake :: Snake -&gt; Picture
-drawSnake snake = foldr1 (&amp;) blks 
-  where blks = map ((colored snkColor) . drawBodyBlk) snkBody
-        snkColor = color snake
-        snkBody = bodyPoints snake
-        drawBodyBlk (x, y) = translated (x + gridSizeHf) (y + gridSizeHf)
-                           $ solidRectangle (w - 0.05) (w - 0.05)
-        -- solidRectangle 画图默认中心（0，0）， translated 加上 gridSizeHf 使其正好对应方格
-        w = width snake
-
--- 蛇转向
-turnSnake :: Direction -&gt; Snake -&gt; Snake
-turnSnake dir snake = if isConflictDirect dir (direct snake)
-                         then snake
-                         else snake { direct = dir }
-                         where isConflictDirect dir1 dir2
-                                 | dir1 == DirectUp &amp;&amp; dir2 == DirectDown = True
-                                 | dir1 == DirectDown &amp;&amp; dir2 == DirectUp = True
-                                 | dir1 == DirectRight &amp;&amp; dir2 == DirectLeft = True
-                                 | dir1 == DirectLeft &amp;&amp; dir2 == DirectRight = True
-                                 | otherwise = False
--- 蛇前进一个单位  
-moveSnake :: Snake -&gt; Snake
-moveSnake snake = snake { ds = 0, bodyPoints = pts }
-                  where ptsOrg = bodyPoints snake
-                        pts = pt : init ptsOrg -- 去尾加头
-                        pt = translatedPoint dx dy $ head ptsOrg
-                        (dx, dy) = getSnakeDxDy snake
--- 按当前方向蛇头的移动dx，dy                        
-getSnakeDxDy snake@(Snake _ _ _ direct _ w)
-  | direct == DirectUp = (0, w)
-  | direct == DirectDown = (0, -w)
-  | direct == DirectLeft = (-w, 0)
-  | direct == DirectRight = (w, 0)
-
--- 吃苹果
-eatingSnake :: Snake -&gt; Snake
-eatingSnake snake = snake { ds = 0, score = score', bodyPoints = pts}
-                      where ptsOrg = bodyPoints snake
-                            pts = pt : ptsOrg
-                            pt = translatedPoint dx dy $ head ptsOrg
-                            (dx, dy) = getSnakeDxDy snake
-                            score' = score snake + 1
-                                                
-data Apple = Apple {
-    positionA :: Point
-  , colorA :: Color
-  , widthA :: Double
-    }
-mkApple :: Point -&gt; Color -&gt; Apple
-mkApple pos color = Apple pos color 0.25
-
--- 显示苹果
-drawApple :: Apple -&gt; Picture
-drawApple apple@(Apple pos color width)
-    = translated (x + gridSizeHf) (y + gridSizeHf)
-      $ colored color
-      $ solidCircle width
-      where (x, y) = pos
-
--- 随机生成苹果     
-randowApple :: World -&gt;  (Apple, [RandomNumber])
-randowApple world@(World rnds _ _ apple w h) = (mkApple pos color, rnds')
-  where pos = ((fromIntegral r1) / 2, (fromIntegral r2) /2)
-        color = if colorOrg == red then green else red
-        (r1:r2:rnds') = rnds
-        colorOrg = colorA apple
-        
-handleEvent :: Event -&gt; World -&gt; World
-
--- 计时事件
-handleEvent (TimePassing dt) w
-  | state w == GameOver = w
-  | otherwise = handleSnakeAction snake' action 
-                $ w
-  where (snake', action) = checkSnakeAction dt w (snake w)
-
--- 按键事件
-handleEvent (KeyPress keyText) w
-  | state w == GameOver
-     &amp;&amp; unpack keyText == &quot;Enter&quot; = restartWorld (rnds w) areaW areaH
-  | unpack keyText == &quot;Down&quot; = w { snake = turnSnake DirectDown snake' }
-  | unpack keyText == &quot;Up&quot; = w { snake = turnSnake DirectUp snake' }
-  | unpack keyText == &quot;Left&quot; = w { snake = turnSnake DirectLeft snake' }
-  | unpack keyText == &quot;Right&quot; = w { snake = turnSnake DirectRight snake' }
-  | otherwise = w
-    where snake' = snake w
-          areaW = areaWidth w
-          areaH = areaHeight w
-handleEvent _ w = w
-
--- 进行一步动作
-handleSnakeAction :: Snake -&gt; SnakeAction -&gt; World -&gt; World
-handleSnakeAction snake' action w
-  | action == SnakeMove = w {snake = moveSnake snake'}
-  | action == SnakeEat = w { snake = eatingSnake snake'
-                           , apple = apple' -- 重新生成苹果
-                           , rnds = rnds'}
-  | action == SnakeNoAct = w { snake = snake' }
-  | action == SnakeDead = w { state = GameOver }
-    where (apple', rnds') = randowApple w
-
-snakeSpeed = 0.05
-
--- 碰撞检测部分
-checkSnakeAction :: Double -&gt; World -&gt; Snake -&gt; (Snake, SnakeAction)
-checkSnakeAction dt world snakeS
-  = if ds' &gt; snkW then (snakeS { ds = 0 }, action ) -- 动了超过一格
-                  else (snakeS { ds = ds' }, action1 )
-    where ds' = ds snakeS + dt + snakeSpeed
-          snkW = width snakeS
-          headOrg = head $ bodyPoints $ snake world -- 蛇头
-          headN = translatedPoint dx dy headOrg -- 新蛇头
-          (dx, dy) = getSnakeDxDy snakeS
-          
-          appleOrg = apple world
-          (snkHead:snkTail) = bodyPoints $ snake world
-          -- 动了超过一格，判断吃或只移动（死了下一帧判断）
-          action = if headN == positionA appleOrg then SnakeEat else SnakeMove
-          -- 判断蛇头是否撞蛇身或出界
-          action1 = if headOrg `elem` snkTail
-                     || outofBound headOrg
-                    then SnakeDead else SnakeNoAct
-          outofBound (x, y) = if x &lt; 0 - maxW || x &gt; maxW - gridSize
-                                || y &lt; 0 - maxH || y &gt; maxH - gridSize
-                              then True else False
-          maxW = areaWidth world / 2
-          maxH = areaHeight world / 2
-</code></pre><p>游戏效果：</p><p><img class=img-zoomable src=https://cdn.jsdelivr.net/gh/wineee/MarkDownPIC@master/img/9b9b7cf044edeaee63cff5e87dba6e58.png alt=wishimg></p><p>upd：我用 CodeWorld 实现图形学的直线/圆扫描转换，多边形扫描转换：https://github.com/wineee/LearnComputerGraphics</p></div></article><div class="license markdown-body"><blockquote><p>除特殊注明部分，本站内容采用 <a rel=license href=http://creativecommons.org/licenses/by-nc-sa/4.0/ target=_blank>CC BY-NC-SA 4.0</a> 进行许可。</p></blockquote></div><div class=post-comment data-comment=utterances><span class=post-comment-notloaded><i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;查看评论
-</span><script>function loadComment(){var e,n=document.querySelector(".post-comment"),t=document.body.getAttribute("data-theme");t==="auto"?t=window.matchMedia("(prefers-color-scheme: dark)").matches?"photon-dark":"github-light":t=t==="dark"?"photon-dark":"github-light",e=document.createElement("script"),e.src="https://utteranc.es/client.js",e.setAttribute("repo","wineee/hugoblogtalks"),e.setAttribute("issue-term","pathname"),e.setAttribute("theme",t),e.setAttribute("crossorigin","anonymous"),e.setAttribute("async",""),document.querySelector(".post-comment").appendChild(e),document.querySelector("span.post-comment-notloaded").setAttribute("style","display: none;")}</script></div></div><aside class="col-12 col-md-3 float-left sidebar"><div class="sidebar-item sidebar-pages"><h3>页面</h3><ul><li><a href=/>Home</a></li><li><a href=/archives/>Archives</a></li><li><a href=/about/>About</a></li><li><a href=/search/>Search</a></li><li><a href=/friends/>Friends</a></li><li><a href=/index.xml>RSS</a></li></ul></div><div class="sidebar-item sidebar-toc"><h3>目录</h3><nav id=TableOfContents></nav></div></aside></div><div class=btn><div class=btn-menu id=btn-menu><i class="iconfont icon-grid-sharp"></i></div><div class=btn-toggle-mode><i class="iconfont icon-contrast-sharp"></i></div><div class=btn-scroll-top><i class="iconfont icon-chevron-up-circle-sharp"></i></div></div><aside class=sidebar-mobile style=display:none><div class=sidebar-wrapper><div class="sidebar-item sidebar-pages"><h3>页面</h3><ul><li><a href=/>Home</a></li><li><a href=/archives/>Archives</a></li><li><a href=/about/>About</a></li><li><a href=/search/>Search</a></li><li><a href=/friends/>Friends</a></li><li><a href=/index.xml>RSS</a></li></ul></div><div class="sidebar-item sidebar-links"><h3>链接</h3><ul><li><a href=https://github.com/wineee target=_blank><span>GitHub</span></a></li><li><a href=https://twitter.com/rewineeee target=_blank><span>Twitter</span></a></li><li><a href=https://space.bilibili.com/23192485 target=_blank><span>bilibili</span></a></li></ul></div><div class="sidebar-item sidebar-tags"><h3>标签</h3><div><span><a href=/tags/acm/>ACM</a>
-</span><span><a href=/tags/bfs/>Bfs</a>
-</span><span><a href=/tags/c/>C</a>
-</span><span><a href=/tags/c++/>C++</a>
-</span><span><a href=/tags/cryptography/>Cryptography</a>
-</span><span><a href=/tags/emacs/>Emacs</a>
-</span><span><a href=/tags/go/>Go</a>
-</span><span><a href=/tags/goroutine/>Goroutine</a>
-</span><span><a href=/tags/haskell/>Haskell</a>
-</span><span><a href=/tags/hugo/>Hugo</a>
-</span><span><a href=/tags/lab/>Lab</a>
-</span><span><a href=/tags/leetcode/>Leetcode</a>
-</span><span><a href=/tags/mfc/>Mfc</a>
-</span><span><a href=/tags/nixos/>Nixos</a>
-</span><span><a href=/tags/onlyoffice/>Onlyoffice</a>
-</span><span><a href=/tags/qt/>Qt</a>
-</span><span><a href=/tags/turing-award/>Turing Award</a>
-</span><span><a href=/tags/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95/>匈牙利算法</a>
-</span><span><a href=/tags/%E5%8D%95%E7%BA%AF%E5%9E%8B/>单纯型</a>
-</span><span><a href=/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/>多线程</a>
-</span><span><a href=/tags/%E5%B9%B6%E5%8F%91/>并发</a>
-</span><span><a href=/tags/%E5%BA%B7%E6%89%98%E5%B1%95%E5%BC%80/>康托展开</a>
-</span><span><a href=/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/>蓝桥杯</a>
-</span><span><a href=/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/>软件工程</a>
-</span><span><a href=/tags/%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90/>软件推荐</a></span></div></div><div class="sidebar-item sidebar-toc"><h3>目录</h3><nav id=TableOfContents></nav></div></div></aside></main><footer><div class="container-lg clearfix"><div class="col-12 footer"><span>&copy; 2020-2025
-<a href=/>rewine</a>
-| <a href=https://github.com/wineee/wineee.github.io>Source code</a>
-| 基于 <a href=https://github.com/andrew-aiken/hugo-theme-fuji/ target=_blank>Fuji</a> & <a href=https://gohugo.io/ target=_blank>Hugo</a> 构建
-| <a href="https://icp.gov.moe/?keyword=20211211" target=_blank>萌ICP备20211211号</a></span></div></div></footer><script defer src=https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js integrity="sha512-q583ppKrCRc7N5O0n2nzUiJ+suUv7Et1JGels4bXOaMFQcamPk9HjdUknZuuFjBNs7tsMuadge5k9RzdmO+1GQ==" crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.27.0/components/prism-core.min.js integrity="sha512-LCKPTo0gtJ74zCNMbWw04ltmujpzSR4oW+fgN+Y1YclhM5ZrHCZQAJE4quEodcI/G122sRhSGU2BsSRUZ2Gu3w==" crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/autoloader/prism-autoloader.min.js integrity="sha512-GP4x8UWxWyh4BMbyJGOGneiTbkrWEF5izsVJByzVLodP8CuJH/n936+yQDMJJrOPUHLgyPbLiGw2rXmdvGdXHA==" crossorigin=anonymous></script><script defer src=/assets/js/fuji.min.645f1123be695831f419ab54c1bcba327325895c740014006e57070d4f3e5d6b553e929c4b46f40ea707249e9c7f7c2a446d32a39ce7319f80a34525586a8e0f.js integrity="sha512-ZF8RI75pWDH0GatUwby6MnMliVx0ABQAblcHDU8+XWtVPpKcS0b0DqcHJJ6cf3wqRG0yo5znMZ+Ao0UlWGqODw=="></script></body></html>
+1 2 3 4 5 import CodeWorld main :: IO() main = do drawingOf $ circle 1"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="post"><meta property="article:published_time" content="2021-08-20T00:00:00+00:00"><meta property="article:modified_time" content="2021-08-20T00:00:00+00:00"><meta property="article:tag" content="Haskell"><meta name=twitter:card content="summary"><meta name=twitter:title content="Codeworld: 使用Haskell实现一个贪吃蛇小游戏"><meta name=twitter:description content="haskell 的一些教学可以参考：
+https://www.seas.upenn.edu/~cis194/fall16/index.html
+CodeWorld：可以在线运行hs代码，基于ghc.js，四舍五入还是在本地跑
+https://code.world/haskell
+下面是利用 CodeWorld 画圆的小例子
+1 2 3 4 5 import CodeWorld main :: IO() main = do drawingOf $ circle 1"><script type=application/ld+json>"{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"/post/\",\"name\":\"Posts\",\"position\":1}]}"</script><script type=application/ld+json>"{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"articleBody\":\"haskell 的一些教学可以参考：\\nhttps://www.seas.upenn.edu/~cis194/fall16/index.html\\nCodeWorld：可以在线运行hs代码，基于ghc.js，四舍五入还是在本地跑\\nhttps://code.world/haskell\\n下面是利用 CodeWorld 画圆的小例子\\n1 2 3 4 5 import CodeWorld main :: IO() main = do drawingOf $ circle 1 还可以画多边形\\n1 2 3 4 5 6 7 import CodeWorld main :: IO () main = drawingOf triangle triangle :: Picture triangle = polygon [(9,9),(0,-9),(-9,9)] 通过 colored 函数添加颜色， 参数是: color picture\\n1 2 3 4 5 6 import CodeWorld main :: IO () main = drawingOf ourPicture ourPicture = colored green $ solidCircle 2 \\u0026 函数可以将图片合并\\n1 2 3 4 5 6 import CodeWorld main :: IO () main = drawingOf $ ourPicture \\u0026 (solidCircle 5) ourPicture = colored green $ solidCircle 2 translated 函数实现移位，参数dx dy picture\\n1 2 3 4 5 6 import CodeWorld main :: IO () main = drawingOf $ ourPicture \\u0026 translated 1 2 $ solidCircle 1 ourPicture = colored green $ solidCircle 1 下面实现贪吃蛇，代码参照了此教程，我添加了一些注释\\nHaskell 类型系统确实强大，看名字和标注就能知道这个函数有什么用。编译器可以排查大部分错误，可惜我把 unfoldr i+1写成 i-1，无限递归了，找了半天bug（我都不知道怎么debug）\\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 200 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 216 217 218 219 220 221 import CodeWorld import Data.List import Data.Text(pack, unpack) import System.Random type RandomNumber = Int gridSize = 0.5 -- 为了美观， gridSizeHf = 0.25 -- 坐标（0，0）为中心， 经调整（0，0）的格子占用（0，0）-（0.5，0.5）空间 main :: IO() main = do gen \\u003c- getStdGen activityOf (initialWorld gen) handleEvent drawWorld -- 初始化 事件相应 绘制 -- 定义游戏状态，GameIdle data GameState = GameIdle | GameRunning | GameOver deriving(Show, Eq) data World = World { rnds :: [RandomNumber] , state :: GameState , snake :: Snake , apple :: Apple , areaWidth :: Double , areaHeight :: Double } initialWorld :: StdGen -\\u003e World initialWorld gen = restartWorld rnds width height where rnds = randomRs (round(0-width), round(width-2)) gen width = 20 :: Double height = 20 :: Double restartWorld :: [RandomNumber] -\\u003e Double -\\u003e Double -\\u003e World restartWorld rnds w h = World rnds' GameRunning snake apple w h where snake = mkSnake (-3, 0) 3 blue apple = mkApple ((fromIntegral r1) / 2, (fromIntegral r2) / 2) green (r1:r2:rnds') = rnds drawWorld :: World -\\u003e Picture drawWorld world | state world == GameOver = draw world \\u0026 translated 0 (1) (styledLettering Bold Handwriting (pack \\\"Game Over\\\")) \\u0026 translated 0 (-1) (styledLettering Bold Handwriting (pack score_str)) | otherwise = draw world where draw world = drawSnake (snake world) \\u0026 drawApple (apple world) \\u0026 rectangle (areaWidth world) (areaHeight world) score_str = \\\"Playing Score is: \\\" ++ (show $ score $ snake world) -- 蛇的方向 data Direction = DirectUp | DirectDown | DirectLeft | DirectRight deriving(Show, Eq, Ord) -- 蛇的动作 data SnakeAction = SnakeNoAct | SnakeMove | SnakeEat | SnakeDead deriving(Show, Eq) -- 定义蛇 data Snake = Snake { bodyPoints :: [Point] , ds :: Double , score :: Double , direct :: Direction , color :: Color , width :: Double } -- 初始化蛇 mkSnake :: Point -\\u003e Int -\\u003e Color -\\u003e Snake mkSnake startPoint len color = Snake body 0 0 DirectUp color w -- unfoldr 展开函数，从一个点生成其他点，直到产生Nothing where body = unfoldr (\\\\\\\\i -\\u003e if i \\u003c len then Just((x, y - w * fromIntegral i), i+1) else Nothing) 0 -- 初始值 (x, y) = startPoint w = gridSize -- foldr1 相当于 foldr 起始值为列表第一个值 -- . 函数与数学定义相似，f.g(x) 相当于 g(f(x)) drawSnake :: Snake -\\u003e Picture drawSnake snake = foldr1 (\\u0026) blks where blks = map ((colored snkColor) . drawBodyBlk) snkBody snkColor = color snake snkBody = bodyPoints snake drawBodyBlk (x, y) = translated (x + gridSizeHf) (y + gridSizeHf) $ solidRectangle (w - 0.05) (w - 0.05) -- solidRectangle 画图默认中心（0，0）， translated 加上 gridSizeHf 使其正好对应方格 w = width snake -- 蛇转向 turnSnake :: Direction -\\u003e Snake -\\u003e Snake turnSnake dir snake = if isConflictDirect dir (direct snake) then snake else snake { direct = dir } where isConflictDirect dir1 dir2 | dir1 == DirectUp \\u0026\\u0026 dir2 == DirectDown = True | dir1 == DirectDown \\u0026\\u0026 dir2 == DirectUp = True | dir1 == DirectRight \\u0026\\u0026 dir2 == DirectLeft = True | dir1 == DirectLeft \\u0026\\u0026 dir2 == DirectRight = True | otherwise = False -- 蛇前进一个单位 moveSnake :: Snake -\\u003e Snake moveSnake snake = snake { ds = 0, bodyPoints = pts } where ptsOrg = bodyPoints snake pts = pt : init ptsOrg -- 去尾加头 pt = translatedPoint dx dy $ head ptsOrg (dx, dy) = getSnakeDxDy snake -- 按当前方向蛇头的移动dx，dy getSnakeDxDy snake@(Snake _ _ _ direct _ w) | direct == DirectUp = (0, w) | direct == DirectDown = (0, -w) | direct == DirectLeft = (-w, 0) | direct == DirectRight = (w, 0) -- 吃苹果 eatingSnake :: Snake -\\u003e Snake eatingSnake snake = snake { ds = 0, score = score', bodyPoints = pts} where ptsOrg = bodyPoints snake pts = pt : ptsOrg pt = translatedPoint dx dy $ head ptsOrg (dx, dy) = getSnakeDxDy snake score' = score snake + 1 data Apple = Apple { positionA :: Point , colorA :: Color , widthA :: Double } mkApple :: Point -\\u003e Color -\\u003e Apple mkApple pos color = Apple pos color 0.25 -- 显示苹果 drawApple :: Apple -\\u003e Picture drawApple apple@(Apple pos color width) = translated (x + gridSizeHf) (y + gridSizeHf) $ colored color $ solidCircle width where (x, y) = pos -- 随机生成苹果 randowApple :: World -\\u003e (Apple, [RandomNumber]) randowApple world@(World rnds _ _ apple w h) = (mkApple pos color, rnds') where pos = ((fromIntegral r1) / 2, (fromIntegral r2) /2) color = if colorOrg == red then green else red (r1:r2:rnds') = rnds colorOrg = colorA apple handleEvent :: Event -\\u003e World -\\u003e World -- 计时事件 handleEvent (TimePassing dt) w | state w == GameOver = w | otherwise = handleSnakeAction snake' action $ w where (snake', action) = checkSnakeAction dt w (snake w) -- 按键事件 handleEvent (KeyPress keyText) w | state w == GameOver \\u0026\\u0026 unpack keyText == \\\"Enter\\\" = restartWorld (rnds w) areaW areaH | unpack keyText == \\\"Down\\\" = w { snake = turnSnake DirectDown snake' } | unpack keyText == \\\"Up\\\" = w { snake = turnSnake DirectUp snake' } | unpack keyText == \\\"Left\\\" = w { snake = turnSnake DirectLeft snake' } | unpack keyText == \\\"Right\\\" = w { snake = turnSnake DirectRight snake' } | otherwise = w where snake' = snake w areaW = areaWidth w areaH = areaHeight w handleEvent _ w = w -- 进行一步动作 handleSnakeAction :: Snake -\\u003e SnakeAction -\\u003e World -\\u003e World handleSnakeAction snake' action w | action == SnakeMove = w {snake = moveSnake snake'} | action == SnakeEat = w { snake = eatingSnake snake' , apple = apple' -- 重新生成苹果 , rnds = rnds'} | action == SnakeNoAct = w { snake = snake' } | action == SnakeDead = w { state = GameOver } where (apple', rnds') = randowApple w snakeSpeed = 0.05 -- 碰撞检测部分 checkSnakeAction :: Double -\\u003e World -\\u003e Snake -\\u003e (Snake, SnakeAction) checkSnakeAction dt world snakeS = if ds' \\u003e snkW then (snakeS { ds = 0 }, action ) -- 动了超过一格 else (snakeS { ds = ds' }, action1 ) where ds' = ds snakeS + dt + snakeSpeed snkW = width snakeS headOrg = head $ bodyPoints $ snake world -- 蛇头 headN = translatedPoint dx dy headOrg -- 新蛇头 (dx, dy) = getSnakeDxDy snakeS appleOrg = apple world (snkHead:snkTail) = bodyPoints $ snake world -- 动了超过一格，判断吃或只移动（死了下一帧判断） action = if headN == positionA appleOrg then SnakeEat else SnakeMove -- 判断蛇头是否撞蛇身或出界 action1 = if headOrg `elem` snkTail || outofBound headOrg then SnakeDead else SnakeNoAct outofBound (x, y) = if x \\u003c 0 - maxW || x \\u003e maxW - gridSize || y \\u003c 0 - maxH || y \\u003e maxH - gridSize then True else False maxW = areaWidth world / 2 maxH = areaHeight world / 2 游戏效果：\\nupd：我用 CodeWorld 实现图形学的直线/圆扫描转换，多边形扫描转换：https://github.com/wineee/LearnComputerGraphics\\n\",\"author\":{\"@type\":\"Person\",\"name\":\"rewine\"},\"dateModified\":\"2021-08-20T00:00:00Z\",\"datePublished\":\"2021-08-20T00:00:00Z\",\"description\":\"haskell 的一些教学可以参考：\\nhttps://www.seas.upenn.edu/~cis194/fall16/index.html\\nCodeWorld：可以在线运行hs代码，基于ghc.js，四舍五入还是在本地跑\\nhttps://code.world/haskell\\n下面是利用 CodeWorld 画圆的小例子\\n1 2 3 4 5 import CodeWorld main :: IO() main = do drawingOf $ circle 1 \",\"headline\":\"Codeworld: 使用Haskell实现一个贪吃蛇小游戏\",\"inLanguage\":\"zh-hans\",\"keywords\":[\"Haskell\"],\"mainEntityOfPage\":{\"@id\":\"/post/haskell_snake_game/\",\"@type\":\"WebPage\"},\"name\":\"Codeworld: 使用Haskell实现一个贪吃蛇小游戏\",\"publisher\":{\"@type\":\"Organization\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"/favicon.ico\"},\"name\":\"REWINE NOTE\"},\"wordCount\":1992}"</script></head><body id=top><header class=header><nav class=nav><div class=logo><a href=/ accesskey=h title="REWINE NOTE (Alt + H)">REWINE NOTE</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=/ title=Home><span>Home</span></a></li><li><a href=/archives/ title=Archives><span>Archives</span></a></li><li><a href=/search/ title="Search (Alt + /)" accesskey=/><span>Search</span></a></li><li><a href=/tags/ title=Tags><span>Tags</span></a></li><li><a href=/about/ title=About><span>About</span></a></li><li><a href=/friends/ title=Friends><span>Friends</span></a></li><li><a href=/index.xml title=RSS><span>RSS</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><h1 class="post-title entry-hint-parent">Codeworld: 使用Haskell实现一个贪吃蛇小游戏</h1><div class=post-meta><span title='2021-08-20 00:00:00 +0000 UTC'>2021年8月20日</span>&nbsp;·&nbsp;<span>1992 words</span>&nbsp;·&nbsp;<span>rewine</span></div></header><div class=post-content><p>haskell 的一些教学可以参考：</p><p><a href=https://www.seas.upenn.edu/~cis194/fall16/index.html>https://www.seas.upenn.edu/~cis194/fall16/index.html</a></p><p>CodeWorld：可以在线运行hs代码，基于ghc.js，<del>四舍五入还是在本地跑</del></p><p><a href=https://code.world/haskell#>https://code.world/haskell</a></p><p>下面是利用 CodeWorld 画圆的小例子</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-haskell data-lang=haskell><span style=display:flex><span><span style=color:#66d9ef>import</span> CodeWorld
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>main</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>IO</span>()
+</span></span><span style=display:flex><span><span style=color:#a6e22e>main</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>do</span>
+</span></span><span style=display:flex><span>       drawingOf <span style=color:#f92672>$</span> circle <span style=color:#ae81ff>1</span>
+</span></span></code></pre></td></tr></table></div></div><p><img alt=wishimg loading=lazy src=https://cdn.jsdelivr.net/gh/wineee/MarkDownPIC@master/img/73d0de53a33166008f9673fe5976f472.png></p><p>还可以画多边形</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-haskell data-lang=haskell><span style=display:flex><span><span style=color:#66d9ef>import</span> CodeWorld
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>main</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>IO</span> ()
+</span></span><span style=display:flex><span><span style=color:#a6e22e>main</span> <span style=color:#f92672>=</span> drawingOf triangle
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>triangle</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>Picture</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>triangle</span> <span style=color:#f92672>=</span> polygon [(<span style=color:#ae81ff>9</span>,<span style=color:#ae81ff>9</span>),(<span style=color:#ae81ff>0</span>,<span style=color:#f92672>-</span><span style=color:#ae81ff>9</span>),(<span style=color:#f92672>-</span><span style=color:#ae81ff>9</span>,<span style=color:#ae81ff>9</span>)]
+</span></span></code></pre></td></tr></table></div></div><p><img alt=wishimg loading=lazy src=https://cdn.jsdelivr.net/gh/wineee/MarkDownPIC@master/img/7e06ec4a9da1e8b17a91fd75adae136e.png></p><p>通过 colored 函数添加颜色， 参数是: color picture</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-haskell data-lang=haskell><span style=display:flex><span><span style=color:#66d9ef>import</span> CodeWorld
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>main</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>IO</span> ()
+</span></span><span style=display:flex><span><span style=color:#a6e22e>main</span> <span style=color:#f92672>=</span> drawingOf ourPicture
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>ourPicture</span> <span style=color:#f92672>=</span> colored green <span style=color:#f92672>$</span> solidCircle <span style=color:#ae81ff>2</span>
+</span></span></code></pre></td></tr></table></div></div><p><img alt=wishimg loading=lazy src=https://cdn.jsdelivr.net/gh/wineee/MarkDownPIC@master/img/e2c8030079aab9ed7cd2c7effba5b7f9.png></p><p>& 函数可以将图片合并</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-haskell data-lang=haskell><span style=display:flex><span><span style=color:#66d9ef>import</span> CodeWorld
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>main</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>IO</span> ()
+</span></span><span style=display:flex><span><span style=color:#a6e22e>main</span> <span style=color:#f92672>=</span> drawingOf <span style=color:#f92672>$</span> ourPicture <span style=color:#f92672>&amp;</span> (solidCircle <span style=color:#ae81ff>5</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>ourPicture</span> <span style=color:#f92672>=</span> colored green <span style=color:#f92672>$</span> solidCircle <span style=color:#ae81ff>2</span>
+</span></span></code></pre></td></tr></table></div></div><p><img alt=wishimg loading=lazy src=https://cdn.jsdelivr.net/gh/wineee/MarkDownPIC@master/img/1e31b82ac61ce2e4a1d909ecab53d400.png></p><p>translated 函数实现移位，参数dx dy picture</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-haskell data-lang=haskell><span style=display:flex><span><span style=color:#66d9ef>import</span> CodeWorld
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>main</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>IO</span> ()
+</span></span><span style=display:flex><span><span style=color:#a6e22e>main</span> <span style=color:#f92672>=</span> drawingOf <span style=color:#f92672>$</span> ourPicture <span style=color:#f92672>&amp;</span> translated <span style=color:#ae81ff>1</span> <span style=color:#ae81ff>2</span> <span style=color:#f92672>$</span> solidCircle <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>ourPicture</span> <span style=color:#f92672>=</span> colored green <span style=color:#f92672>$</span> solidCircle <span style=color:#ae81ff>1</span>
+</span></span></code></pre></td></tr></table></div></div><p><img alt=wishimg loading=lazy src=https://cdn.jsdelivr.net/gh/wineee/MarkDownPIC@master/img/983d76eadcdbad3600cf0320007000f6.png></p><p>下面实现贪吃蛇，代码参照了<a href=https://www.bilibili.com/video/BV19v411n7ww>此教程</a>，我添加了一些注释</p><p>Haskell 类型系统确实强大，看名字和标注就能知道这个函数有什么用。编译器可以排查大部分错误，可惜我把 unfoldr i+1写成 i-1，无限递归了，找了半天bug（我都不知道怎么debug）</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 62
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 63
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 64
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 65
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 66
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 67
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 68
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 69
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 70
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 71
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 72
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 73
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 74
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 75
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 76
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 77
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 78
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 79
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 80
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 81
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 82
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 83
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 84
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 85
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 86
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 87
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 88
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 89
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 90
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 91
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 92
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 93
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 94
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 95
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 96
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 97
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 98
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 99
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">100
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">101
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">102
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">103
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">104
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">105
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">106
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">107
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">108
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">109
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">110
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">111
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">112
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">113
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">114
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">115
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">116
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">117
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">118
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">119
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">120
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">121
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">122
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">123
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">124
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">125
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">126
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">127
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">128
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">129
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">130
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">131
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">132
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">133
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">134
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">135
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">136
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">137
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">138
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">139
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">140
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">141
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">142
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">143
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">144
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">145
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">146
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">147
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">148
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">149
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">150
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">151
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">152
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">153
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">154
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">155
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">156
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">157
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">158
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">159
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">160
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">161
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">162
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">163
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">164
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">165
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">166
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">167
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">168
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">169
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">170
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">171
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">172
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">173
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">174
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">175
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">176
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">177
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">178
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">179
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">180
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">181
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">182
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">183
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">184
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">185
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">186
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">187
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">188
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">189
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">190
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">191
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">192
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">193
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">194
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">195
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">196
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">197
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">198
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">199
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">200
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">201
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">202
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">203
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">204
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">205
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">206
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">207
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">208
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">209
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">210
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">211
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">212
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">213
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">214
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">215
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">216
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">217
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">218
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">219
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">220
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">221
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-haskell data-lang=haskell><span style=display:flex><span><span style=color:#66d9ef>import</span> CodeWorld
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> Data.List
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> Data.Text(pack, unpack)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> System.Random
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>type</span> <span style=color:#66d9ef>RandomNumber</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>Int</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>gridSize</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.5</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>-- 为了美观，</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>gridSizeHf</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.25</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>-- 坐标（0，0）为中心， 经调整（0，0）的格子占用（0，0）-（0.5，0.5）空间</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>main</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>IO</span>()
+</span></span><span style=display:flex><span><span style=color:#a6e22e>main</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>do</span>
+</span></span><span style=display:flex><span>       gen <span style=color:#f92672>&lt;-</span> getStdGen
+</span></span><span style=display:flex><span>       activityOf (initialWorld gen) handleEvent drawWorld
+</span></span><span style=display:flex><span>       <span style=color:#75715e>--         初始化              事件相应     绘制</span>
+</span></span><span style=display:flex><span>       
+</span></span><span style=display:flex><span><span style=color:#75715e>-- 定义游戏状态，GameIdle              </span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>data</span> <span style=color:#66d9ef>GameState</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>GameIdle</span> 
+</span></span><span style=display:flex><span>               <span style=color:#f92672>|</span> <span style=color:#66d9ef>GameRunning</span>
+</span></span><span style=display:flex><span>               <span style=color:#f92672>|</span> <span style=color:#66d9ef>GameOver</span>
+</span></span><span style=display:flex><span>               <span style=color:#66d9ef>deriving</span>(<span style=color:#66d9ef>Show</span>, <span style=color:#66d9ef>Eq</span>)
+</span></span><span style=display:flex><span>              
+</span></span><span style=display:flex><span><span style=color:#66d9ef>data</span> <span style=color:#66d9ef>World</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>World</span> {
+</span></span><span style=display:flex><span>        rnds <span style=color:#f92672>::</span> [<span style=color:#66d9ef>RandomNumber</span>]
+</span></span><span style=display:flex><span>      , state <span style=color:#f92672>::</span> <span style=color:#66d9ef>GameState</span>
+</span></span><span style=display:flex><span>      , snake <span style=color:#f92672>::</span> <span style=color:#66d9ef>Snake</span>
+</span></span><span style=display:flex><span>      , apple <span style=color:#f92672>::</span> <span style=color:#66d9ef>Apple</span>
+</span></span><span style=display:flex><span>      , areaWidth <span style=color:#f92672>::</span> <span style=color:#66d9ef>Double</span>
+</span></span><span style=display:flex><span>      , areaHeight <span style=color:#f92672>::</span> <span style=color:#66d9ef>Double</span>
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>initialWorld</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>StdGen</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>World</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>initialWorld</span> gen <span style=color:#f92672>=</span> restartWorld rnds width height
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>where</span> rnds <span style=color:#f92672>=</span> randomRs (round(<span style=color:#ae81ff>0</span><span style=color:#f92672>-</span>width), round(width<span style=color:#f92672>-</span><span style=color:#ae81ff>2</span>)) gen
+</span></span><span style=display:flex><span>            width <span style=color:#f92672>=</span> <span style=color:#ae81ff>20</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>Double</span>
+</span></span><span style=display:flex><span>            height <span style=color:#f92672>=</span> <span style=color:#ae81ff>20</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>Double</span>
+</span></span><span style=display:flex><span>      
+</span></span><span style=display:flex><span><span style=color:#a6e22e>restartWorld</span> <span style=color:#f92672>::</span> [<span style=color:#66d9ef>RandomNumber</span>] <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>Double</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>Double</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>World</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>restartWorld</span> rnds w h <span style=color:#f92672>=</span> <span style=color:#66d9ef>World</span> rnds&#39; <span style=color:#66d9ef>GameRunning</span> snake apple w h
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>where</span> snake <span style=color:#f92672>=</span> mkSnake (<span style=color:#f92672>-</span><span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>0</span>) <span style=color:#ae81ff>3</span> blue
+</span></span><span style=display:flex><span>          apple <span style=color:#f92672>=</span> mkApple ((fromIntegral r1) <span style=color:#f92672>/</span> <span style=color:#ae81ff>2</span>, (fromIntegral r2) <span style=color:#f92672>/</span> <span style=color:#ae81ff>2</span>) green
+</span></span><span style=display:flex><span>          (r1<span style=color:#66d9ef>:</span>r2<span style=color:#66d9ef>:</span>rnds&#39;) <span style=color:#f92672>=</span> rnds
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span><span style=color:#a6e22e>drawWorld</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>World</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>Picture</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>drawWorld</span> world
+</span></span><span style=display:flex><span>  <span style=color:#f92672>|</span> state world <span style=color:#f92672>==</span> <span style=color:#66d9ef>GameOver</span> <span style=color:#f92672>=</span> draw world
+</span></span><span style=display:flex><span>                              <span style=color:#f92672>&amp;</span> translated <span style=color:#ae81ff>0</span> (<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>                                (styledLettering <span style=color:#66d9ef>Bold</span> <span style=color:#66d9ef>Handwriting</span> 
+</span></span><span style=display:flex><span>                                  (pack <span style=color:#e6db74>&#34;Game Over&#34;</span>))
+</span></span><span style=display:flex><span>                              <span style=color:#f92672>&amp;</span> translated <span style=color:#ae81ff>0</span> (<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>                                (styledLettering <span style=color:#66d9ef>Bold</span> <span style=color:#66d9ef>Handwriting</span> 
+</span></span><span style=display:flex><span>                                  (pack score_str))
+</span></span><span style=display:flex><span>  <span style=color:#f92672>|</span> otherwise <span style=color:#f92672>=</span> draw world
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>where</span> draw world <span style=color:#f92672>=</span> drawSnake (snake world)
+</span></span><span style=display:flex><span>                   <span style=color:#f92672>&amp;</span> drawApple (apple world)
+</span></span><span style=display:flex><span>                   <span style=color:#f92672>&amp;</span> rectangle (areaWidth world) (areaHeight world)
+</span></span><span style=display:flex><span>        score_str <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Playing Score is: &#34;</span> <span style=color:#f92672>++</span> (show <span style=color:#f92672>$</span> score <span style=color:#f92672>$</span> snake world)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>-- 蛇的方向</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>data</span> <span style=color:#66d9ef>Direction</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>DirectUp</span>
+</span></span><span style=display:flex><span>               <span style=color:#f92672>|</span> <span style=color:#66d9ef>DirectDown</span>
+</span></span><span style=display:flex><span>               <span style=color:#f92672>|</span> <span style=color:#66d9ef>DirectLeft</span>
+</span></span><span style=display:flex><span>               <span style=color:#f92672>|</span> <span style=color:#66d9ef>DirectRight</span>
+</span></span><span style=display:flex><span>               <span style=color:#66d9ef>deriving</span>(<span style=color:#66d9ef>Show</span>, <span style=color:#66d9ef>Eq</span>, <span style=color:#66d9ef>Ord</span>)
+</span></span><span style=display:flex><span><span style=color:#75715e>-- 蛇的动作</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>data</span> <span style=color:#66d9ef>SnakeAction</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>SnakeNoAct</span>
+</span></span><span style=display:flex><span>                 <span style=color:#f92672>|</span> <span style=color:#66d9ef>SnakeMove</span>
+</span></span><span style=display:flex><span>                 <span style=color:#f92672>|</span> <span style=color:#66d9ef>SnakeEat</span>
+</span></span><span style=display:flex><span>                 <span style=color:#f92672>|</span> <span style=color:#66d9ef>SnakeDead</span>
+</span></span><span style=display:flex><span>                 <span style=color:#66d9ef>deriving</span>(<span style=color:#66d9ef>Show</span>, <span style=color:#66d9ef>Eq</span>)
+</span></span><span style=display:flex><span><span style=color:#75715e>-- 定义蛇 </span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>data</span> <span style=color:#66d9ef>Snake</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>Snake</span> {
+</span></span><span style=display:flex><span>    bodyPoints <span style=color:#f92672>::</span> [<span style=color:#66d9ef>Point</span>]
+</span></span><span style=display:flex><span>  , ds <span style=color:#f92672>::</span> <span style=color:#66d9ef>Double</span>
+</span></span><span style=display:flex><span>  , score <span style=color:#f92672>::</span> <span style=color:#66d9ef>Double</span>
+</span></span><span style=display:flex><span>  , direct <span style=color:#f92672>::</span> <span style=color:#66d9ef>Direction</span>
+</span></span><span style=display:flex><span>  , color <span style=color:#f92672>::</span> <span style=color:#66d9ef>Color</span>
+</span></span><span style=display:flex><span>  , width <span style=color:#f92672>::</span> <span style=color:#66d9ef>Double</span>
+</span></span><span style=display:flex><span> }
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span><span style=color:#75715e>-- 初始化蛇 </span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>mkSnake</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>Point</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>Int</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>Color</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>Snake</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>mkSnake</span> startPoint len color <span style=color:#f92672>=</span> <span style=color:#66d9ef>Snake</span> body <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>0</span> <span style=color:#66d9ef>DirectUp</span> color w
+</span></span><span style=display:flex><span>  <span style=color:#75715e>-- unfoldr 展开函数，从一个点生成其他点，直到产生Nothing</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>where</span> body <span style=color:#f92672>=</span> unfoldr (<span style=color:#f92672>\\</span>i <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>if</span> i <span style=color:#f92672>&lt;</span> len 
+</span></span><span style=display:flex><span>                              <span style=color:#66d9ef>then</span> <span style=color:#66d9ef>Just</span>((x, y <span style=color:#f92672>-</span> w <span style=color:#f92672>*</span> fromIntegral i), i<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>) 
+</span></span><span style=display:flex><span>                              <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>Nothing</span>) 
+</span></span><span style=display:flex><span>                        <span style=color:#ae81ff>0</span> <span style=color:#75715e>-- 初始值</span>
+</span></span><span style=display:flex><span>        (x, y) <span style=color:#f92672>=</span> startPoint
+</span></span><span style=display:flex><span>        w <span style=color:#f92672>=</span> gridSize
+</span></span><span style=display:flex><span><span style=color:#75715e>--  foldr1 相当于 foldr 起始值为列表第一个值</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>--  . 函数与数学定义相似，f.g(x) 相当于 g(f(x))</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>drawSnake</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>Snake</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>Picture</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>drawSnake</span> snake <span style=color:#f92672>=</span> foldr1 (<span style=color:#f92672>&amp;</span>) blks 
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>where</span> blks <span style=color:#f92672>=</span> map ((colored snkColor) <span style=color:#f92672>.</span> drawBodyBlk) snkBody
+</span></span><span style=display:flex><span>        snkColor <span style=color:#f92672>=</span> color snake
+</span></span><span style=display:flex><span>        snkBody <span style=color:#f92672>=</span> bodyPoints snake
+</span></span><span style=display:flex><span>        drawBodyBlk (x, y) <span style=color:#f92672>=</span> translated (x <span style=color:#f92672>+</span> gridSizeHf) (y <span style=color:#f92672>+</span> gridSizeHf)
+</span></span><span style=display:flex><span>                           <span style=color:#f92672>$</span> solidRectangle (w <span style=color:#f92672>-</span> <span style=color:#ae81ff>0.05</span>) (w <span style=color:#f92672>-</span> <span style=color:#ae81ff>0.05</span>)
+</span></span><span style=display:flex><span>        <span style=color:#75715e>-- solidRectangle 画图默认中心（0，0）， translated 加上 gridSizeHf 使其正好对应方格</span>
+</span></span><span style=display:flex><span>        w <span style=color:#f92672>=</span> width snake
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>-- 蛇转向</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>turnSnake</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>Direction</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>Snake</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>Snake</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>turnSnake</span> dir snake <span style=color:#f92672>=</span> <span style=color:#66d9ef>if</span> isConflictDirect dir (direct snake)
+</span></span><span style=display:flex><span>                         <span style=color:#66d9ef>then</span> snake
+</span></span><span style=display:flex><span>                         <span style=color:#66d9ef>else</span> snake { direct <span style=color:#f92672>=</span> dir }
+</span></span><span style=display:flex><span>                         <span style=color:#66d9ef>where</span> isConflictDirect dir1 dir2
+</span></span><span style=display:flex><span>                                 <span style=color:#f92672>|</span> dir1 <span style=color:#f92672>==</span> <span style=color:#66d9ef>DirectUp</span> <span style=color:#f92672>&amp;&amp;</span> dir2 <span style=color:#f92672>==</span> <span style=color:#66d9ef>DirectDown</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>True</span>
+</span></span><span style=display:flex><span>                                 <span style=color:#f92672>|</span> dir1 <span style=color:#f92672>==</span> <span style=color:#66d9ef>DirectDown</span> <span style=color:#f92672>&amp;&amp;</span> dir2 <span style=color:#f92672>==</span> <span style=color:#66d9ef>DirectUp</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>True</span>
+</span></span><span style=display:flex><span>                                 <span style=color:#f92672>|</span> dir1 <span style=color:#f92672>==</span> <span style=color:#66d9ef>DirectRight</span> <span style=color:#f92672>&amp;&amp;</span> dir2 <span style=color:#f92672>==</span> <span style=color:#66d9ef>DirectLeft</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>True</span>
+</span></span><span style=display:flex><span>                                 <span style=color:#f92672>|</span> dir1 <span style=color:#f92672>==</span> <span style=color:#66d9ef>DirectLeft</span> <span style=color:#f92672>&amp;&amp;</span> dir2 <span style=color:#f92672>==</span> <span style=color:#66d9ef>DirectRight</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>True</span>
+</span></span><span style=display:flex><span>                                 <span style=color:#f92672>|</span> otherwise <span style=color:#f92672>=</span> <span style=color:#66d9ef>False</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>-- 蛇前进一个单位  </span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>moveSnake</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>Snake</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>Snake</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>moveSnake</span> snake <span style=color:#f92672>=</span> snake { ds <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, bodyPoints <span style=color:#f92672>=</span> pts }
+</span></span><span style=display:flex><span>                  <span style=color:#66d9ef>where</span> ptsOrg <span style=color:#f92672>=</span> bodyPoints snake
+</span></span><span style=display:flex><span>                        pts <span style=color:#f92672>=</span> pt <span style=color:#66d9ef>:</span> init ptsOrg <span style=color:#75715e>-- 去尾加头</span>
+</span></span><span style=display:flex><span>                        pt <span style=color:#f92672>=</span> translatedPoint dx dy <span style=color:#f92672>$</span> head ptsOrg
+</span></span><span style=display:flex><span>                        (dx, dy) <span style=color:#f92672>=</span> getSnakeDxDy snake
+</span></span><span style=display:flex><span><span style=color:#75715e>-- 按当前方向蛇头的移动dx，dy                        </span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>getSnakeDxDy</span> snake<span style=color:#f92672>@</span>(<span style=color:#66d9ef>Snake</span> <span style=color:#66d9ef>_</span> <span style=color:#66d9ef>_</span> <span style=color:#66d9ef>_</span> direct <span style=color:#66d9ef>_</span> w)
+</span></span><span style=display:flex><span>  <span style=color:#f92672>|</span> direct <span style=color:#f92672>==</span> <span style=color:#66d9ef>DirectUp</span> <span style=color:#f92672>=</span> (<span style=color:#ae81ff>0</span>, w)
+</span></span><span style=display:flex><span>  <span style=color:#f92672>|</span> direct <span style=color:#f92672>==</span> <span style=color:#66d9ef>DirectDown</span> <span style=color:#f92672>=</span> (<span style=color:#ae81ff>0</span>, <span style=color:#f92672>-</span>w)
+</span></span><span style=display:flex><span>  <span style=color:#f92672>|</span> direct <span style=color:#f92672>==</span> <span style=color:#66d9ef>DirectLeft</span> <span style=color:#f92672>=</span> (<span style=color:#f92672>-</span>w, <span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span>  <span style=color:#f92672>|</span> direct <span style=color:#f92672>==</span> <span style=color:#66d9ef>DirectRight</span> <span style=color:#f92672>=</span> (w, <span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>-- 吃苹果</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>eatingSnake</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>Snake</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>Snake</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>eatingSnake</span> snake <span style=color:#f92672>=</span> snake { ds <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, score <span style=color:#f92672>=</span> score&#39;, bodyPoints <span style=color:#f92672>=</span> pts}
+</span></span><span style=display:flex><span>                      <span style=color:#66d9ef>where</span> ptsOrg <span style=color:#f92672>=</span> bodyPoints snake
+</span></span><span style=display:flex><span>                            pts <span style=color:#f92672>=</span> pt <span style=color:#66d9ef>:</span> ptsOrg
+</span></span><span style=display:flex><span>                            pt <span style=color:#f92672>=</span> translatedPoint dx dy <span style=color:#f92672>$</span> head ptsOrg
+</span></span><span style=display:flex><span>                            (dx, dy) <span style=color:#f92672>=</span> getSnakeDxDy snake
+</span></span><span style=display:flex><span>                            score&#39; <span style=color:#f92672>=</span> score snake <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>                                                
+</span></span><span style=display:flex><span><span style=color:#66d9ef>data</span> <span style=color:#66d9ef>Apple</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>Apple</span> {
+</span></span><span style=display:flex><span>    positionA <span style=color:#f92672>::</span> <span style=color:#66d9ef>Point</span>
+</span></span><span style=display:flex><span>  , colorA <span style=color:#f92672>::</span> <span style=color:#66d9ef>Color</span>
+</span></span><span style=display:flex><span>  , widthA <span style=color:#f92672>::</span> <span style=color:#66d9ef>Double</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span><span style=color:#a6e22e>mkApple</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>Point</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>Color</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>Apple</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>mkApple</span> pos color <span style=color:#f92672>=</span> <span style=color:#66d9ef>Apple</span> pos color <span style=color:#ae81ff>0.25</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>-- 显示苹果</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>drawApple</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>Apple</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>Picture</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>drawApple</span> apple<span style=color:#f92672>@</span>(<span style=color:#66d9ef>Apple</span> pos color width)
+</span></span><span style=display:flex><span>    <span style=color:#f92672>=</span> translated (x <span style=color:#f92672>+</span> gridSizeHf) (y <span style=color:#f92672>+</span> gridSizeHf)
+</span></span><span style=display:flex><span>      <span style=color:#f92672>$</span> colored color
+</span></span><span style=display:flex><span>      <span style=color:#f92672>$</span> solidCircle width
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>where</span> (x, y) <span style=color:#f92672>=</span> pos
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>-- 随机生成苹果     </span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>randowApple</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>World</span> <span style=color:#f92672>-&gt;</span>  (<span style=color:#66d9ef>Apple</span>, [<span style=color:#66d9ef>RandomNumber</span>])
+</span></span><span style=display:flex><span><span style=color:#a6e22e>randowApple</span> world<span style=color:#f92672>@</span>(<span style=color:#66d9ef>World</span> rnds <span style=color:#66d9ef>_</span> <span style=color:#66d9ef>_</span> apple w h) <span style=color:#f92672>=</span> (mkApple pos color, rnds&#39;)
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>where</span> pos <span style=color:#f92672>=</span> ((fromIntegral r1) <span style=color:#f92672>/</span> <span style=color:#ae81ff>2</span>, (fromIntegral r2) <span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>)
+</span></span><span style=display:flex><span>        color <span style=color:#f92672>=</span> <span style=color:#66d9ef>if</span> colorOrg <span style=color:#f92672>==</span> red <span style=color:#66d9ef>then</span> green <span style=color:#66d9ef>else</span> red
+</span></span><span style=display:flex><span>        (r1<span style=color:#66d9ef>:</span>r2<span style=color:#66d9ef>:</span>rnds&#39;) <span style=color:#f92672>=</span> rnds
+</span></span><span style=display:flex><span>        colorOrg <span style=color:#f92672>=</span> colorA apple
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span><span style=color:#a6e22e>handleEvent</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>Event</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>World</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>World</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>-- 计时事件</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>handleEvent</span> (<span style=color:#66d9ef>TimePassing</span> dt) w
+</span></span><span style=display:flex><span>  <span style=color:#f92672>|</span> state w <span style=color:#f92672>==</span> <span style=color:#66d9ef>GameOver</span> <span style=color:#f92672>=</span> w
+</span></span><span style=display:flex><span>  <span style=color:#f92672>|</span> otherwise <span style=color:#f92672>=</span> handleSnakeAction snake&#39; action 
+</span></span><span style=display:flex><span>                <span style=color:#f92672>$</span> w
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>where</span> (snake&#39;, action) <span style=color:#f92672>=</span> checkSnakeAction dt w (snake w)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>-- 按键事件</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>handleEvent</span> (<span style=color:#66d9ef>KeyPress</span> keyText) w
+</span></span><span style=display:flex><span>  <span style=color:#f92672>|</span> state w <span style=color:#f92672>==</span> <span style=color:#66d9ef>GameOver</span>
+</span></span><span style=display:flex><span>     <span style=color:#f92672>&amp;&amp;</span> unpack keyText <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;Enter&#34;</span> <span style=color:#f92672>=</span> restartWorld (rnds w) areaW areaH
+</span></span><span style=display:flex><span>  <span style=color:#f92672>|</span> unpack keyText <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;Down&#34;</span> <span style=color:#f92672>=</span> w { snake <span style=color:#f92672>=</span> turnSnake <span style=color:#66d9ef>DirectDown</span> snake&#39; }
+</span></span><span style=display:flex><span>  <span style=color:#f92672>|</span> unpack keyText <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;Up&#34;</span> <span style=color:#f92672>=</span> w { snake <span style=color:#f92672>=</span> turnSnake <span style=color:#66d9ef>DirectUp</span> snake&#39; }
+</span></span><span style=display:flex><span>  <span style=color:#f92672>|</span> unpack keyText <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;Left&#34;</span> <span style=color:#f92672>=</span> w { snake <span style=color:#f92672>=</span> turnSnake <span style=color:#66d9ef>DirectLeft</span> snake&#39; }
+</span></span><span style=display:flex><span>  <span style=color:#f92672>|</span> unpack keyText <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;Right&#34;</span> <span style=color:#f92672>=</span> w { snake <span style=color:#f92672>=</span> turnSnake <span style=color:#66d9ef>DirectRight</span> snake&#39; }
+</span></span><span style=display:flex><span>  <span style=color:#f92672>|</span> otherwise <span style=color:#f92672>=</span> w
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>where</span> snake&#39; <span style=color:#f92672>=</span> snake w
+</span></span><span style=display:flex><span>          areaW <span style=color:#f92672>=</span> areaWidth w
+</span></span><span style=display:flex><span>          areaH <span style=color:#f92672>=</span> areaHeight w
+</span></span><span style=display:flex><span><span style=color:#a6e22e>handleEvent</span> <span style=color:#66d9ef>_</span> w <span style=color:#f92672>=</span> w
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>-- 进行一步动作</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>handleSnakeAction</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>Snake</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>SnakeAction</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>World</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>World</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>handleSnakeAction</span> snake&#39; action w
+</span></span><span style=display:flex><span>  <span style=color:#f92672>|</span> action <span style=color:#f92672>==</span> <span style=color:#66d9ef>SnakeMove</span> <span style=color:#f92672>=</span> w {snake <span style=color:#f92672>=</span> moveSnake snake&#39;}
+</span></span><span style=display:flex><span>  <span style=color:#f92672>|</span> action <span style=color:#f92672>==</span> <span style=color:#66d9ef>SnakeEat</span> <span style=color:#f92672>=</span> w { snake <span style=color:#f92672>=</span> eatingSnake snake&#39;
+</span></span><span style=display:flex><span>                           , apple <span style=color:#f92672>=</span> apple&#39; <span style=color:#75715e>-- 重新生成苹果</span>
+</span></span><span style=display:flex><span>                           , rnds <span style=color:#f92672>=</span> rnds&#39;}
+</span></span><span style=display:flex><span>  <span style=color:#f92672>|</span> action <span style=color:#f92672>==</span> <span style=color:#66d9ef>SnakeNoAct</span> <span style=color:#f92672>=</span> w { snake <span style=color:#f92672>=</span> snake&#39; }
+</span></span><span style=display:flex><span>  <span style=color:#f92672>|</span> action <span style=color:#f92672>==</span> <span style=color:#66d9ef>SnakeDead</span> <span style=color:#f92672>=</span> w { state <span style=color:#f92672>=</span> <span style=color:#66d9ef>GameOver</span> }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>where</span> (apple&#39;, rnds&#39;) <span style=color:#f92672>=</span> randowApple w
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>snakeSpeed</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.05</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>-- 碰撞检测部分</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>checkSnakeAction</span> <span style=color:#f92672>::</span> <span style=color:#66d9ef>Double</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>World</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>Snake</span> <span style=color:#f92672>-&gt;</span> (<span style=color:#66d9ef>Snake</span>, <span style=color:#66d9ef>SnakeAction</span>)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>checkSnakeAction</span> dt world snakeS
+</span></span><span style=display:flex><span>  <span style=color:#f92672>=</span> <span style=color:#66d9ef>if</span> ds&#39; <span style=color:#f92672>&gt;</span> snkW <span style=color:#66d9ef>then</span> (snakeS { ds <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span> }, action ) <span style=color:#75715e>-- 动了超过一格</span>
+</span></span><span style=display:flex><span>                  <span style=color:#66d9ef>else</span> (snakeS { ds <span style=color:#f92672>=</span> ds&#39; }, action1 )
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>where</span> ds&#39; <span style=color:#f92672>=</span> ds snakeS <span style=color:#f92672>+</span> dt <span style=color:#f92672>+</span> snakeSpeed
+</span></span><span style=display:flex><span>          snkW <span style=color:#f92672>=</span> width snakeS
+</span></span><span style=display:flex><span>          headOrg <span style=color:#f92672>=</span> head <span style=color:#f92672>$</span> bodyPoints <span style=color:#f92672>$</span> snake world <span style=color:#75715e>-- 蛇头</span>
+</span></span><span style=display:flex><span>          headN <span style=color:#f92672>=</span> translatedPoint dx dy headOrg <span style=color:#75715e>-- 新蛇头</span>
+</span></span><span style=display:flex><span>          (dx, dy) <span style=color:#f92672>=</span> getSnakeDxDy snakeS
+</span></span><span style=display:flex><span>          
+</span></span><span style=display:flex><span>          appleOrg <span style=color:#f92672>=</span> apple world
+</span></span><span style=display:flex><span>          (snkHead<span style=color:#66d9ef>:</span>snkTail) <span style=color:#f92672>=</span> bodyPoints <span style=color:#f92672>$</span> snake world
+</span></span><span style=display:flex><span>          <span style=color:#75715e>-- 动了超过一格，判断吃或只移动（死了下一帧判断）</span>
+</span></span><span style=display:flex><span>          action <span style=color:#f92672>=</span> <span style=color:#66d9ef>if</span> headN <span style=color:#f92672>==</span> positionA appleOrg <span style=color:#66d9ef>then</span> <span style=color:#66d9ef>SnakeEat</span> <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>SnakeMove</span>
+</span></span><span style=display:flex><span>          <span style=color:#75715e>-- 判断蛇头是否撞蛇身或出界</span>
+</span></span><span style=display:flex><span>          action1 <span style=color:#f92672>=</span> <span style=color:#66d9ef>if</span> headOrg `elem` snkTail
+</span></span><span style=display:flex><span>                     <span style=color:#f92672>||</span> outofBound headOrg
+</span></span><span style=display:flex><span>                    <span style=color:#66d9ef>then</span> <span style=color:#66d9ef>SnakeDead</span> <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>SnakeNoAct</span>
+</span></span><span style=display:flex><span>          outofBound (x, y) <span style=color:#f92672>=</span> <span style=color:#66d9ef>if</span> x <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>0</span> <span style=color:#f92672>-</span> maxW <span style=color:#f92672>||</span> x <span style=color:#f92672>&gt;</span> maxW <span style=color:#f92672>-</span> gridSize
+</span></span><span style=display:flex><span>                                <span style=color:#f92672>||</span> y <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>0</span> <span style=color:#f92672>-</span> maxH <span style=color:#f92672>||</span> y <span style=color:#f92672>&gt;</span> maxH <span style=color:#f92672>-</span> gridSize
+</span></span><span style=display:flex><span>                              <span style=color:#66d9ef>then</span> <span style=color:#66d9ef>True</span> <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>False</span>
+</span></span><span style=display:flex><span>          maxW <span style=color:#f92672>=</span> areaWidth world <span style=color:#f92672>/</span> <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>          maxH <span style=color:#f92672>=</span> areaHeight world <span style=color:#f92672>/</span> <span style=color:#ae81ff>2</span>
+</span></span></code></pre></td></tr></table></div></div><p>游戏效果：</p><p><img alt=wishimg loading=lazy src=https://cdn.jsdelivr.net/gh/wineee/MarkDownPIC@master/img/9b9b7cf044edeaee63cff5e87dba6e58.png></p><p>upd：我用 CodeWorld 实现图形学的直线/圆扫描转换，多边形扫描转换：https://github.com/wineee/LearnComputerGraphics</p></div><footer class=post-footer><ul class=post-tags><li><a href=/tags/haskell/>Haskell</a></li></ul></footer><script src=https://giscus.app/client.js data-repo=wineee/wineee.github.io data-repo-id="MDEwOlJlcG9zaXRvcnk5NzgxOTY1OA==" data-category=General data-category-id=DIC_kwDOBdScCs4C4Xj1 data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=bottom data-theme=preferred_color_scheme data-lang=zh-CN crossorigin=anonymous async></script></article></main><footer class=footer><span>&copy; 2026 <a href=/>REWINE NOTE</a></span> ·
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>

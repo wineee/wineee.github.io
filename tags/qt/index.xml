@@ -1,12 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Qt on REWINE NOTE</title><link>/tags/qt/</link><description>Recent content in Qt on REWINE NOTE</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Mon, 04 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/qt/index.xml" rel="self" type="application/rss+xml"/><item><title>简单介绍下如何给 Peony 写插件</title><link>/post/how_to_write_a_peony_extensions/</link><pubDate>Mon, 04 Oct 2021 00:00:00 +0000</pubDate><guid>/post/how_to_write_a_peony_extensions/</guid><description>&lt;p>peony 是优麒麟的文件管理器，我之前在 &lt;a href="https://summer.iscas.ac.cn/#/org/prodetail/210120164" target="_blank">开源软件供应链点亮计划&lt;/a> 活动中中选了实现预览插件的项目，今天稍微总结下。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Qt on REWINE NOTE</title><link>/tags/qt/</link><description>Recent content in Qt on REWINE NOTE</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Mon, 04 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/qt/index.xml" rel="self" type="application/rss+xml"/><item><title>简单介绍下如何给 Peony 写插件</title><link>/post/how_to_write_a_peony_extensions/</link><pubDate>Mon, 04 Oct 2021 00:00:00 +0000</pubDate><guid>/post/how_to_write_a_peony_extensions/</guid><description>&lt;p>peony 是优麒麟的文件管理器，我之前在 &lt;a href="https://summer.iscas.ac.cn/#/org/prodetail/210120164">开源软件供应链点亮计划&lt;/a> 活动中中选了实现预览插件的项目，今天稍微总结下。&lt;/p>
 &lt;h2 id="可以先看看参考资料">可以先看看参考资料&lt;/h2>
-&lt;p>&lt;a href="https://zhuanlan.zhihu.com/p/373677523" target="_blank">如何编写 Peony 插件&lt;/a>&lt;/p>
-&lt;p>&lt;a href="https://github.com/Yue-Lan/peony-qt_development_document" target="_blank">Peony-Qt的开发者手册（中文版）&lt;/a>&lt;/p>
-&lt;p>&lt;a href="https://github.com/ukui/peony/wiki" target="_blank">Peony 的 wiki&lt;/a>&lt;/p></description></item><item><title>QtPDF 的编译与试用</title><link>/post/qtpdf_make/</link><pubDate>Mon, 23 Aug 2021 00:00:00 +0000</pubDate><guid>/post/qtpdf_make/</guid><description>&lt;p>QtPDF 是 Qt 封装的 pdfium 模块，以 &lt;a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank">GPLv3/&lt;/a>&lt;a href="https://www.gnu.org/licenses/lgpl-3.0.html" target="_blank">LGPLv3&lt;/a> 协议分发，也可以在 QT marketplace 购买可商业版本&lt;/p>
+&lt;p>&lt;a href="https://zhuanlan.zhihu.com/p/373677523">如何编写 Peony 插件&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://github.com/Yue-Lan/peony-qt_development_document">Peony-Qt的开发者手册（中文版）&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://github.com/ukui/peony/wiki">Peony 的 wiki&lt;/a>&lt;/p></description></item><item><title>QtPDF 的编译与试用</title><link>/post/qtpdf_make/</link><pubDate>Mon, 23 Aug 2021 00:00:00 +0000</pubDate><guid>/post/qtpdf_make/</guid><description>&lt;p>QtPDF 是 Qt 封装的 pdfium 模块，以 &lt;a href="https://www.gnu.org/licenses/gpl-3.0.html">GPLv3/&lt;/a>&lt;a href="https://www.gnu.org/licenses/lgpl-3.0.html">LGPLv3&lt;/a> 协议分发，也可以在 QT marketplace 购买可商业版本&lt;/p>
 &lt;h3 id="下载源代码">下载源代码&lt;/h3>
-&lt;pre>&lt;code class="language-bash">git clone &amp;lt;https://code.qt.io/qt/qtwebengine.git&amp;gt;
-cd qtwebengine
-git checkout 5.12.8
-git submodule update --init --recursive
-&lt;/code>&lt;/pre>
-&lt;p>注意：git checkout 选择自己 qt 的版本&lt;/p></description></item></channel></rss>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git clone &amp;lt;https://code.qt.io/qt/qtwebengine.git&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cd qtwebengine
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git checkout 5.12.8
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git submodule update --init --recursive
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>注意：git checkout 选择自己 qt 的版本&lt;/p></description></item></channel></rss>

@@ -1,122 +1,174 @@
-<!doctype html><html lang=zh-hans><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=HandheldFriendly content="True"><meta http-equiv=X-UA-Compatible content="IE=edge"><meta http-equiv=Cache-Control content="no-transform"><meta http-equiv=Cache-Control content="no-siteapp"><meta name=generator content="Hugo 0.140.1"><link rel=apple-touch-icon sizes=180x180 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png><link rel=manifest href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest><link rel=mask-icon href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg color=#8aa2d3><link rel="shortcut icon" href=https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico><meta name=theme-color content="#ffffff"><title>QtPDF 的编译与试用 - REWINE NOTE</title>
-<meta name=author content="rewine"><meta name=description content="A minimal Hugo theme with nice theme color."><meta name=keywords content="Qt"><meta property="og:title" content="QtPDF 的编译与试用"><meta name=twitter:title content="QtPDF 的编译与试用"><meta property="og:type" content="article"><meta property="og:url" content="/post/qtpdf_make/"><meta property="og:description" content="QtPDF 是 Qt 封装的 pdfium 模块，以 GPLv3/LGPLv3 协议分发，也可以在 QT marketplace 购买可商业版本
+<!doctype html><html lang=zh-hans dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>QtPDF 的编译与试用 | REWINE NOTE</title>
+<meta name=keywords content="Qt"><meta name=description content="QtPDF 是 Qt 封装的 pdfium 模块，以 GPLv3/LGPLv3 协议分发，也可以在 QT marketplace 购买可商业版本
 下载源代码
+
+
+1
+2
+3
+4
+
+
 git clone <https://code.qt.io/qt/qtwebengine.git>
 cd qtwebengine
 git checkout 5.12.8
 git submodule update --init --recursive
 
-注意：git checkout 选择自己 qt 的版本"><meta name=twitter:description content="QtPDF 是 Qt 封装的 pdfium 模块，以 GPLv3/LGPLv3 协议分发，也可以在 QT marketplace 购买可商业版本
-下载源代码
-git clone <https://code.qt.io/qt/qtwebengine.git>
-cd qtwebengine
-git checkout 5.12.8
-git submodule update --init --recursive
 
-注意：git checkout 选择自己 qt 的版本"><meta property="og:image" content="/img/og.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/img/og.png"><meta property="article:published_time" content="2021-08-23T00:00:00+00:00"><meta property="article:modified_time" content="2021-08-23T00:00:00+00:00"><style>@media(prefers-color-scheme:dark){body[data-theme=auto] img{filter:brightness(60%)}}body[data-theme=dark] img{filter:brightness(60%)}</style><link rel=stylesheet href=/assets/css/fuji.min.b4a21b5d3eb1d0a51297e31230a65fc25e387843e45ec3a2d9176cd8d163c216d99b9b13a618b28f537c3b559ec8a408183b0fbfad48daddb9befa7d3ef90eed.css integrity="sha512-tKIbXT6x0KUSl+MSMKZfwl44eEPkXsOi2Rds2NFjwhbZm5sTphiyj1N8O1WeyKQIGDsPv61I2t25vvp9PvkO7Q=="></head><body data-theme=auto data-theme-auto=false><script data-cfasync=false>var fujiThemeData=localStorage.getItem("fuji_data-theme");fujiThemeData?fujiThemeData!=="auto"&&document.body.setAttribute("data-theme",fujiThemeData==="dark"?"dark":"light"):localStorage.setItem("fuji_data-theme","auto")</script><header></header><main><div class="container-lg clearfix"><div class="col-12 col-md-9 float-left content"><article><h1 class="post-item post-title"><a href=/post/qtpdf_make/>QtPDF 的编译与试用</a></h1><div class="post-item post-meta"><span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-08-23</span>
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;484 字</span>
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href=/tags/qt>Qt</a>&nbsp;</span></div><div class="post-content markdown-body"><p>QtPDF 是 Qt 封装的 pdfium 模块，以 <a href=https://www.gnu.org/licenses/gpl-3.0.html target=_blank>GPLv3/</a><a href=https://www.gnu.org/licenses/lgpl-3.0.html target=_blank>LGPLv3</a> 协议分发，也可以在 QT marketplace 购买可商业版本</p><h3 id=下载源代码>下载源代码</h3><pre><code class=language-bash>git clone &lt;https://code.qt.io/qt/qtwebengine.git&gt;
-cd qtwebengine
-git checkout 5.12.8
-git submodule update --init --recursive
-</code></pre><p>注意：git checkout 选择自己 qt 的版本</p><h3 id=安装构建依赖>安装构建依赖</h3><pre><code class=language-bash>sudo apt install bison build-essential gperf flex python2 libasound2-dev libcups2-dev libdrm-dev libegl1-mesa-dev libnss3-dev libpci-dev libpulse-dev libudev-dev nodejs libxtst-dev gyp ninja-build
-sudo apt install libssl-dev libxcursor-dev libxcomposite-dev libxdamage-dev libxrandr-dev libfontconfig1-dev libxss-dev libsrtp2-dev libwebp-dev libjsoncpp-dev libopus-dev libminizip-dev libavutil-dev libavformat-dev libavcodec-dev libevent-dev libvpx-dev libsnappy-dev libre2-dev libprotobuf-dev protobuf-compile
-</code></pre><p>如果报错 Project ERROR: Unknown module(s) in QT: qml-private， 需要安装 qtdeclarative5-dev</p><h3 id=编译>编译</h3><pre><code class=language-bash>cd ..
-mkdir build 
-cd build 
-qmake ../qtwebengine
-NINJAJOBS=-j7 make -j7 
-make install
-</code></pre><p>下面是 qmake 的输出信息，如果依赖安装不全可以参考一下</p><pre><code class=language-bash>Running configuration tests...
-Done running configuration tests.
-
-Configure summary:
-
-Qt WebEngine:
-  Embedded build ......................... no
-  Full debug information ................. no
-  Pepper Plugins ......................... yes
-  Printing and PDF ....................... yes
-  Proprietary Codecs ..................... no
-  Spellchecker ........................... yes
-  Native Spellchecker .................... no
-  WebRTC ................................. yes
-  Use System Ninja ....................... no
-  Geolocation ............................ yes
-  WebChannel support ..................... yes
-  Use v8 snapshot ........................ yes
-  Kerberos Authentication ................ no
-  Support qpa-xcb ........................ yes
-  Use ALSA ............................... yes
-  Use PulseAudio ......................... yes
-  Optional system libraries used:
-    re2 .................................. yes
-    icu .................................. no
-    libwebp, libwebpmux and libwebpdemux . yes
-    opus ................................. yes
-    ffmpeg ............................... no
-    libvpx ............................... yes
-    snappy ............................... yes
-    glib ................................. yes
-    zlib ................................. yes
-    minizip .............................. yes
-    libevent ............................. yes
-    jsoncpp .............................. yes
-    protobuf ............................. yes
-    libxml2 and libxslt .................. yes
-    lcms2 ................................ yes
-    png .................................. yes
-    JPEG ................................. yes
-    harfbuzz ............................. yes
-    freetype ............................. yes
-  Required system libraries:
-    fontconfig ........................... yes
-    dbus ................................. yes
-    nss .................................. yes
-    khr .................................. yes
-    glibc ................................ yes
-  Required system libraries for qpa-xcb:
-    x11 .................................. yes
-    libdrm ............................... yes
-    xcomposite ........................... yes
-    xcursor .............................. yes
-    xi ................................... yes
-    xtst ................................. yes
-
-Qt is now configured for building. Just run 'make'.
-Once everything is built, you must run 'make install'.
-Qt will be installed into '/usr'.
-
-Prior to reconfiguration, make sure you remove any leftovers from
-the previous build.
-</code></pre><p>编译过程需要2-3个小时，内存占用高峰大概需要16G + 5G swap</p><h3 id=使用测试>使用测试</h3><pre><code class=language-makefile>QT += core gui widgets pdf pdfwidgets
-</code></pre><p>如果能正常识别，说明配置成功了，可以试试下面这个例子：</p><p><a href=https://github.com/CryFeiFei/QtPdfTest target=_blank>https://github.com/CryFeiFei/QtPdfTest</a></p><p><a href=https://doc.qt.io/qt-5/qtpdf-pdfviewer-example.html target=_blank>PDF Viewer Example</a></p><p><img class=img-zoomable src=https://cdn.jsdelivr.net/gh/wineee/MarkDownPIC@master/img/2006288850634b247ab10c5c0c128982.png alt=wishimg></p><h3 id=参考资料>参考资料</h3><ul><li><a href=https://wiki.qt.io/QtPDF_Build_Instructions target=_blank>QtPDF Build Instructions</a></li><li><a href=https://www.qt.io/blog/2017/01/30/new-qtpdf-qtlabs-module target=_blank>New QtLabs PDF module</a></li><li><a href=https://wiki.qt.io/QtWebEngine/How_to_Try target=_blank>QtWebEngine/How to Try</a></li></ul></div></article><div class="license markdown-body"><blockquote><p>除特殊注明部分，本站内容采用 <a rel=license href=http://creativecommons.org/licenses/by-nc-sa/4.0/ target=_blank>CC BY-NC-SA 4.0</a> 进行许可。</p></blockquote></div><div class=post-comment data-comment=utterances><span class=post-comment-notloaded><i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;查看评论
-</span><script>function loadComment(){var e,n=document.querySelector(".post-comment"),t=document.body.getAttribute("data-theme");t==="auto"?t=window.matchMedia("(prefers-color-scheme: dark)").matches?"photon-dark":"github-light":t=t==="dark"?"photon-dark":"github-light",e=document.createElement("script"),e.src="https://utteranc.es/client.js",e.setAttribute("repo","wineee/hugoblogtalks"),e.setAttribute("issue-term","pathname"),e.setAttribute("theme",t),e.setAttribute("crossorigin","anonymous"),e.setAttribute("async",""),document.querySelector(".post-comment").appendChild(e),document.querySelector("span.post-comment-notloaded").setAttribute("style","display: none;")}</script></div></div><aside class="col-12 col-md-3 float-left sidebar"><div class="sidebar-item sidebar-pages"><h3>页面</h3><ul><li><a href=/>Home</a></li><li><a href=/archives/>Archives</a></li><li><a href=/about/>About</a></li><li><a href=/search/>Search</a></li><li><a href=/friends/>Friends</a></li><li><a href=/index.xml>RSS</a></li></ul></div><div class="sidebar-item sidebar-toc"><h3>目录</h3><nav id=TableOfContents><ul><li><ul><li><a href=#下载源代码>下载源代码</a></li><li><a href=#安装构建依赖>安装构建依赖</a></li><li><a href=#编译>编译</a></li><li><a href=#使用测试>使用测试</a></li><li><a href=#参考资料>参考资料</a></li></ul></li></ul></nav></div></aside></div><div class=btn><div class=btn-menu id=btn-menu><i class="iconfont icon-grid-sharp"></i></div><div class=btn-toggle-mode><i class="iconfont icon-contrast-sharp"></i></div><div class=btn-scroll-top><i class="iconfont icon-chevron-up-circle-sharp"></i></div></div><aside class=sidebar-mobile style=display:none><div class=sidebar-wrapper><div class="sidebar-item sidebar-pages"><h3>页面</h3><ul><li><a href=/>Home</a></li><li><a href=/archives/>Archives</a></li><li><a href=/about/>About</a></li><li><a href=/search/>Search</a></li><li><a href=/friends/>Friends</a></li><li><a href=/index.xml>RSS</a></li></ul></div><div class="sidebar-item sidebar-links"><h3>链接</h3><ul><li><a href=https://github.com/wineee target=_blank><span>GitHub</span></a></li><li><a href=https://twitter.com/rewineeee target=_blank><span>Twitter</span></a></li><li><a href=https://space.bilibili.com/23192485 target=_blank><span>bilibili</span></a></li></ul></div><div class="sidebar-item sidebar-tags"><h3>标签</h3><div><span><a href=/tags/acm/>ACM</a>
-</span><span><a href=/tags/bfs/>Bfs</a>
-</span><span><a href=/tags/c/>C</a>
-</span><span><a href=/tags/c++/>C++</a>
-</span><span><a href=/tags/cryptography/>Cryptography</a>
-</span><span><a href=/tags/emacs/>Emacs</a>
-</span><span><a href=/tags/go/>Go</a>
-</span><span><a href=/tags/goroutine/>Goroutine</a>
-</span><span><a href=/tags/haskell/>Haskell</a>
-</span><span><a href=/tags/hugo/>Hugo</a>
-</span><span><a href=/tags/lab/>Lab</a>
-</span><span><a href=/tags/leetcode/>Leetcode</a>
-</span><span><a href=/tags/mfc/>Mfc</a>
-</span><span><a href=/tags/nixos/>Nixos</a>
-</span><span><a href=/tags/onlyoffice/>Onlyoffice</a>
-</span><span><a href=/tags/qt/>Qt</a>
-</span><span><a href=/tags/turing-award/>Turing Award</a>
-</span><span><a href=/tags/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95/>匈牙利算法</a>
-</span><span><a href=/tags/%E5%8D%95%E7%BA%AF%E5%9E%8B/>单纯型</a>
-</span><span><a href=/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/>多线程</a>
-</span><span><a href=/tags/%E5%B9%B6%E5%8F%91/>并发</a>
-</span><span><a href=/tags/%E5%BA%B7%E6%89%98%E5%B1%95%E5%BC%80/>康托展开</a>
-</span><span><a href=/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/>蓝桥杯</a>
-</span><span><a href=/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/>软件工程</a>
-</span><span><a href=/tags/%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90/>软件推荐</a></span></div></div><div class="sidebar-item sidebar-toc"><h3>目录</h3><nav id=TableOfContents><ul><li><ul><li><a href=#下载源代码>下载源代码</a></li><li><a href=#安装构建依赖>安装构建依赖</a></li><li><a href=#编译>编译</a></li><li><a href=#使用测试>使用测试</a></li><li><a href=#参考资料>参考资料</a></li></ul></li></ul></nav></div></div></aside></main><footer><div class="container-lg clearfix"><div class="col-12 footer"><span>&copy; 2020-2025
-<a href=/>rewine</a>
-| <a href=https://github.com/wineee/wineee.github.io>Source code</a>
-| 基于 <a href=https://github.com/andrew-aiken/hugo-theme-fuji/ target=_blank>Fuji</a> & <a href=https://gohugo.io/ target=_blank>Hugo</a> 构建
-| <a href="https://icp.gov.moe/?keyword=20211211" target=_blank>萌ICP备20211211号</a></span></div></div></footer><script defer src=https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js integrity="sha512-q583ppKrCRc7N5O0n2nzUiJ+suUv7Et1JGels4bXOaMFQcamPk9HjdUknZuuFjBNs7tsMuadge5k9RzdmO+1GQ==" crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.27.0/components/prism-core.min.js integrity="sha512-LCKPTo0gtJ74zCNMbWw04ltmujpzSR4oW+fgN+Y1YclhM5ZrHCZQAJE4quEodcI/G122sRhSGU2BsSRUZ2Gu3w==" crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/autoloader/prism-autoloader.min.js integrity="sha512-GP4x8UWxWyh4BMbyJGOGneiTbkrWEF5izsVJByzVLodP8CuJH/n936+yQDMJJrOPUHLgyPbLiGw2rXmdvGdXHA==" crossorigin=anonymous></script><script defer src=/assets/js/fuji.min.645f1123be695831f419ab54c1bcba327325895c740014006e57070d4f3e5d6b553e929c4b46f40ea707249e9c7f7c2a446d32a39ce7319f80a34525586a8e0f.js integrity="sha512-ZF8RI75pWDH0GatUwby6MnMliVx0ABQAblcHDU8+XWtVPpKcS0b0DqcHJJ6cf3wqRG0yo5znMZ+Ao0UlWGqODw=="></script></body></html>
+注意：git checkout 选择自己 qt 的版本"><meta name=author content="rewine"><link rel=canonical href=/post/qtpdf_make/><link crossorigin=anonymous href=/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css integrity="sha256-2jIR5e+Ge/K3X9WmUVz+1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as=style><link rel=icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=apple-touch-icon href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh-hans href=/post/qtpdf_make/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}@media(prefers-color-scheme:light){.list::-webkit-scrollbar-thumb{border-color:var(--code-bg)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><meta property="og:url" content="/post/qtpdf_make/"><meta property="og:site_name" content="REWINE NOTE"><meta property="og:title" content="QtPDF 的编译与试用"><meta property="og:description" content="QtPDF 是 Qt 封装的 pdfium 模块，以 GPLv3/LGPLv3 协议分发，也可以在 QT marketplace 购买可商业版本
+下载源代码 1 2 3 4 git clone <https://code.qt.io/qt/qtwebengine.git> cd qtwebengine git checkout 5.12.8 git submodule update --init --recursive 注意：git checkout 选择自己 qt 的版本"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="post"><meta property="article:published_time" content="2021-08-23T00:00:00+00:00"><meta property="article:modified_time" content="2021-08-23T00:00:00+00:00"><meta property="article:tag" content="Qt"><meta name=twitter:card content="summary"><meta name=twitter:title content="QtPDF 的编译与试用"><meta name=twitter:description content="QtPDF 是 Qt 封装的 pdfium 模块，以 GPLv3/LGPLv3 协议分发，也可以在 QT marketplace 购买可商业版本
+下载源代码 1 2 3 4 git clone <https://code.qt.io/qt/qtwebengine.git> cd qtwebengine git checkout 5.12.8 git submodule update --init --recursive 注意：git checkout 选择自己 qt 的版本"><script type=application/ld+json>"{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"/post/\",\"name\":\"Posts\",\"position\":1}]}"</script><script type=application/ld+json>"{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"articleBody\":\"QtPDF 是 Qt 封装的 pdfium 模块，以 GPLv3/LGPLv3 协议分发，也可以在 QT marketplace 购买可商业版本\\n下载源代码 1 2 3 4 git clone cd qtwebengine git checkout 5.12.8 git submodule update --init --recursive 注意：git checkout 选择自己 qt 的版本\\n安装构建依赖 1 2 sudo apt install bison build-essential gperf flex python2 libasound2-dev libcups2-dev libdrm-dev libegl1-mesa-dev libnss3-dev libpci-dev libpulse-dev libudev-dev nodejs libxtst-dev gyp ninja-build sudo apt install libssl-dev libxcursor-dev libxcomposite-dev libxdamage-dev libxrandr-dev libfontconfig1-dev libxss-dev libsrtp2-dev libwebp-dev libjsoncpp-dev libopus-dev libminizip-dev libavutil-dev libavformat-dev libavcodec-dev libevent-dev libvpx-dev libsnappy-dev libre2-dev libprotobuf-dev protobuf-compile 如果报错 Project ERROR: Unknown module(s) in QT: qml-private， 需要安装 qtdeclarative5-dev\\n编译 1 2 3 4 5 6 cd .. mkdir build cd build qmake ../qtwebengine NINJAJOBS=-j7 make -j7 make install 下面是 qmake 的输出信息，如果依赖安装不全可以参考一下\\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 Running configuration tests... Done running configuration tests. Configure summary: Qt WebEngine: Embedded build ......................... no Full debug information ................. no Pepper Plugins ......................... yes Printing and PDF ....................... yes Proprietary Codecs ..................... no Spellchecker ........................... yes Native Spellchecker .................... no WebRTC ................................. yes Use System Ninja ....................... no Geolocation ............................ yes WebChannel support ..................... yes Use v8 snapshot ........................ yes Kerberos Authentication ................ no Support qpa-xcb ........................ yes Use ALSA ............................... yes Use PulseAudio ......................... yes Optional system libraries used: re2 .................................. yes icu .................................. no libwebp, libwebpmux and libwebpdemux . yes opus ................................. yes ffmpeg ............................... no libvpx ............................... yes snappy ............................... yes glib ................................. yes zlib ................................. yes minizip .............................. yes libevent ............................. yes jsoncpp .............................. yes protobuf ............................. yes libxml2 and libxslt .................. yes lcms2 ................................ yes png .................................. yes JPEG ................................. yes harfbuzz ............................. yes freetype ............................. yes Required system libraries: fontconfig ........................... yes dbus ................................. yes nss .................................. yes khr .................................. yes glibc ................................ yes Required system libraries for qpa-xcb: x11 .................................. yes libdrm ............................... yes xcomposite ........................... yes xcursor .............................. yes xi ................................... yes xtst ................................. yes Qt is now configured for building. Just run 'make'. Once everything is built, you must run 'make install'. Qt will be installed into '/usr'. Prior to reconfiguration, make sure you remove any leftovers from the previous build. 编译过程需要2-3个小时，内存占用高峰大概需要16G + 5G swap\\n使用测试 1 QT += core gui widgets pdf pdfwidgets 如果能正常识别，说明配置成功了，可以试试下面这个例子：\\nhttps://github.com/CryFeiFei/QtPdfTest\\nPDF Viewer Example\\n参考资料 QtPDF Build Instructions New QtLabs PDF module QtWebEngine/How to Try \",\"author\":{\"@type\":\"Person\",\"name\":\"rewine\"},\"dateModified\":\"2021-08-23T00:00:00Z\",\"datePublished\":\"2021-08-23T00:00:00Z\",\"description\":\"QtPDF 是 Qt 封装的 pdfium 模块，以 GPLv3/LGPLv3 协议分发，也可以在 QT marketplace 购买可商业版本\\n下载源代码 1 2 3 4 git clone \\u0026lt;https://code.qt.io/qt/qtwebengine.git\\u0026gt; cd qtwebengine git checkout 5.12.8 git submodule update --init --recursive 注意：git checkout 选择自己 qt 的版本\\n\",\"headline\":\"QtPDF 的编译与试用\",\"inLanguage\":\"zh-hans\",\"keywords\":[\"Qt\"],\"mainEntityOfPage\":{\"@id\":\"/post/qtpdf_make/\",\"@type\":\"WebPage\"},\"name\":\"QtPDF 的编译与试用\",\"publisher\":{\"@type\":\"Organization\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"/favicon.ico\"},\"name\":\"REWINE NOTE\"},\"wordCount\":559}"</script></head><body id=top><header class=header><nav class=nav><div class=logo><a href=/ accesskey=h title="REWINE NOTE (Alt + H)">REWINE NOTE</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=/ title=Home><span>Home</span></a></li><li><a href=/archives/ title=Archives><span>Archives</span></a></li><li><a href=/search/ title="Search (Alt + /)" accesskey=/><span>Search</span></a></li><li><a href=/tags/ title=Tags><span>Tags</span></a></li><li><a href=/about/ title=About><span>About</span></a></li><li><a href=/friends/ title=Friends><span>Friends</span></a></li><li><a href=/index.xml title=RSS><span>RSS</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><h1 class="post-title entry-hint-parent">QtPDF 的编译与试用</h1><div class=post-meta><span title='2021-08-23 00:00:00 +0000 UTC'>2021年8月23日</span>&nbsp;·&nbsp;<span>559 words</span>&nbsp;·&nbsp;<span>rewine</span></div></header><div class=toc><details><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#%e4%b8%8b%e8%bd%bd%e6%ba%90%e4%bb%a3%e7%a0%81 aria-label=下载源代码>下载源代码</a></li><li><a href=#%e5%ae%89%e8%a3%85%e6%9e%84%e5%bb%ba%e4%be%9d%e8%b5%96 aria-label=安装构建依赖>安装构建依赖</a></li><li><a href=#%e7%bc%96%e8%af%91 aria-label=编译>编译</a></li><li><a href=#%e4%bd%bf%e7%94%a8%e6%b5%8b%e8%af%95 aria-label=使用测试>使用测试</a></li><li><a href=#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99 aria-label=参考资料>参考资料</a></li></ul></div></details></div><div class=post-content><p>QtPDF 是 Qt 封装的 pdfium 模块，以 <a href=https://www.gnu.org/licenses/gpl-3.0.html>GPLv3/</a><a href=https://www.gnu.org/licenses/lgpl-3.0.html>LGPLv3</a> 协议分发，也可以在 QT marketplace 购买可商业版本</p><h3 id=下载源代码>下载源代码<a hidden class=anchor aria-hidden=true href=#下载源代码>#</a></h3><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git clone &lt;https://code.qt.io/qt/qtwebengine.git&gt;
+</span></span><span style=display:flex><span>cd qtwebengine
+</span></span><span style=display:flex><span>git checkout 5.12.8
+</span></span><span style=display:flex><span>git submodule update --init --recursive
+</span></span></code></pre></td></tr></table></div></div><p>注意：git checkout 选择自己 qt 的版本</p><h3 id=安装构建依赖>安装构建依赖<a hidden class=anchor aria-hidden=true href=#安装构建依赖>#</a></h3><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo apt install bison build-essential gperf flex python2 libasound2-dev libcups2-dev libdrm-dev libegl1-mesa-dev libnss3-dev libpci-dev libpulse-dev libudev-dev nodejs libxtst-dev gyp ninja-build
+</span></span><span style=display:flex><span>sudo apt install libssl-dev libxcursor-dev libxcomposite-dev libxdamage-dev libxrandr-dev libfontconfig1-dev libxss-dev libsrtp2-dev libwebp-dev libjsoncpp-dev libopus-dev libminizip-dev libavutil-dev libavformat-dev libavcodec-dev libevent-dev libvpx-dev libsnappy-dev libre2-dev libprotobuf-dev protobuf-compile
+</span></span></code></pre></td></tr></table></div></div><p>如果报错 Project ERROR: Unknown module(s) in QT: qml-private， 需要安装 qtdeclarative5-dev</p><h3 id=编译>编译<a hidden class=anchor aria-hidden=true href=#编译>#</a></h3><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>cd ..
+</span></span><span style=display:flex><span>mkdir build 
+</span></span><span style=display:flex><span>cd build 
+</span></span><span style=display:flex><span>qmake ../qtwebengine
+</span></span><span style=display:flex><span>NINJAJOBS<span style=color:#f92672>=</span>-j7 make -j7 
+</span></span><span style=display:flex><span>make install
+</span></span></code></pre></td></tr></table></div></div><p>下面是 qmake 的输出信息，如果依赖安装不全可以参考一下</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">62
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Running configuration tests...
+</span></span><span style=display:flex><span>Done running configuration tests.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Configure summary:
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Qt WebEngine:
+</span></span><span style=display:flex><span>  Embedded build ......................... no
+</span></span><span style=display:flex><span>  Full debug information ................. no
+</span></span><span style=display:flex><span>  Pepper Plugins ......................... yes
+</span></span><span style=display:flex><span>  Printing and PDF ....................... yes
+</span></span><span style=display:flex><span>  Proprietary Codecs ..................... no
+</span></span><span style=display:flex><span>  Spellchecker ........................... yes
+</span></span><span style=display:flex><span>  Native Spellchecker .................... no
+</span></span><span style=display:flex><span>  WebRTC ................................. yes
+</span></span><span style=display:flex><span>  Use System Ninja ....................... no
+</span></span><span style=display:flex><span>  Geolocation ............................ yes
+</span></span><span style=display:flex><span>  WebChannel support ..................... yes
+</span></span><span style=display:flex><span>  Use v8 snapshot ........................ yes
+</span></span><span style=display:flex><span>  Kerberos Authentication ................ no
+</span></span><span style=display:flex><span>  Support qpa-xcb ........................ yes
+</span></span><span style=display:flex><span>  Use ALSA ............................... yes
+</span></span><span style=display:flex><span>  Use PulseAudio ......................... yes
+</span></span><span style=display:flex><span>  Optional system libraries used:
+</span></span><span style=display:flex><span>    re2 .................................. yes
+</span></span><span style=display:flex><span>    icu .................................. no
+</span></span><span style=display:flex><span>    libwebp, libwebpmux and libwebpdemux . yes
+</span></span><span style=display:flex><span>    opus ................................. yes
+</span></span><span style=display:flex><span>    ffmpeg ............................... no
+</span></span><span style=display:flex><span>    libvpx ............................... yes
+</span></span><span style=display:flex><span>    snappy ............................... yes
+</span></span><span style=display:flex><span>    glib ................................. yes
+</span></span><span style=display:flex><span>    zlib ................................. yes
+</span></span><span style=display:flex><span>    minizip .............................. yes
+</span></span><span style=display:flex><span>    libevent ............................. yes
+</span></span><span style=display:flex><span>    jsoncpp .............................. yes
+</span></span><span style=display:flex><span>    protobuf ............................. yes
+</span></span><span style=display:flex><span>    libxml2 and libxslt .................. yes
+</span></span><span style=display:flex><span>    lcms2 ................................ yes
+</span></span><span style=display:flex><span>    png .................................. yes
+</span></span><span style=display:flex><span>    JPEG ................................. yes
+</span></span><span style=display:flex><span>    harfbuzz ............................. yes
+</span></span><span style=display:flex><span>    freetype ............................. yes
+</span></span><span style=display:flex><span>  Required system libraries:
+</span></span><span style=display:flex><span>    fontconfig ........................... yes
+</span></span><span style=display:flex><span>    dbus ................................. yes
+</span></span><span style=display:flex><span>    nss .................................. yes
+</span></span><span style=display:flex><span>    khr .................................. yes
+</span></span><span style=display:flex><span>    glibc ................................ yes
+</span></span><span style=display:flex><span>  Required system libraries <span style=color:#66d9ef>for</span> qpa-xcb:
+</span></span><span style=display:flex><span>    x11 .................................. yes
+</span></span><span style=display:flex><span>    libdrm ............................... yes
+</span></span><span style=display:flex><span>    xcomposite ........................... yes
+</span></span><span style=display:flex><span>    xcursor .............................. yes
+</span></span><span style=display:flex><span>    xi ................................... yes
+</span></span><span style=display:flex><span>    xtst ................................. yes
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Qt is now configured <span style=color:#66d9ef>for</span> building. Just run <span style=color:#e6db74>&#39;make&#39;</span>.
+</span></span><span style=display:flex><span>Once everything is built, you must run <span style=color:#e6db74>&#39;make install&#39;</span>.
+</span></span><span style=display:flex><span>Qt will be installed into <span style=color:#e6db74>&#39;/usr&#39;</span>.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Prior to reconfiguration, make sure you remove any leftovers from
+</span></span><span style=display:flex><span>the previous build.
+</span></span></code></pre></td></tr></table></div></div><p>编译过程需要2-3个小时，内存占用高峰大概需要16G + 5G swap</p><h3 id=使用测试>使用测试<a hidden class=anchor aria-hidden=true href=#使用测试>#</a></h3><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-makefile data-lang=makefile><span style=display:flex><span>QT <span style=color:#f92672>+=</span> core gui widgets pdf pdfwidgets
+</span></span></code></pre></td></tr></table></div></div><p>如果能正常识别，说明配置成功了，可以试试下面这个例子：</p><p><a href=https://github.com/CryFeiFei/QtPdfTest>https://github.com/CryFeiFei/QtPdfTest</a></p><p><a href=https://doc.qt.io/qt-5/qtpdf-pdfviewer-example.html>PDF Viewer Example</a></p><p><img alt=wishimg loading=lazy src=https://cdn.jsdelivr.net/gh/wineee/MarkDownPIC@master/img/2006288850634b247ab10c5c0c128982.png></p><h3 id=参考资料>参考资料<a hidden class=anchor aria-hidden=true href=#参考资料>#</a></h3><ul><li><a href=https://wiki.qt.io/QtPDF_Build_Instructions>QtPDF Build Instructions</a></li><li><a href=https://www.qt.io/blog/2017/01/30/new-qtpdf-qtlabs-module>New QtLabs PDF module</a></li><li><a href=https://wiki.qt.io/QtWebEngine/How_to_Try>QtWebEngine/How to Try</a></li></ul></div><footer class=post-footer><ul class=post-tags><li><a href=/tags/qt/>Qt</a></li></ul></footer><script src=https://giscus.app/client.js data-repo=wineee/wineee.github.io data-repo-id="MDEwOlJlcG9zaXRvcnk5NzgxOTY1OA==" data-category=General data-category-id=DIC_kwDOBdScCs4C4Xj1 data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=bottom data-theme=preferred_color_scheme data-lang=zh-CN crossorigin=anonymous async></script></article></main><footer class=footer><span>&copy; 2026 <a href=/>REWINE NOTE</a></span> ·
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>
